@@ -2,14 +2,14 @@ import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 import moment from 'moment';
 
-export function formatAmount(value: number){
+export function formatAmount(value: Number){
     return new Intl.NumberFormat("pt-BR", {
             style:'currency',
             currency:'BRL',
             maximumFractionDigits: 2,
             minimumFractionDigits: 0
         })
-        .format(value)
+        .format(value as number)
         .replace("-", "-\u0020")
         .replace("R$", "R$\u0020")
 }

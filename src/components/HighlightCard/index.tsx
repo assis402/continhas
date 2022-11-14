@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatAmount } from '../../utils/helper'
+import { useTheme } from 'styled-components'
 
 import {
     Amount,
@@ -35,9 +36,23 @@ const icon = {
     balance: 'dollar-sign'
 }
 
+const gradients = () => {
+    const theme = useTheme();
+
+    return {
+        income: theme.colors.gradient_success,
+        outcome: theme.colors.gradient_attention,
+        balance: theme.colors.gradient_balance
+    }
+}
+
 export function HighlightCard({ type, amount, lastTransaction }: Props){    
+    
     return (
-        <Container type={type}>
+        <Container 
+            // type={type}
+            colors={gradients()[type]}
+        >
             <Header>
                 <Title type={type}>{title[type]}</Title>
                 <Icon name={icon[type]} type={type}/>

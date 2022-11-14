@@ -7,23 +7,21 @@ import { Transaction } from '../../classes/Transaction';
 
 export const Container = styled.View`
     flex: 1;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.secondary_new};
 `;
 
 export const Header = styled.View`
     width: 100%;
-    height: ${RFPercentage(40)}px;
-    background-color: ${({ theme }) => theme.colors.primary};
-
     justify-content: center;
     align-items: flex-start;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 export const UserWrapper = styled.View`
     width: 100%;
     padding: 0 24px;
-    margin-top: ${getStatusBarHeight() + RFValue(28)}px;
+    margin-top: ${getStatusBarHeight() + RFValue(18)}px;
+    margin-bottom: ${RFValue(22)}px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -34,17 +32,10 @@ export const UserInfo = styled.View`
     align-items: center;
 `
 
-export const Photo = styled.Image`
-    width: ${RFValue(48)}px;
-    height: ${RFValue(48)}px;
-
-    border-radius: 10px;
-`;
-
 export const User = styled.View`
     margin-left: 17px;
-    height: ${RFValue(48)}px;
-`;
+    height: ${RFValue(20)}px;
+`
 
 export const UserGreeting = styled.Text`
     color: ${({theme}) => theme.colors.shape};
@@ -59,7 +50,7 @@ export const UserName = styled.Text`
 `;
 
 export const Power = styled(Feather)`
-    color: ${({theme}) => theme.colors.secondary};
+    color: ${({theme}) => theme.colors.background};
     font-size: ${RFValue(24)}px;
 `
 
@@ -69,13 +60,16 @@ export const HighlightCards = styled.ScrollView.attrs({
     contentContainerStyle: { paddingLeft: 24 } 
 })`
     width: 100%;
-    position: absolute;
-    margin-top: ${RFPercentage(20)}px;
 `
 export const Transactions = styled.View`
     flex: 1;
+    width: 100%;
     padding: 0 30px;
+    padding-top: 20px;
     margin-top: 40px;
+    background-color: ${({ theme }) => theme.colors.background};
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
 `
 
 export const Title = styled.Text`
@@ -108,6 +102,7 @@ export const NoTransactionsIcon = styled(MaterialIcons)`
 
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
+    
     contentContainerStyle: {
         paddingBottom: getBottomSpace()
     }

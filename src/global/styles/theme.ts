@@ -2,7 +2,8 @@ export default {
     colors: {
         primary: '#5636D3',
 
-        secondary_new: '#212121',
+        secondary_new: '#0a0a0a',
+        secondary_light_new: '#bdbdbd',
         secondary: '#FF872C',
         secondary_light: 'rgba(255, 135, 44, 0.3)',
 
@@ -13,8 +14,8 @@ export default {
         attention_light: 'rgba(232, 63, 91, 0.1)',
 
         shape: '#FFFFFF',
-        title: '#363F5F',
-        text_light: '#969CB2',
+        title: '#0a0a0a',
+        text_light: 'rgba(10, 10, 10, 0.4)',
         text: '#000000',
         text_secondary_new: '#FFFFFF',
 
@@ -25,7 +26,11 @@ export default {
         button_border: 'rgba(150, 156, 178, 0.2)',
 
         mood_icon: 'rgba(150, 156, 178, 0.2)',
-        mood_text: 'rgba(150, 156, 178, 0.6)'
+        mood_text: 'rgba(150, 156, 178, 0.6)',
+
+        gradient_success: ['#a8ff78', '#78ffd6'],
+        gradient_attention: ['#EECDA3', '#EF629F'],
+        gradient_balance: ['transparent', 'transparent']
     },
     fonts: {
         regular: 'Poppins_400Regular',

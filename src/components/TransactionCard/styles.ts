@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
-import { RFValue } from 'react-native-responsive-fontsize'
+import { RFValue, RFPercentage } from 'react-native-responsive-fontsize'
 
 interface TypeProps {
     type: 'income' | 'outcome';
@@ -25,6 +25,7 @@ export const Second = styled.View`
     align-items: flex-end;
     justify-content: center;
     flex-direction: column;
+    margin-left: 50px;
 `
 
 export const Title = styled.Text`

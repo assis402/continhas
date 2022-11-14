@@ -13,7 +13,6 @@ import {
     Header,
     UserWrapper,
     UserInfo,
-    Photo,
     User,
     UserGreeting,
     UserName,
@@ -54,10 +53,8 @@ export function DashBoard(){
         let dataTransactions = response ? JSON.parse(response) as Transaction[] : [];
         dataTransactions = dataTransactions.sort().reverse()
 
-        const incomeTransactions = transactions.filter(x => x.type === 'income').sort().reverse()
-        const outcomeTransactions = transactions.filter(x => x.type === 'outcome').sort().reverse()
-        
-        console.log(outcomeTransactions);
+        const incomeTransactions = dataTransactions.filter(x => x.type === 'income').sort().reverse()
+        const outcomeTransactions = dataTransactions.filter(x => x.type === 'outcome').sort().reverse()
 
         const incomeTotal = incomeTransactions.reduce((accumulator, object) => {
             return accumulator + object.amount;
@@ -80,6 +77,8 @@ export function DashBoard(){
 
         //     return
         // });
+
+        console.log(incomeTotal)
 
         if (dataTransactions.length > 0){
             setTransactions(dataTransactions);
@@ -125,34 +124,33 @@ export function DashBoard(){
                     <Header>
                         <UserWrapper>
                             <UserInfo>
-                                <Photo 
-                                    source={{uri: 'https://avatars.githubusercontent.com/u/72348081?v=4'}}
-                                />
                                 <User>
-                                    <UserGreeting>Olá, </UserGreeting>
-                                    <UserName>Matheus</UserName>
+                                    <UserGreeting>
+                                        Olá, <UserName>Matheus</UserName>
+                                    </UserGreeting>
                                 </User>
                             </UserInfo>
-                            <Power name="power"/>
+                            <Power name="log-out"/>
                         </UserWrapper>
+
+                        <HighlightCards>
+                            <HighlightCard 
+                                type='income' 
+                                amount={incomeHighlightData.total}
+                                lastTransaction={incomeHighlightData.lastTransaction}
+                            />
+                            <HighlightCard 
+                                type='outcome' 
+                                amount={outcomeHighlightData.total}
+                                lastTransaction={outcomeHighlightData.lastTransaction}
+                            />
+                            <HighlightCard 
+                                type='balance' 
+                                amount={sumHighlightData.total}
+                                lastTransaction={sumHighlightData.lastTransaction}
+                            />
+                        </HighlightCards>
                     </Header>
-                    <HighlightCards>
-                        <HighlightCard 
-                            type='income' 
-                            amount={incomeHighlightData.total}
-                            lastTransaction={incomeHighlightData.lastTransaction}
-                        />
-                        <HighlightCard 
-                            type='outcome' 
-                            amount={outcomeHighlightData.total}
-                            lastTransaction={outcomeHighlightData.lastTransaction}
-                        />
-                        <HighlightCard 
-                            type='balance' 
-                            amount={sumHighlightData.total}
-                            lastTransaction={sumHighlightData.lastTransaction}
-                        />
-                    </HighlightCards>
                     { transactions.length === 0 ?
                         <NoTransactions>
                             <NoTransactionsTitle>Cadastre a sua primeira transação</NoTransactionsTitle>
