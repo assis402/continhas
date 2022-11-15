@@ -20,13 +20,14 @@ export function AppRoutes(){
                 tabBarActiveTintColor: theme.colors.secondary_new,
                 tabBarInactiveTintColor: theme.colors.secondary_light_new,
                 tabBarStyle: {
+                    backgroundColor: 'rgba(255,255,255,0.95)',
                     height: 80,
                     paddingVertical: Platform.OS === 'ios' ? 20 : 0,
                     paddingHorizontal: 20,
                     borderTopWidth: 0,
-                    elevation: 0
-                    // position: 'absolute'
-                }, 
+                    elevation: 0,
+                    position: 'absolute'
+                },
                 tabBarShowLabel: false, 
                 // tabBarHideOnKeyboard: true
             }}

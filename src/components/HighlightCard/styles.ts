@@ -34,7 +34,7 @@ export const Header = styled.View`
 export const Title = styled.Text<TypeProps>`
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme, type }) => 
-        type === 'balance' ? theme.colors.shape : theme.colors.secondary_new};
+        type === 'balance' ? theme.colors.text_secondary_new : theme.colors.secondary_new};
     font-size: ${RFValue(14)}px;
 `;
 
@@ -53,7 +53,7 @@ export const Icon = styled(Feather)<TypeProps>`
     color: ${({ theme }) => theme.colors.secondary_new};
 
     ${({ type }) => type === 'balance' && css`
-        color: ${({ theme }) => theme.colors.shape};
+        color: ${({ theme }) => theme.colors.text_secondary_new};
     `};
 `;
 
@@ -65,7 +65,7 @@ export const Amount = styled.Text<TypeProps>`
     font-family: ${({ theme }) => theme.fonts.medium};
     font-size: ${RFValue(32)}px;
     color: ${({ theme, type }) => 
-        type === 'balance' ? theme.colors.shape : theme.colors.secondary_new};
+        type === 'balance' ? theme.colors.text_secondary_new : theme.colors.secondary_new};
 `;
 
 export const LastTransaction = styled.Text<TypeProps>`

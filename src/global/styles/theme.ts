@@ -7,15 +7,19 @@ export default {
         secondary: '#FF872C',
         secondary_light: 'rgba(255, 135, 44, 0.3)',
 
-        success: '#12A454',
-        success_light: 'rgba(18, 164, 84, 0.1)',
+        success: '#4fde00',
+        success_light: 'rgba(91, 255, 0, 0.08)',
+        success_secundary: '#a8ff78',
+        success_secundary_light: 'rgba(168, 255, 120, 0.8)',
 
         attention: '#E83F5B',
-        attention_light: 'rgba(232, 63, 91, 0.1)',
+        attention_light: 'rgba(232, 63, 91, 0.08)',
 
-        shape: '#FFFFFF',
+        shape: 'rgba(150, 156, 178, 0.08)',
         title: '#0a0a0a',
         text_light: 'rgba(10, 10, 10, 0.4)',
+        text_place_holder_active: 'rgba(10, 10, 10, 0.8)',
+        text_place_holder: 'rgba(10, 10, 10, 0.2)',
         text: '#000000',
         text_secondary_new: '#FFFFFF',
 

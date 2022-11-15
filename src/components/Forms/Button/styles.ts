@@ -6,15 +6,15 @@ export const Container = styled.TouchableOpacity.attrs({
 })`
     width: 100%;
     height: ${RFValue(56)}px;
-    background-color: ${({ theme }) => theme.colors.secondary};
-    border-radius: 5px;
+    border-radius: 45px;
     align-items: center;
     justify-content: center;
+    background-color: ${({ theme }) => theme.colors.success_secundary_light};
 `
 
 export const Title = styled.Text`
     line-height: 24px;
-    color: ${({ theme }) => theme.colors.shape};
-    font-family: ${({ theme }) => theme.fonts.medium};
+    color: ${({ theme }) => theme.colors.text};
+    font-family: ${({ theme }) => theme.fonts.bold};
     font-size: ${RFValue(14)}px;
 `

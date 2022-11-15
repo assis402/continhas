@@ -38,13 +38,13 @@ export const User = styled.View`
 `
 
 export const UserGreeting = styled.Text`
-    color: ${({theme}) => theme.colors.shape};
+    color: ${({theme}) => theme.colors.text_secondary_new};
     font-size: ${RFValue(15)}px;
     font-family: ${({theme}) => theme.fonts.regular};
 `;
 
 export const UserName = styled.Text`
-    color: ${({theme}) => theme.colors.shape};
+    color: ${({theme}) => theme.colors.text_secondary_new};
     font-size: ${RFValue(15)}px;
     font-family: ${({theme}) => theme.fonts.bold};
 `;

@@ -2,6 +2,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
 
+interface CategoryProps {
+    text: string;
+}
+
 export const Container = styled.TouchableOpacity.attrs({
     activeOpacity: 0.7
 })`
@@ -9,13 +13,13 @@ export const Container = styled.TouchableOpacity.attrs({
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 0 16px;
     height: ${RFValue(56)}px;
 `;
 
-export const Category = styled.Text`
-    color: ${({ theme }) => theme.colors.text_light};
+export const Category = styled.Text<CategoryProps>`
+    color: ${({ theme, text }) => text !== 'Categoria' ? theme.colors.text : theme.colors.text_place_holder};
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
 `

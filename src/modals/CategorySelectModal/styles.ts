@@ -17,7 +17,7 @@ export const InternalModal =  styled.View`
     width: 80%;
     height: 70%;
     padding: 25px;
-    border-radius: 5px;
+    border-radius: 45px;
 `
 
 export const ExternalModal = styled.View`

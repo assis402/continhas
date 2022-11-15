@@ -9,7 +9,7 @@ interface Props {
 export function CategorySelectButton({ title, onPress } : Props){
     return(
         <Container onPress={onPress}>
-            <Category>
+            <Category text={title}>
                 {title}
             </Category>
             <Icon name="chevron-down"/>

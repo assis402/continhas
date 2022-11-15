@@ -14,7 +14,7 @@ export const Container = styled.TouchableOpacity<Props>`
     width: 48.5%;
     height: ${RFValue(56)}px;
     border: 1.5px solid ${({ theme }) => theme.colors.button_border};
-    border-radius: 5px;
+    border-radius: 15px;
 
     ${({ type, isActive }) => type === 'income' && isActive && css<Props>`
         background-color: ${({ theme }) => theme.colors.success_light};

@@ -118,7 +118,7 @@ export function Register(){
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
                     <Header>
-                        <Title>Cadastro</Title>
+                        <Title>Nova transação</Title>
                     </Header>
                     <Form>
                         <Fields>
@@ -157,7 +157,7 @@ export function Register(){
                             />
                         </Fields>
                         <Footer>
-                            <Button title='Enviar' onPress={handleSubmit(handleRegister)}/>
+                            <Button title='Adicionar' onPress={handleSubmit(handleRegister)}/>
                         </Footer>
                     </Form>
                     <CategorySelectModal
