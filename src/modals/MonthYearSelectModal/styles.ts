@@ -1,8 +1,6 @@
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import theme from '../../global/styles/theme';
-import { BlurView } from '@react-native-community/blur';
 
 interface CategoryProps {
     isActive: boolean;
@@ -15,9 +13,10 @@ export const Container = styled.View`
 export const InternalModal =  styled.View`
     background-color: ${({ theme }) => theme.colors.background};
     width: 80%;
-    height: 70%;
+    height: 45%;
     padding: 25px;
     border-radius: 45px;
+    justify-content: space-between;
 `
 
 export const ExternalModal = styled.View`

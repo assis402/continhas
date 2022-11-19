@@ -4,6 +4,8 @@ export default {
 
         secondary_new: '#0a0a0a',
         secondary_light_new: '#bdbdbd',
+        secondary_super_light_new: 'rgb(245, 245, 245)',
+
         secondary: '#FF872C',
         secondary_light: 'rgba(255, 135, 44, 0.3)',
 

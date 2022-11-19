@@ -1,8 +1,6 @@
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import theme from '../../global/styles/theme';
-import { BlurView } from '@react-native-community/blur';
 
 interface CategoryProps {
     isActive: boolean;
