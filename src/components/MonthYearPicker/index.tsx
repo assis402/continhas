@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Container, ChangeYear, Icon, Month, MonthList, Separator, Year, YearList } from './styles';
-const months = [...Array(12).keys()].map(key => new Date(0, key).toLocaleString('en', { month: 'long' }))
+import { array } from 'yup';
+import { Button } from '../Forms/Button';
+import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker } from './styles';
+const monthArray = [...Array(12).keys()].map(key => new Date(0, key).toLocaleString('pt-BR', { month: 'long' }))
 
-export function MonthYearPicker(){
+interface Props {
+    handleSelectFunction: (month: number, year: number) => void;
+}
+
+export function MonthYearPicker({ handleSelectFunction }: Props){
     const [year, setYear] = useState(new Date().getFullYear())
+    const [month, setMonth] = useState(new Date().getMonth())
 
     function handleIncreaseSelectYear(){
         setYear(year + 1);
@@ -14,28 +21,39 @@ export function MonthYearPicker(){
         setYear(year - 1);
     }
 
+    function handleSelectMonth(selectedMonth: string){
+        setMonth(monthArray.indexOf(selectedMonth))
+    }
+
     return (
         <Container>
-            <YearList>
-                <ChangeYear onPress={handleDecreaseSelectYear}>
-                    <Icon name='chevron-left'/>
-                </ChangeYear>
-                <Year>{year}</Year>
-                <ChangeYear onPress={handleIncreaseSelectYear}>
-                    <Icon name='chevron-right'/>
-                </ChangeYear>
-            </YearList>
-            <MonthList>
-                <FlatList
-                    data={months}
-                    keyExtractor={item => item}
-                    numColumns={3} // Número de colunas
-                    renderItem={({ item }) => (
-                        <Month>{item}</Month>
-                    )}
-                    ItemSeparatorComponent={() => <Separator/>}
+            <Picker>
+                <YearList>
+                    <ChangeYear onPress={handleDecreaseSelectYear}>
+                        <Icon name='chevron-left'/>
+                    </ChangeYear>
+                    <Year>{year}</Year>
+                    <ChangeYear onPress={handleIncreaseSelectYear}>
+                        <Icon name='chevron-right'/>
+                    </ChangeYear>
+                </YearList>
+                <MonthList>
+                    <FlatList
+                        data={monthArray}
+                        keyExtractor={item => item}
+                        numColumns={3}
+                        renderItem={({ item }) => (
+                            <MonthButton onPress={() => handleSelectMonth(item)}>
+                                <Month active={item === monthArray[month]}>{item}</Month>
+                            </MonthButton>
+                        )}
+                    />
+                </MonthList>
+                <Button 
+                    title="Selecionar"
+                    onPress={() => handleSelectFunction(month, year)}
                 />
-            </MonthList>
+            </Picker>
         </Container>
     )
 }

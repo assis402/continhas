@@ -1,6 +1,7 @@
 import uuid from 'react-native-uuid'
 import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
+import { toString2f } from "../utils/helper"
 
 export type TransactionType = 'income' | 'outcome'
 
@@ -11,6 +12,7 @@ export class Transaction {
     amount!: number
     category!: string
     date!: string
+    period!: string
 }
 
 export class TransactionFactory {
@@ -24,6 +26,7 @@ export class TransactionFactory {
 
         newTransaction.id = String(uuid.v4())
         newTransaction.date = String(creationDate)
+        newTransaction.period = toString2f(creationDate.getMonth()) + creationDate.getFullYear().toString()
         newTransaction.type = type as TransactionType
         newTransaction.title = title
         newTransaction.amount = Number(amount)

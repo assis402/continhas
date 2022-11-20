@@ -18,8 +18,10 @@ export function MonthYearSelectModal({
     modalIsOpen
 } : Props){
     
-    function handleMonthYearSelect(monthYear: string){
+    function handleMonthYearSelect(month: number, year: number){
+        let monthYear = month.toString() + year.toString()
         setMonthYear(monthYear);
+        closeSelectMonthYear();
     }
 
     return(
@@ -32,11 +34,9 @@ export function MonthYearSelectModal({
             >
                 <ExternalModal>
                     <InternalModal>
-                        <MonthYearPicker/>
-                        <Button 
-                            title="Selecionar"
-                            onPress={closeSelectMonthYear}
-                        />
+                        <MonthYearPicker
+                            handleSelectFunction={handleMonthYearSelect}
+                        /> 
                     </InternalModal>
                 </ExternalModal>
             </Modal>

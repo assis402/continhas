@@ -3,6 +3,12 @@ import { Feather } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
+    flex: 1;
+`
+
+export const Picker = styled.View`
+    flex: 1;
+    justify-content: space-between;
 `
 
 export const YearList = styled.View`
@@ -38,16 +44,19 @@ export const Icon = styled(Feather)`
     color: ${({ theme }) => theme.colors.secondary_light_new};
 `
 
-export const Month = styled.Text`
+interface MonthProps {
+    active: boolean
+}
+
+export const MonthButton = styled.TouchableOpacity`
     flex-basis: 0;
     flex-grow: 1;
-    text-align: center;
-    font-size: ${RFValue(10)}px;
-    font-family: ${({ theme }) => theme.fonts.regular};
-    color: ${({ theme }) => theme.colors.text_light};
+    height: ${RFValue(38)}px;
 `
 
-export const Separator = styled.View`
-    width: 10px;
-    height: 35px;
+export const Month = styled.Text<MonthProps>`
+    text-align: center;
+    font-size: ${RFValue(10)}px;
+    font-family: ${({ theme, active }) => active ? theme.fonts.bold : theme.fonts.regular};
+    color: ${({ theme, active }) => active ? theme.colors.text : theme.colors.text_light};
 `

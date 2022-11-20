@@ -46,8 +46,9 @@ export function DashBoard(){
     const [outcomeHighlightData, setOutcomeHighlightData] = useState<HighlightProps>(defaultHighlightProps as HighlightProps);
     const [sumHighlightData, setSumHighlightData] = useState<HighlightProps>(defaultHighlightProps as HighlightProps);
 
+    const today = new Date();
     const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
-    const [monthYear, setMonthYear] = useState('')
+    const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
 
     const theme = useTheme();
 
@@ -61,13 +62,21 @@ export function DashBoard(){
 
     async function loadTransactions(){
         const dataKey = '@continhas:transactions'
-        //await AsyncStorage.clear()
+        // await AsyncStorage.clear()
         const response = await AsyncStorage.getItem(dataKey);
-        let dataTransactions = response ? JSON.parse(response) as Transaction[] : [];
-        dataTransactions = dataTransactions.sort().reverse()
+        const dataTransactions: Transaction[] = response ? JSON.parse(response) : [];
+        
+        console.log('teste')
+        console.log(monthYear)
 
-        const incomeTransactions = dataTransactions.filter(x => x.type === 'income').sort().reverse()
-        const outcomeTransactions = dataTransactions.filter(x => x.type === 'outcome').sort().reverse()
+        let data = dataTransactions.filter(x => x.period === monthYear)
+                                    .sort()
+                                    .reverse()
+
+        console.log(data)
+
+        const incomeTransactions = data.filter(x => x.type === 'income').sort().reverse()
+        const outcomeTransactions = data.filter(x => x.type === 'outcome').sort().reverse()
 
         const incomeTotal = incomeTransactions.reduce((accumulator, object) => {
             return accumulator + object.amount;
@@ -76,12 +85,10 @@ export function DashBoard(){
         const outcomeTotal = outcomeTransactions.reduce((accumulator, object) => {
             return accumulator + object.amount;
         }, 0)
+        
+        setTransactions(data);
 
-        console.log(incomeTotal)
-
-        if (dataTransactions.length > 0){
-            setTransactions(dataTransactions);
-            
+        if (data.length > 0){            
             incomeTotal > 0 && setIncomeHighlightData({
                 total: incomeTotal,
                 lastTransaction: formatDateToHighlight(incomeTransactions[0].date)
@@ -103,7 +110,7 @@ export function DashBoard(){
 
     useEffect(() => {
         loadTransactions()
-    }, []);
+    }, [monthYear]);
 
     useFocusEffect(useCallback(() => {
         loadTransactions()

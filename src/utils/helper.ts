@@ -31,6 +31,12 @@ export function formatDateToHighlight(date: string){
     })
 }
 
+export function toString2f(value: number){
+    return value.toLocaleString('pt-BR', {
+        minimumIntegerDigits: 2
+    })
+}
+
 // export function formatDateToSummary(date: string){
 //     return new Date(date).toLocaleDateString('pt-BR', {
 //         day: '2-digit',
