@@ -1,6 +1,6 @@
 import React from 'react'
 import { Transaction }  from '../../classes/Transaction';
-import { categories } from "../../utils/categories";
+import { categories } from "../../utils/helper";
 import { formatDate, formatAmount } from '../../utils/helper'
 import { 
     First,

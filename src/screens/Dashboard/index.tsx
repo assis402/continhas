@@ -27,7 +27,7 @@ import {
     NoTransactionsIcon
 } from './styles'
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
-import { CategorySelectButton } from '../../components/Forms/CategorySelectButton';
+import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton ';
 
 interface HighlightProps {
     total: Number,
@@ -139,8 +139,8 @@ export function DashBoard(){
                                 </UserInfo>
                                 <Power name="log-out"/>
                             </UserWrapper>
-                            <CategorySelectButton 
-                                title={monthYear}
+                            <MonthYearSelectButton 
+                                monthYear={monthYear}
                                 onPress={handleOpenSelectMonthYearModal}
                             />
                             <HighlightCards>

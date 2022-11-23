@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { array } from 'yup';
 import { Button } from '../Forms/Button';
 import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker } from './styles';
-const monthArray = [...Array(12).keys()].map(key => new Date(0, key).toLocaleString('pt-BR', { month: 'long' }))
+import { monthArray } from '../../utils/helper';
 
 interface Props {
     handleSelectFunction: (month: number, year: number) => void;

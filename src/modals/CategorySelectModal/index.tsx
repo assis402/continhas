@@ -1,8 +1,8 @@
 import React from "react";
 import { FlatList, Modal } from "react-native";
 import { Button } from "../../components/Forms/Button";
-import { categories } from "../../utils/categories";
-import { CategoryItem, Container, ExternalModal, Footer, Icon, InternalModal, Name, Separator, Title } from "./styles";
+import { categories } from "../../utils/helper";
+import { CategoryItem, Container, ExternalModal, Icon, InternalModal, Name, Separator, Title } from "./styles";
 
 interface Props {
     category: string;
