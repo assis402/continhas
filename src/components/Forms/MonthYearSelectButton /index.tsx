@@ -14,7 +14,7 @@ export function MonthYearSelectButton({ monthYear, onPress } : Props){
     return(
         <Container onPress={onPress}>
             <Category>
-                {monthArray[month]} / {year}
+                {monthArray[month]} de {year}
             </Category>
             <Icon name="chevron-down"/>
         </Container>

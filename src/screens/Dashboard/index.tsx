@@ -12,6 +12,7 @@ import {
     Container,
     Header,
     UserWrapper,
+    MonthYearWrapper,
     UserInfo,
     User,
     UserGreeting,
@@ -139,10 +140,12 @@ export function DashBoard(){
                                 </UserInfo>
                                 <Power name="log-out"/>
                             </UserWrapper>
-                            <MonthYearSelectButton 
-                                monthYear={monthYear}
-                                onPress={handleOpenSelectMonthYearModal}
-                            />
+                            <MonthYearWrapper>
+                                <MonthYearSelectButton 
+                                    monthYear={monthYear}
+                                    onPress={handleOpenSelectMonthYearModal}
+                                />
+                            </MonthYearWrapper>
                             <HighlightCards>
                                 <HighlightCard 
                                     type='income' 

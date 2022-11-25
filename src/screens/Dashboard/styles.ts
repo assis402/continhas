@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
+import { RFValue } from 'react-native-responsive-fontsize'
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { FlatList } from 'react-native';
@@ -11,7 +11,6 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    width: 100%;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
@@ -21,10 +20,17 @@ export const UserWrapper = styled.View`
     width: 100%;
     padding: 0 24px;
     margin-top: ${getStatusBarHeight() + RFValue(18)}px;
-    margin-bottom: ${RFValue(22)}px;
+    margin-bottom: 25px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+`
+
+export const MonthYearWrapper = styled.View`
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
+    margin-bottom: 25px;
 `
 
 export const UserInfo = styled.View`
@@ -66,7 +72,7 @@ export const Transactions = styled.View`
     width: 100%;
     padding: 0 30px;
     padding-top: 20px;
-    margin-top: 40px;
+    margin-top: 25px;
     background-color: ${({ theme }) => theme.colors.background};
     border-top-left-radius: 45px;
     border-top-right-radius: 45px;
