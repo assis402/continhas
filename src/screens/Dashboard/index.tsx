@@ -66,15 +66,10 @@ export function DashBoard(){
         // await AsyncStorage.clear()
         const response = await AsyncStorage.getItem(dataKey);
         const dataTransactions: Transaction[] = response ? JSON.parse(response) : [];
-        
-        console.log('teste')
-        console.log(monthYear)
 
         let data = dataTransactions.filter(x => x.period === monthYear)
                                     .sort()
                                     .reverse()
-
-        console.log(data)
 
         const incomeTransactions = data.filter(x => x.type === 'income').sort().reverse()
         const outcomeTransactions = data.filter(x => x.type === 'outcome').sort().reverse()
@@ -118,75 +113,73 @@ export function DashBoard(){
     }, []));
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Container>
-                {
-                    isLoading ? 
-                    <LoadContainer>
-                        <ActivityIndicator 
-                            color={theme.colors.primary}
-                            size="large"    
-                        />
-                    </LoadContainer> : 
-                    <>
-                        <Header>
-                            <UserWrapper>
-                                <UserInfo>
-                                    <User>
-                                        <UserGreeting>
-                                            Olá, <UserName>Matheus</UserName>
-                                        </UserGreeting>
-                                    </User>
-                                </UserInfo>
-                                <Power name="log-out"/>
-                            </UserWrapper>
-                            <MonthYearWrapper>
-                                <MonthYearSelectButton 
-                                    monthYear={monthYear}
-                                    onPress={handleOpenSelectMonthYearModal}
-                                />
-                            </MonthYearWrapper>
-                            <HighlightCards>
-                                <HighlightCard 
-                                    type='income' 
-                                    amount={incomeHighlightData.total}
-                                    lastTransaction={incomeHighlightData.lastTransaction}
-                                />
-                                <HighlightCard 
-                                    type='outcome' 
-                                    amount={outcomeHighlightData.total}
-                                    lastTransaction={outcomeHighlightData.lastTransaction}
-                                />
-                                <HighlightCard 
-                                    type='balance' 
-                                    amount={sumHighlightData.total}
-                                    lastTransaction={sumHighlightData.lastTransaction}
-                                />
-                            </HighlightCards>
-                        </Header>
-                        { transactions.length === 0 ?
-                            <NoTransactions>
-                                <NoTransactionsTitle>Cadastre a sua primeira transação</NoTransactionsTitle>
-                                <NoTransactionsIcon name='mood'/>
-                            </NoTransactions> :
-                            <Transactions>
-                                { transactions.length > 0 && <Title>Listagem</Title> }
-                                <TransactionList<any>
-                                    data={transactions}
-                                    keyExtrator={(item: Transaction) => item.id}
-                                    renderItem={({ item }: { item: Transaction }) => <TransactionCard data={item}/>}
-                                />
-                            </Transactions>
-                        }
-                    </>
-                }
-                <MonthYearSelectModal
-                    monthYear={monthYear}
-                    setMonthYear={setMonthYear}
-                    closeSelectMonthYear={handleCloseSelectMonthYearModal}
-                    modalIsOpen={monthYearModalOpen}
-                />
-            </Container>
-        </TouchableWithoutFeedback>
+        <Container>
+            {
+                isLoading ? 
+                <LoadContainer>
+                    <ActivityIndicator 
+                        color={theme.colors.primary}
+                        size="large"    
+                    />
+                </LoadContainer> : 
+                <>
+                    <Header>
+                        <UserWrapper>
+                            <UserInfo>
+                                <User>
+                                    <UserGreeting>
+                                        Olá, <UserName>Matheus</UserName>
+                                    </UserGreeting>
+                                </User>
+                            </UserInfo>
+                            <Power name="log-out"/>
+                        </UserWrapper>
+                        <MonthYearWrapper>
+                            <MonthYearSelectButton 
+                                monthYear={monthYear}
+                                onPress={handleOpenSelectMonthYearModal}
+                            />
+                        </MonthYearWrapper>
+                        <HighlightCards>
+                            <HighlightCard 
+                                type='income' 
+                                amount={incomeHighlightData.total}
+                                lastTransaction={incomeHighlightData.lastTransaction}
+                            />
+                            <HighlightCard 
+                                type='outcome' 
+                                amount={outcomeHighlightData.total}
+                                lastTransaction={outcomeHighlightData.lastTransaction}
+                            />
+                            <HighlightCard 
+                                type='balance' 
+                                amount={sumHighlightData.total}
+                                lastTransaction={sumHighlightData.lastTransaction}
+                            />
+                        </HighlightCards>
+                    </Header>
+                    { transactions.length === 0 ?
+                        <NoTransactions>
+                            <NoTransactionsTitle>Cadastre a sua primeira transação</NoTransactionsTitle>
+                            <NoTransactionsIcon name='mood'/>
+                        </NoTransactions> :
+                        <Transactions>
+                            { transactions.length > 0 && <Title>Listagem</Title> }
+                            <TransactionList<any>
+                                data={transactions}
+                                keyExtrator={(item: Transaction) => item.id}
+                                renderItem={({ item }: { item: Transaction }) => <TransactionCard data={item}/>}
+                            />
+                        </Transactions>
+                    }
+                </>
+            }
+            <MonthYearSelectModal
+                monthYear={monthYear}
+                setMonthYear={setMonthYear}
+                closeSelectMonthYear={handleCloseSelectMonthYearModal}
+                modalIsOpen={monthYearModalOpen}
+            />
+        </Container>
     )
 }

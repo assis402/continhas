@@ -1,7 +1,5 @@
 export default {
     colors: {
-        primary: '#5636D3',
-
         secondary_new: '#0a0a0a',
         secondary_light_new: '#bdbdbd',
         secondary_super_light_new: 'rgb(245, 245, 245)',

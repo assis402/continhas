@@ -1,6 +1,6 @@
 import React from "react";
 import { Category, Container, Icon } from "./styles";
-import { monthArray } from '../../../utils/helper';
+import { monthArray, detachMonth, detachYear } from '../../../utils/helper';
 
 interface Props {
     monthYear: string;
@@ -8,8 +8,8 @@ interface Props {
 }
 
 export function MonthYearSelectButton({ monthYear, onPress } : Props){
-    let month = Number.parseInt(monthYear.substring(0,2))
-    let year = monthYear.substring(2)
+    let month = detachMonth(monthYear)
+    let year = detachYear(monthYear)
 
     return(
         <Container onPress={onPress}>

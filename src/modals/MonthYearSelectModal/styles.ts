@@ -26,12 +26,6 @@ export const ExternalModal = styled.View`
     background-color: ${({ theme }) => theme.colors.background_modal};
 `
 
-export const Title = styled.Text`
-    font-size: ${RFValue(18)}px;
-    font-family: ${({theme}) => theme.fonts.regular};
-    color: ${({ theme }) => theme.colors.shape};
-`
-
 export const CategoryItem = styled.TouchableOpacity.attrs({
     activeOpacity: 0.4
 })`

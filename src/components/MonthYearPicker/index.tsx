@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Button } from '../Forms/Button';
 import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker } from './styles';
-import { monthArray } from '../../utils/helper';
+import { monthArray, detachMonth, detachYear } from '../../utils/helper';
 
 interface Props {
+    monthYear: string;
     handleSelectFunction: (month: number, year: number) => void;
 }
 
-export function MonthYearPicker({ handleSelectFunction }: Props){
-    const [year, setYear] = useState(new Date().getFullYear())
-    const [month, setMonth] = useState(new Date().getMonth())
+export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
+    let initialMonth = detachMonth(monthYear)
+    let initialYear = detachYear(monthYear)
+
+    const [year, setYear] = useState(initialYear)
+    const [month, setMonth] = useState(initialMonth)
 
     function handleIncreaseSelectYear(){
         setYear(year + 1);

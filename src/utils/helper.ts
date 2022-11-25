@@ -31,10 +31,18 @@ export function formatDateToHighlight(date: string){
     })
 }
 
-export function toString2f(value: number){
+export function toString2Pad(value: number){
     return value.toLocaleString('pt-BR', {
         minimumIntegerDigits: 2
     })
+}
+
+export function detachMonth(monthYear: string){
+    return Number.parseInt(monthYear.substring(0,2))
+}
+
+export function detachYear(monthYear: string){
+    return Number.parseInt(monthYear.substring(2))
 }
 
 // export function formatDateToSummary(date: string){

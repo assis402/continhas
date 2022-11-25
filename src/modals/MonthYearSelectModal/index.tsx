@@ -1,8 +1,9 @@
 import React from "react";
 import { Modal } from "react-native";
-import { Button } from "../../components/Forms/Button";
 import { MonthYearPicker } from "../../components/MonthYearPicker";
 import { Container, ExternalModal, InternalModal } from "./styles";
+import { toString2Pad } from "../../utils/helper"
+
 
 interface Props {
     monthYear: string;
@@ -19,7 +20,7 @@ export function MonthYearSelectModal({
 } : Props){
     
     function handleMonthYearSelect(month: number, year: number){
-        let monthYear = month.toString() + year.toString()
+        let monthYear = toString2Pad(month) + year.toString()
         setMonthYear(monthYear);
         closeSelectMonthYear();
     }
@@ -35,6 +36,7 @@ export function MonthYearSelectModal({
                 <ExternalModal>
                     <InternalModal>
                         <MonthYearPicker
+                            monthYear={monthYear}
                             handleSelectFunction={handleMonthYearSelect}
                         /> 
                     </InternalModal>
