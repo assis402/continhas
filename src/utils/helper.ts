@@ -1,6 +1,7 @@
 import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 import moment from 'moment';
+import { DateLocale } from 'yup/lib/locale';
 
 export function formatAmount(value: Number){
     return new Intl.NumberFormat("pt-BR", {
@@ -29,6 +30,17 @@ export function formatDateToHighlight(date: string){
         day: 'numeric',
         month: 'long'
     })
+}
+
+export function formatDateToRegister(date: Date){
+    return date.toLocaleDateString('pt-BR', {
+        day: 'numeric',
+        month: 'long'
+    })
+}
+
+export function formatTimeToRegister(date: Date){
+    return moment(date).format('HH:MM')
 }
 
 export function toString2Pad(value: number){

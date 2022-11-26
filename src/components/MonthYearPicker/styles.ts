@@ -21,7 +21,6 @@ export const YearList = styled.View`
 export const MonthList = styled.View`
     width: 100%;
     justify-items: center;
-    margin: 30px 0px;
 `
 
 export const Year = styled.Text`
@@ -51,12 +50,14 @@ interface MonthProps {
 export const MonthButton = styled.TouchableOpacity`
     flex-basis: 0;
     flex-grow: 1;
-    height: ${RFValue(38)}px;
+    justify-content: center;
+    height: ${RFValue(43)}px;
+    /* border: 1px solid ${({ theme }) => theme.colors.secondary_super_light_new}; */
 `
 
 export const Month = styled.Text<MonthProps>`
     text-align: center;
-    font-size: ${RFValue(10)}px;
+    font-size: ${RFValue(12)}px;
     font-family: ${({ theme, active }) => active ? theme.fonts.bold : theme.fonts.regular};
     color: ${({ theme, active }) => active ? theme.colors.text : theme.colors.text_light};
 `

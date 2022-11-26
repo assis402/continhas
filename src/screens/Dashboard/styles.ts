@@ -18,9 +18,9 @@ export const Header = styled.View`
 
 export const UserWrapper = styled.View`
     width: 100%;
-    padding: 0 24px;
+    padding: 0 ${RFValue(18)}px;
     margin-top: ${getStatusBarHeight() + RFValue(18)}px;
-    margin-bottom: 25px;
+    margin-bottom: ${RFValue(22)}px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -28,9 +28,9 @@ export const UserWrapper = styled.View`
 
 export const MonthYearWrapper = styled.View`
     width: 100%;
-    padding-right: 24px;
-    padding-left: 24px;
-    margin-bottom: 25px;
+    padding-right: ${RFValue(18)}px;
+    padding-left: ${RFValue(18)}px;
+    margin-bottom: ${RFValue(25)}px;
 `
 
 export const UserInfo = styled.View`
@@ -39,7 +39,7 @@ export const UserInfo = styled.View`
 `
 
 export const User = styled.View`
-    margin-left: 17px;
+    margin-left: ${RFValue(10)}px;
     height: ${RFValue(20)}px;
 `
 
@@ -70,19 +70,19 @@ export const HighlightCards = styled.ScrollView.attrs({
 export const Transactions = styled.View`
     flex: 1;
     width: 100%;
-    padding: 0 30px;
-    padding-top: 20px;
-    margin-top: 25px;
+    padding: 0 ${RFValue(22)}px;
+    padding-top: ${RFValue(18)}px;
+    margin-top: ${RFValue(25)}px;
     background-color: ${({ theme }) => theme.colors.background};
-    border-top-left-radius: 45px;
-    border-top-right-radius: 45px;
+    border-top-left-radius: ${RFValue(35)}px;
+    border-top-right-radius: ${RFValue(35)}px;
 `
 
 export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({theme}) => theme.fonts.bold};
     color: ${({theme}) => theme.colors.title};
-    margin-bottom: 35px;
+    margin-bottom: ${RFValue(15)}px;
 `
 
 export const NoTransactions = styled.View`
@@ -109,7 +109,7 @@ export const NoTransactionsIcon = styled(MaterialIcons)`
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
-        paddingBottom: getBottomSpace() + 60
+        paddingBottom: getBottomSpace() + 40
     }
 })``
 

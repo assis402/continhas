@@ -11,5 +11,5 @@ export const Container = styled.TextInput.attrs(({ theme }) => ({
     border-radius: 15px;
     font-family: ${({ theme }) => theme.fonts.regular};
     background-color: ${({ theme }) => theme.colors.shape};
-    margin-bottom: 8px;
+    margin-bottom: ${RFValue(16)}px;
 `

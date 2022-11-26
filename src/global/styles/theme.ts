@@ -15,15 +15,14 @@ export default {
         attention: '#E83F5B',
         attention_light: 'rgba(232, 63, 91, 0.08)',
 
-        shape: 'rgba(150, 156, 178, 0.08)',
+        shape: 'rgba(150, 156, 178, 0.10)',
         title: '#0a0a0a',
         text_light: 'rgba(10, 10, 10, 0.4)',
         text_place_holder_active: 'rgba(10, 10, 10, 0.8)',
-        text_place_holder: 'rgba(10, 10, 10, 0.2)',
+        text_place_holder: 'rgba(10, 10, 10, 0.25)',
         text: '#000000',
         text_secondary_new: '#FFFFFF',
 
-        // background: '#F0F2F5',
         background: '#FFFFFF',
         background_modal: 'rgba(0, 0, 0, 0.5)',
 

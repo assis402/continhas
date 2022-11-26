@@ -20,16 +20,15 @@ export function AppRoutes(){
                 tabBarActiveTintColor: theme.colors.secondary_new,
                 tabBarInactiveTintColor: theme.colors.secondary_light_new,
                 tabBarStyle: {
-                    backgroundColor: 'rgba(255,255,255,0.95)',
-                    height: 80,
+                    backgroundColor: theme.colors.background,
+                    height: 65,
                     paddingVertical: Platform.OS === 'ios' ? 20 : 0,
                     paddingHorizontal: 20,
-                    borderTopWidth: 0,
-                    elevation: 0,
-                    position: 'absolute'
+                    borderTopWidth: 0.5,
+                    borderColor: theme.colors.secondary_super_light_new,
                 },
                 tabBarShowLabel: false, 
-                // tabBarHideOnKeyboard: true
+                tabBarHideOnKeyboard: true
             }}
         >
             <Screen 
@@ -39,7 +38,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='home'
-                            size={40}
+                            size={35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -53,7 +52,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ color }) => 
                         <Feather 
                             name='plus-circle'
-                            size={40}
+                            size={35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -67,7 +66,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='pie-chart'
-                            size={40}
+                            size={35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />

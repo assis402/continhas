@@ -118,7 +118,7 @@ export function DashBoard(){
                 isLoading ? 
                 <LoadContainer>
                     <ActivityIndicator 
-                        color={theme.colors.primary}
+                        color={theme.colors.success_secundary}
                         size="large"    
                     />
                 </LoadContainer> : 

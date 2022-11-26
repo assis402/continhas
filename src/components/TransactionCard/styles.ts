@@ -1,18 +1,15 @@
 import styled from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
-import { RFValue, RFPercentage } from 'react-native-responsive-fontsize'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface TypeProps {
     type: 'income' | 'outcome';
 }
 
 export const Container = styled.View`
-    background-color: ${({ theme }) => theme.colors.background};
     font-family: ${({ theme }) => theme.fonts.medium};
-    /* padding: 19px 24px; */
-    margin-bottom: 20px;
+    margin-bottom: ${RFValue(22.5)}px;
     flex-direction: row;
-    padding: 10px 0px;
 `
 
 export const First = styled.View`
@@ -25,14 +22,13 @@ export const Second = styled.View`
     align-items: flex-end;
     justify-content: center;
     flex-direction: column;
-    margin-left: 50px;
 `
 
 export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.medium};
     font-size: ${RFValue(12)}px;
     color: ${({ theme }) => theme.colors.title};
-    margin-left: 12px;
+    margin-left: ${RFValue(9)}px;
 `
 
 export const Amount = styled.Text<TypeProps>`
@@ -48,9 +44,9 @@ export const Category = styled.View`
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme.colors.secondary_new};
-    border-radius: 100px;
-    height: 65px;
-    width: 65px;
+    border-radius: 1000px;
+    height: ${RFValue(47)}px;
+    width: ${RFValue(47)}px;
 `
 
 export const Icon = styled(Feather)`
@@ -60,6 +56,6 @@ export const Icon = styled(Feather)`
 
 export const Date = styled.Text`
     font-size: ${RFValue(14)}px;
-    line-height: 21px;
+    line-height: ${RFValue(16)}px;
     color: ${({ theme }) => theme.colors.text_light};
 `

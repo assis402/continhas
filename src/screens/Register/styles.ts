@@ -6,6 +6,7 @@ import { Dimensions } from "react-native";
 
 export const Container = styled.View`
     flex: 1;
+    width: 100%;
     background-color: ${({ theme }) => theme.colors.secondary_new};
 `;
 
@@ -16,7 +17,7 @@ export const Header = styled.View`
     align-items: flex-end;
     flex-direction: row;
 
-    padding-bottom: 16px;
+    padding-bottom: ${RFValue(16)}px;
 `;
 
 export const Title = styled.Text`
@@ -26,27 +27,32 @@ export const Title = styled.Text`
 `
 
 export const Form = styled.View`
+    width: 100%;
     flex: 1;
-    height: ${Dimensions.get('window').height - RFValue(113) - RFValue(25)}px;
     padding: ${RFValue(24)}px;
     justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.background};
-    border-top-left-radius: 45px;
-    border-top-right-radius: 45px;
+    border-top-left-radius: ${RFValue(35)}px;
+    border-top-right-radius: ${RFValue(35)}px;
 `;
 
 export const Fields = styled.View`
+    width: 100%;
+`
+
+export const DateTimeSelectors = styled.View`
+    flex-flow: row nowrap;
+    align-items: stretch;
+    align-self: stretch;
+    margin-top: ${RFValue(16)}px;
 `
 
 export const Buttons = styled.View`
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin-bottom: ${RFValue(16)}px;
     flex-direction: row;
     justify-content: space-between;
 `
 
 export const Footer = styled.View`
-    /* position: absolute;
     width: 100%;
-    bottom: 0; */
 `

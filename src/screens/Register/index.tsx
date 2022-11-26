@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 import { Button } from '../../components/Forms/Button'
 import { CategorySelectButton } from '../../components/Forms/CategorySelectButton'
+import { DateSelectButton } from '../../components/Forms/DateSelectButton'
+import { TimeSelectButton } from '../../components/Forms/TimeSelectButton'
 import { InputForm } from '../../components/Forms/InputForm'
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton'
 import { CategorySelectModal } from '../../modals/CategorySelectModal'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Yup from 'yup';
@@ -21,6 +23,7 @@ import {
     Form,
     Header,
     Title,
+    DateTimeSelectors
 } from './styles'
 import { Transaction, TransactionFactory } from '../../classes/Transaction'
 
@@ -41,8 +44,12 @@ const schema = Yup.object().shape({
 export function Register(){
     const [transactionType, setTransactionType] = useState('')
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
+    const [dateModalOpen, setDateModalOpen] = useState(false)
+    const [timeModalOpen, setTimeModalOpen] = useState(false)
 
     const [category, setCategory] = useState('Categoria')
+    const [date, setDate] = useState(new Date())
+    const [time, setTime] = useState(new Date())
     
     const {
         control,
@@ -52,6 +59,16 @@ export function Register(){
     } = useForm<FormData>({
         resolver: yupResolver(schema)
     });
+
+    function handleDate(date: Date){
+        setDate(date)
+        handleCloseSelectDateModal()
+    }
+
+    function handleTime(date: Date){
+        setTime(date)
+        handleCloseSelectTimeModal()
+    }
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome'){
         setTransactionType(type)
@@ -63,6 +80,22 @@ export function Register(){
 
     function handleOpenSelectCategoryModal(){
         setCategoryModalOpen(true)
+    }
+
+    function handleCloseSelectDateModal(){
+        setDateModalOpen(false)
+    }
+
+    function handleOpenSelectDateModal(){
+        setDateModalOpen(true)
+    }
+
+    function handleCloseSelectTimeModal(){
+        setTimeModalOpen(false)
+    }
+
+    function handleOpenSelectTimeModal(){
+        setTimeModalOpen(true)
     }
 
     async function handleRegister(form: FormData) {
@@ -110,64 +143,80 @@ export function Register(){
     }
 
     return (
-        <KeyboardAwareScrollView
-            // contentContainerStyle={{
-            //     flex: 1
-            // }}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <Container>
-                    <Header>
-                        <Title>Nova transação</Title>
-                    </Header>
-                    <Form>
-                        <Fields>
-                            <InputForm 
-                                name='title' 
-                                control={control} 
-                                placeholder='Identificação'
-                                autoCapitalize='sentences'
-                                autoCorrect={false}
-                                error={errors.title && errors.title.message}
-                            />
-                            <InputForm 
-                                name='amount' 
-                                control={control}  
-                                placeholder='Preço'
-                                keyboardType='numeric'
-                                error={errors.amount && errors.amount.message}
-                            />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Container>
+                <Header>
+                    <Title>Nova transação</Title>
+                </Header>
+                <Form>
+                    <Fields>
+                        <InputForm 
+                            name='title' 
+                            control={control} 
+                            placeholder='Identificação'
+                            autoCapitalize='sentences'
+                            autoCorrect={false}
+                            error={errors.title && errors.title.message}
+                        />
+                        <InputForm 
+                            name='amount' 
+                            control={control}  
+                            placeholder='Preço'
+                            keyboardType='numeric'
+                            error={errors.amount && errors.amount.message}
+                        />
 
-                            <Buttons>
-                                <TransactionTypeButton 
-                                    type='income'
-                                    onPress={() => handleTransactionTypeSelect('income')}
-                                    isActive={transactionType === 'income'}
-                                />
-                                <TransactionTypeButton 
-                                    type='outcome'
-                                    onPress={() => handleTransactionTypeSelect('outcome')}
-                                    isActive={transactionType === 'outcome'}
-                                />
-                            </Buttons>
-
-                            <CategorySelectButton 
-                                title={category}
-                                onPress={handleOpenSelectCategoryModal}
+                        <Buttons>
+                            <TransactionTypeButton 
+                                type='income'
+                                onPress={() => handleTransactionTypeSelect('income')}
+                                isActive={transactionType === 'income'}
                             />
-                        </Fields>
-                        <Footer>
-                            <Button title='Adicionar' onPress={handleSubmit(handleRegister)}/>
-                        </Footer>
-                    </Form>
-                    <CategorySelectModal
-                        category={category}
-                        setCategory={setCategory}
-                        closeSelectCategory={handleCloseSelectCategoryModal}
-                        categoryModalIsOpen={categoryModalOpen}
-                    />
-                </Container>
-            </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
+                            <TransactionTypeButton 
+                                type='outcome'
+                                onPress={() => handleTransactionTypeSelect('outcome')}
+                                isActive={transactionType === 'outcome'}
+                            />
+                        </Buttons>
+
+                        <CategorySelectButton 
+                            title={category}
+                            onPress={handleOpenSelectCategoryModal}
+                        />
+                        <DateTimeSelectors>
+                            <DateSelectButton 
+                                dateTime={date}
+                                onPress={handleOpenSelectDateModal}
+                            />
+                            <TimeSelectButton 
+                                dateTime={time}
+                                onPress={handleOpenSelectTimeModal}
+                            />
+                        </DateTimeSelectors>
+                    </Fields>
+                    <Footer>
+                        <Button title='Adicionar' onPress={handleSubmit(handleRegister)}/>
+                    </Footer>
+                </Form>
+                <CategorySelectModal
+                    category={category}
+                    setCategory={setCategory}
+                    closeSelectCategory={handleCloseSelectCategoryModal}
+                    categoryModalIsOpen={categoryModalOpen}
+                />
+                <DateTimePickerModal
+                    isVisible={dateModalOpen}
+                    mode="date"
+                    onConfirm={handleDate}
+                    onCancel={handleCloseSelectDateModal}
+                />
+                <DateTimePickerModal
+                    isVisible={timeModalOpen}
+                    mode="time"
+                    onConfirm={handleTime}
+                    onCancel={handleCloseSelectTimeModal}
+                />
+            </Container>
+        </TouchableWithoutFeedback>
     )
 }
