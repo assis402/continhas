@@ -45,6 +45,7 @@ export const DateTimeSelectors = styled.View`
     align-items: stretch;
     align-self: stretch;
     margin-top: ${RFValue(16)}px;
+    margin-bottom: ${RFValue(150)}px;
 `
 
 export const Buttons = styled.View`
@@ -54,5 +55,10 @@ export const Buttons = styled.View`
 `
 
 export const Footer = styled.View`
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+`
+
+export const Separator = styled.View`
+    width: ${RFValue(10)}px;
 `

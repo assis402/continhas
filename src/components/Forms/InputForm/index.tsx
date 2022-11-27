@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Error } from "./styles";
+import { Container, InputWrapper, Error, Icon } from "./styles";
 import { Input } from '../Input';
 import { TextInputProps } from "react-native";
 import { Control, Controller } from "react-hook-form";
@@ -21,15 +21,22 @@ export function InputForm({control, name, error, ...rest}: Props){
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value }}) => (
-                    <Input
-                        onChangeText={onChange}
-                        value={value}
-                        {...rest}
-                    />
+                    <InputWrapper>
+                        <Input
+                            onChangeText={onChange}
+                            value={value}
+                            {...rest}
+                        />
+                        {
+                            error &&
+                            <Error>
+                                <Icon name="alert-circle"/>
+                            </Error>
+                        }
+                    </InputWrapper>
                 )}
                 name={name}    
             />
-            { error && <Error>{ error }</Error>}
         </Container>
     )
 }

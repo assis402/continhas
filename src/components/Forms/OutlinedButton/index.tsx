@@ -7,7 +7,7 @@ interface Props extends TouchableOpacityProps{
     flex: number;
 }
 
-export function Button({ title, flex = 1, ...rest }: Props){
+export function OutlinedButton({ title, flex = 1, ...rest }: Props){
     return(
         <Container 
             {...rest}

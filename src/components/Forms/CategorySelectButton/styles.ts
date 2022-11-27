@@ -15,13 +15,19 @@ export const Container = styled.TouchableOpacity.attrs({
     align-items: center;
     border-radius: 15px;
     padding: 0 16px;
-    height: ${RFValue(56)}px;
+    height: ${RFValue(50)}px;
 `;
 
 export const Category = styled.Text<CategoryProps>`
     color: ${({ theme, text }) => text !== 'Categoria' ? theme.colors.text : theme.colors.text_place_holder};
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
+    line-height: ${RFValue(17)}px;
+    margin-left: ${RFValue(14)}px;
+`
+
+export const CategoryWrapper = styled.View`
+    flex-direction: row;
 `
 
 export const Icon = styled(Feather)`

@@ -4,7 +4,7 @@ import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
-import { ActivityIndicator, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { useTheme } from 'styled-components'
 import { formatDateToHighlight } from '../../utils/helper'
 

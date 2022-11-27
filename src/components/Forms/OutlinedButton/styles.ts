@@ -13,7 +13,7 @@ export const Container = styled.TouchableOpacity<Props>`
     border-radius: 45px;
     align-items: center;
     justify-content: center;
-    background-color: ${({ theme }) => theme.colors.success_secundary_light};
+    border: solid 2px ${({ theme }) => theme.colors.button_border};
 `
 
 export const Title = styled.Text`

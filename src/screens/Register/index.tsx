@@ -23,9 +23,11 @@ import {
     Form,
     Header,
     Title,
-    DateTimeSelectors
+    DateTimeSelectors,
+    Separator
 } from './styles'
 import { Transaction, TransactionFactory } from '../../classes/Transaction'
+import { OutlinedButton } from '../../components/Forms/OutlinedButton'
 
 interface FormData {
     title: string;
@@ -98,7 +100,20 @@ export function Register(){
         setTimeModalOpen(true)
     }
 
+    function handleFormValidation(){
+        if (errors.title && errors.title.message)
+            showMessage({
+                message: "Formulário incompleto!",
+                type: "danger",
+                icon: "warning",
+                style: {
+                    paddingTop: 50
+                }
+            });
+    }
+
     async function handleRegister(form: FormData) {
+        console.log('test')
         if (!transactionType)
             return Alert.alert('Selecione o tipo da transação')
 
@@ -195,7 +210,20 @@ export function Register(){
                         </DateTimeSelectors>
                     </Fields>
                     <Footer>
-                        <Button title='Adicionar' onPress={handleSubmit(handleRegister)}/>
+                        <OutlinedButton 
+                            flex={1}
+                            title='Limpar' 
+                            onPress={() =>{
+                                handleSubmit(handleRegister)
+                                handleFormValidation()
+                            }}
+                        />
+                        <Separator/>
+                        <Button 
+                            flex={2}
+                            title='Adicionar' 
+                            onPress={handleSubmit(handleRegister)}
+                        />
                     </Footer>
                 </Form>
                 <CategorySelectModal

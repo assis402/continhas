@@ -12,7 +12,7 @@ export const Container = styled.TouchableOpacity<Props>`
     justify-content: center;
     align-items: center;
     width: 48.5%;
-    height: ${RFValue(56)}px;
+    height: ${RFValue(50)}px;
     border: 1.5px solid ${({ theme }) => theme.colors.button_border};
     border-radius: 15px;
 
