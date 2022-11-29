@@ -3,12 +3,13 @@ import { Time, Container, Icon } from "./styles";
 import { formatTimeToRegister } from '../../../utils/helper';
 
 interface Props {
-    dateTime: Date;
+    dateTime: Date | undefined;
     onPress: () => void;
 }
 
 export function TimeSelectButton({ dateTime, onPress } : Props){
-    let time = formatTimeToRegister(dateTime)
+
+    let time = dateTime === undefined ? "Agora" : formatTimeToRegister(dateTime)
 
     return(
         <Container onPress={onPress}>

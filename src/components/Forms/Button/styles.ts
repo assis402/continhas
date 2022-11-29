@@ -7,7 +7,7 @@ interface Props extends TouchableOpacityProps{
 }
 
 export const Container = styled.TouchableOpacity<Props>`
-    flex: ${({ flex }) => flex};
+    flex: ${({ flex }) => flex === 0 ? 'none' : flex};
     width: 100%;
     height: ${RFValue(50)}px;
     border-radius: 45px;

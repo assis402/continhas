@@ -40,7 +40,7 @@ export function formatDateToRegister(date: Date){
 }
 
 export function formatTimeToRegister(date: Date){
-    return moment(date).format('HH:MM')
+    return moment(date).format('HH:mm')
 }
 
 export function toString2Pad(value: number){

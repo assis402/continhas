@@ -1,6 +1,7 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
+import { Platform } from 'react-native';
 
 export const Container = styled.TouchableOpacity.attrs({
     activeOpacity: 0.7
@@ -21,7 +22,7 @@ export const Time = styled.Text`
     color: ${({ theme }) => theme.colors.text };
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
-    line-height: ${RFValue(20)}px;
+    line-height: ${Platform.OS === 'ios' ? RFValue(23) : RFValue(20)}px;
     height: 28px;
 `
 

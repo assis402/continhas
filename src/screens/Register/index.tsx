@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { showMessage } from "react-native-flash-message";
+import { Masks } from 'react-native-mask-input';
 
 import {
     Buttons,
@@ -50,8 +51,9 @@ export function Register(){
     const [timeModalOpen, setTimeModalOpen] = useState(false)
 
     const [category, setCategory] = useState('Categoria')
+
     const [date, setDate] = useState(new Date())
-    const [time, setTime] = useState(new Date())
+    const [time, setTime] = useState<Date>()
     
     const {
         control,
@@ -100,16 +102,15 @@ export function Register(){
         setTimeModalOpen(true)
     }
 
-    function handleFormValidation(){
-        if (errors.title && errors.title.message)
-            showMessage({
-                message: "Formulário incompleto!",
-                type: "danger",
-                icon: "warning",
-                style: {
-                    paddingTop: 50
-                }
-            });
+    function handleFormError(){
+        showMessage({
+            message: "Formulário incompleto!",
+            type: "danger",
+            icon: "warning",
+            style: {
+                paddingTop: 50
+            }
+        });
     }
 
     async function handleRegister(form: FormData) {
@@ -179,6 +180,7 @@ export function Register(){
                             placeholder='Preço'
                             keyboardType='numeric'
                             error={errors.amount && errors.amount.message}
+                            mask={Masks.BRL_CURRENCY}
                         />
 
                         <Buttons>
@@ -213,16 +215,17 @@ export function Register(){
                         <OutlinedButton 
                             flex={1}
                             title='Limpar' 
-                            onPress={() =>{
-                                handleSubmit(handleRegister)
-                                handleFormValidation()
+                            onPress={(data) =>{
+                                handleSubmit(handleRegister, handleFormError)(data)
                             }}
                         />
                         <Separator/>
                         <Button 
                             flex={2}
                             title='Adicionar' 
-                            onPress={handleSubmit(handleRegister)}
+                            onPress={(data) => {
+                                handleSubmit(handleRegister, handleFormError)(data)
+                            }}
                         />
                     </Footer>
                 </Form>

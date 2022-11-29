@@ -40,7 +40,7 @@ export const Title = styled.Text<TypeProps>`
 
 export const Icon = styled(Feather)<TypeProps>`
     color: ${({ theme }) => theme.colors.success};
-    font-size: ${RFValue(40)}px;
+    font-size: ${({ type }) => type === 'balance' ? RFValue(30) : RFValue(35)}px;
 
     /* ${({ type }) => type === 'income' && css`
         color: ${({ theme }) => theme.colors.success};

@@ -21,8 +21,8 @@ export function AppRoutes(){
                 tabBarInactiveTintColor: theme.colors.secondary_light_new,
                 tabBarStyle: {
                     backgroundColor: theme.colors.background,
-                    height: 65,
-                    paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+                    height: Platform.OS === 'ios' ? 80 : 65,
+                    paddingVertical: Platform.OS === 'ios' ? 10 : 0,
                     paddingHorizontal: 20,
                     borderTopWidth: 0.5,
                     borderColor: theme.colors.secondary_super_light_new,
@@ -38,7 +38,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='home'
-                            size={35}
+                            size={Platform.OS === 'ios' ? 30 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -52,7 +52,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ color }) => 
                         <Feather 
                             name='plus-circle'
-                            size={35}
+                            size={Platform.OS === 'ios' ? 30 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -66,7 +66,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='pie-chart'
-                            size={35}
+                            size={Platform.OS === 'ios' ? 30 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />

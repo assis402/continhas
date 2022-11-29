@@ -32,6 +32,7 @@ export const InputWrapper = styled.View`
     flex-direction: row;
     height: ${RFValue(50)}px;
     padding: ${RFValue(10)}px;
+    padding-left: ${RFValue(16)}px;
     font-size: ${RFValue(14)}px;
     border-radius: 15px;
     font-family: ${({ theme }) => theme.fonts.regular};

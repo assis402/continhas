@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, InputWrapper, Error, Icon } from "./styles";
 import { Input } from '../Input';
-import { TextInputProps } from "react-native";
+import { MaskInputProps } from "react-native-mask-input";
 import { Control, Controller } from "react-hook-form";
 
 interface FormData {
@@ -9,7 +9,7 @@ interface FormData {
     amount: string;
 }
 
-interface Props extends TextInputProps {
+interface Props extends MaskInputProps {
     control: Control<FormData>;
     name: 'title' | 'amount';
     error?: string;
