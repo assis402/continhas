@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { showMessage } from "react-native-flash-message";
 import { Masks } from 'react-native-mask-input';
 
 import {
@@ -29,10 +28,11 @@ import {
 } from './styles'
 import { Transaction, TransactionFactory } from '../../classes/Transaction'
 import { OutlinedButton } from '../../components/Forms/OutlinedButton'
+import { notifyError, notifySucccess } from '../../utils/notifications'
 
 interface FormData {
     title: string;
-    amount: string;
+    amount: number;
 }
 
 const schema = Yup.object().shape({
@@ -102,17 +102,6 @@ export function Register(){
         setTimeModalOpen(true)
     }
 
-    function handleFormError(){
-        showMessage({
-            message: "Formulário incompleto!",
-            type: "danger",
-            icon: "warning",
-            style: {
-                paddingTop: 50
-            }
-        });
-    }
-
     function handleResetForm(){
         setTime(undefined)
         setDate(new Date())
@@ -152,14 +141,8 @@ export function Register(){
             setTransactionType('')
             setCategory('Categoria')
 
-            showMessage({
-                message: "Transação adicionada!",
-                type: "success",
-                icon: "success",
-                style: {
-                    paddingTop: 50
-                }
-              });
+            notifySucccess("Transação adicionada!")
+
         } catch (error) {
             console.log(error);
             Alert.alert("Não foi possível salvar");
@@ -230,7 +213,7 @@ export function Register(){
                             flex={2}
                             title='Adicionar' 
                             onPress={(data) => {
-                                handleSubmit(handleRegister, handleFormError)(data)
+                                handleSubmit(handleRegister, () => notifyError("Formulário incompleto!"))(data)
                             }}
                         />
                     </Footer>
