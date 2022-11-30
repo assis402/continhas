@@ -113,6 +113,14 @@ export function Register(){
         });
     }
 
+    function handleResetForm(){
+        setTime(undefined)
+        setDate(new Date())
+        setTransactionType('')
+        setCategory('Categoria')
+        reset()
+    }
+
     async function handleRegister(form: FormData) {
         console.log('test')
         if (!transactionType)
@@ -215,9 +223,7 @@ export function Register(){
                         <OutlinedButton 
                             flex={1}
                             title='Limpar' 
-                            onPress={(data) =>{
-                                handleSubmit(handleRegister, handleFormError)(data)
-                            }}
+                            onPress={handleResetForm}
                         />
                         <Separator/>
                         <Button 

@@ -109,7 +109,7 @@ export const NoTransactionsIcon = styled(MaterialIcons)`
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
-        paddingBottom: getBottomSpace() + 40
+        paddingBottom: getBottomSpace()
     }
 })``
 
