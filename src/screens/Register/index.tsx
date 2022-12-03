@@ -32,7 +32,7 @@ import { notifyError, notifySucccess } from '../../utils/notifications'
 
 interface FormData {
     title: string;
-    amount: number;
+    amount: string;
 }
 
 const schema = Yup.object().shape({
@@ -111,12 +111,11 @@ export function Register(){
     }
 
     async function handleRegister(form: FormData) {
-        console.log('test')
         if (!transactionType)
-            return Alert.alert('Selecione o tipo da transação')
+            return notifyError('Selecione a categoria da transação')
 
         if (category === 'Categoria')
-            return Alert.alert('Selecione a categoria da transação')
+            return notifyError('Selecione a categoria da transação')
 
         const newTransaction = TransactionFactory.new(
             transactionType,

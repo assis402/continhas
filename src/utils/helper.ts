@@ -57,6 +57,10 @@ export function detachYear(monthYear: string){
     return Number.parseInt(monthYear.substring(2))
 }
 
+export function getMonthByPeriod(period: string){
+    return monthArray[detachMonth(period)]
+}
+
 // export function formatDateToSummary(date: string){
 //     return new Date(date).toLocaleDateString('pt-BR', {
 //         day: '2-digit',

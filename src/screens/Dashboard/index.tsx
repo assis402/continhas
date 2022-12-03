@@ -4,9 +4,9 @@ import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
-import { formatDateToHighlight } from '../../utils/helper'
+import { detachMonth, formatDateToHighlight, getMonthByPeriod } from '../../utils/helper'
 
 import {
     Container,
@@ -25,10 +25,12 @@ import {
     LoadContainer,
     NoTransactions,
     NoTransactionsTitle,
-    NoTransactionsIcon
+    NoTransactionsText,
+    MiniIcon,
+    NoTransactionsImg
 } from './styles'
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
-import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton ';
+import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
 
 interface HighlightProps {
     total: Number,
@@ -61,6 +63,10 @@ export function DashBoard(){
         setMonthYearModalOpen(true)
     }
 
+    function handleExitApp(){
+        BackHandler.exitApp()
+    }
+
     async function loadTransactions(){
         const dataKey = '@continhas:transactions'
         // await AsyncStorage.clear()
@@ -68,8 +74,8 @@ export function DashBoard(){
         const dataTransactions: Transaction[] = response ? JSON.parse(response) : [];
 
         let data = dataTransactions.filter(x => x.period === monthYear)
-                                    .sort()
-                                    .reverse()
+                                   .sort()
+                                   .reverse()
 
         const incomeTransactions = data.filter(x => x.type === 'income').sort().reverse()
         const outcomeTransactions = data.filter(x => x.type === 'outcome').sort().reverse()
@@ -104,13 +110,9 @@ export function DashBoard(){
         setIsLoading(false);
     }
 
-    useEffect(() => {
-        loadTransactions()
-    }, [monthYear]);
-
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    }, []));
+    }, [monthYear]));
 
     return (
         <Container>
@@ -132,7 +134,7 @@ export function DashBoard(){
                                     </UserGreeting>
                                 </User>
                             </UserInfo>
-                            <Power name="log-out"/>
+                            <Power name="log-out" onPress={handleExitApp}/>
                         </UserWrapper>
                         <MonthYearWrapper>
                             <MonthYearSelectButton 
@@ -160,8 +162,12 @@ export function DashBoard(){
                     </Header>
                     { transactions.length === 0 ?
                         <NoTransactions>
-                            <NoTransactionsTitle>Cadastre a sua primeira transação</NoTransactionsTitle>
-                            <NoTransactionsIcon name='mood'/>
+                            <NoTransactionsTitle>Nenhuma transação este mês</NoTransactionsTitle>
+                            <NoTransactionsText>
+                                Cadastre a sua primeira transação do mês de {getMonthByPeriod(monthYear)} clicando em &nbsp;
+                                <MiniIcon name="plus-circle"/>
+                            </NoTransactionsText>
+                            <NoTransactionsImg source={require("../../assets/no-result.png")}/>
                         </NoTransactions> :
                         <Transactions>
                             { transactions.length > 0 && <Title>Listagem</Title> }

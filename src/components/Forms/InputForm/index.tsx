@@ -6,7 +6,7 @@ import { Control, Controller } from "react-hook-form";
 
 interface FormData {
     title: string;
-    amount: number;
+    amount: string;
 }
 
 interface Props extends MaskInputProps {
@@ -25,10 +25,9 @@ export function InputForm({control, name, error, ...rest}: Props){
                     <InputWrapper>
                         <Input
                             onChangeText={(masked, unmasked) => {
-                                console.log(unmasked)
                                 onChange(unmasked)
                             }}
-                            value={value.toString()}
+                            value={value}
                             {...rest}
                         />
                         {

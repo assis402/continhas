@@ -18,7 +18,7 @@ export class Transaction {
 export class TransactionFactory {
     static new(type: string,
                title: string,
-               amount: number,
+               amount: string,
                category: string) : Transaction {
         var newTransaction = new Transaction()
 
@@ -29,7 +29,7 @@ export class TransactionFactory {
         newTransaction.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
         newTransaction.type = type as TransactionType
         newTransaction.title = title
-        newTransaction.amount = amount
+        newTransaction.amount = Number(amount);
         newTransaction.category = category
 
         return newTransaction;

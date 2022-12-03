@@ -86,24 +86,42 @@ export const Title = styled.Text`
 `
 
 export const NoTransactions = styled.View`
-    flex: 1;
+    margin-top: ${RFValue(25)}px;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex: 1;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.background};
+    border-top-left-radius: ${RFValue(35)}px;
+    border-top-right-radius: ${RFValue(35)}px;
 `
 
 export const NoTransactionsTitle = styled.Text`
     font-family: ${({theme}) => theme.fonts.medium};
-    color: ${({theme}) => theme.colors.mood_text};
-    text-align: right;
+    color: ${({theme}) => theme.colors.secondary_new};
     font-size: ${RFValue(18)}px;
-    width: ${RFValue(180)}px;
+    width: 80%;
+    text-align: center;
 `
 
-export const NoTransactionsIcon = styled(MaterialIcons)`
-    color: ${({theme}) => theme.colors.mood_icon};
-    font-size: ${RFValue(70)}px;
-    margin-left: 20px;
+export const NoTransactionsText = styled.Text`
+    font-family: ${({theme}) => theme.fonts.regular};
+    color: ${({theme}) => theme.colors.secondary_light_new};
+    font-size: ${RFValue(12)}px;
+    width: 70%;
+    text-align: center;
+`
+
+export const NoTransactionsImg = styled.Image`
+    color: ${({theme}) => theme.colors.secondary_light_new};
+    margin-top: ${RFValue(20)}px;
+    height: ${RFValue(60)}px;
+    width: ${RFValue(60)}px;
+`
+
+export const MiniIcon = styled(Feather)`
+    color: ${({theme}) => theme.colors.secondary_light_new};
+    font-size: ${RFValue(12)}px;
 `
 
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
