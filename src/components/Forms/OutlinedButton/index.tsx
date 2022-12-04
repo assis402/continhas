@@ -12,7 +12,7 @@ export function OutlinedButton({ title, flex = 1, ...rest }: Props){
         <Container 
             {...rest}
             flex={flex}
-            activeOpacity={0.6}
+            activeOpacity={0.4}
         >
             <Title>
                 { title }

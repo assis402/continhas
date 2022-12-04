@@ -30,6 +30,7 @@ import { Transaction, TransactionFactory } from '../../classes/Transaction'
 import { OutlinedButton } from '../../components/Forms/OutlinedButton'
 import { notifyError, notifySucccess } from '../../utils/notifications'
 import { Checkbox } from '../../components/Forms/Checkbox'
+import theme from '../../global/styles/theme'
 
 interface FormData {
     title: string;
@@ -114,6 +115,7 @@ export function Register(){
         setDate(new Date())
         setTransactionType('')
         setCategory('Categoria')
+        setFrequent(false)
         reset()
     }
 
@@ -129,6 +131,7 @@ export function Register(){
             form.title,
             form.amount,
             category,
+            isFrequent
         )
 
         try {
@@ -143,15 +146,13 @@ export function Register(){
 
             await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
 
-            reset()
-            setTransactionType('')
-            setCategory('Categoria')
+            handleResetForm()
 
             notifySucccess("Transação adicionada!")
 
         } catch (error) {
             console.log(error);
-            Alert.alert("Não foi possível salvar");
+            notifyError("Não foi possível salvar")
         }
     }
 
@@ -159,7 +160,7 @@ export function Register(){
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Container>
                 <Header>
-                    <Title>Nova transação</Title>
+                    <Title>Novo lançamento</Title>
                 </Header>
                 <Form>
                     <Fields>
@@ -174,25 +175,11 @@ export function Register(){
                         <InputForm 
                             name='amount' 
                             control={control}  
-                            placeholder='Preço'
+                            placeholder='Valor'
                             keyboardType='numeric'
                             error={errors.amount && errors.amount.message}
                             mask={Masks.BRL_CURRENCY}
                         />
-
-                        <Buttons>
-                            <TransactionTypeButton 
-                                type='income'
-                                onPress={() => handleTransactionTypeSelect('income')}
-                                isActive={transactionType === 'income'}
-                            />
-                            <TransactionTypeButton 
-                                type='outcome'
-                                onPress={() => handleTransactionTypeSelect('outcome')}
-                                isActive={transactionType === 'outcome'}
-                            />
-                        </Buttons>
-
                         <CategorySelectButton 
                             title={category}
                             onPress={handleOpenSelectCategoryModal}
@@ -207,11 +194,23 @@ export function Register(){
                                 onPress={handleOpenSelectTimeModal}
                             />
                         </DateTimeSelectors>
+                        <Buttons>
+                            <TransactionTypeButton 
+                                type='income'
+                                onPress={() => handleTransactionTypeSelect('income')}
+                                isActive={transactionType === 'income'}
+                            />
+                            <TransactionTypeButton 
+                                type='outcome'
+                                onPress={() => handleTransactionTypeSelect('outcome')}
+                                isActive={transactionType === 'outcome'}
+                            />
+                        </Buttons>
                         <Checkbox
                             title='Lançamento frequente'
                             value={isFrequent}
                             onPress={handleFrequent}
-                            color={isFrequent ? '#4630EB' : undefined}
+                            color={isFrequent ? theme.colors.secondary_new : undefined}
                             containerStyle={{
                                 marginBottom: 120
                             }}

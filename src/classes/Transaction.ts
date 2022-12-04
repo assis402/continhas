@@ -13,15 +13,16 @@ export class Transaction {
     category!: string
     date!: string
     period!: string
+    isFrequent!: boolean
 }
 
 export class TransactionFactory {
     static new(type: string,
                title: string,
                amount: string,
-               category: string) : Transaction {
-        var newTransaction = new Transaction()
-
+               category: string,
+               isFrequent: boolean) : Transaction {
+        let newTransaction = new Transaction()
         const creationDate = new Date()
 
         newTransaction.id = String(uuid.v4())
@@ -29,8 +30,9 @@ export class TransactionFactory {
         newTransaction.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
         newTransaction.type = type as TransactionType
         newTransaction.title = title
-        newTransaction.amount = Number(amount);
+        newTransaction.amount = Number(amount)
         newTransaction.category = category
+        newTransaction.isFrequent = isFrequent
 
         return newTransaction;
     }
