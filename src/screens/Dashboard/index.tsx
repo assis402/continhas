@@ -162,7 +162,7 @@ export function DashBoard(){
                     </Header>
                     { transactions.length === 0 ?
                         <NoTransactions>
-                            <NoTransactionsTitle>Nenhuma transação este mês</NoTransactionsTitle>
+                            <NoTransactionsTitle>Nenhum lançamento este mês</NoTransactionsTitle>
                             <NoTransactionsText>
                                 Cadastre a sua primeira transação do mês de {getMonthByPeriod(monthYear)} clicando em &nbsp;
                                 <MiniIcon name="plus-circle"/>

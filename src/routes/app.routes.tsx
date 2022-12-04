@@ -28,7 +28,7 @@ export function AppRoutes(){
                     borderColor: theme.colors.secondary_super_light_new,
                 },
                 tabBarShowLabel: false, 
-                tabBarHideOnKeyboard: false
+                tabBarHideOnKeyboard: true
             }}
         >
             <Screen 

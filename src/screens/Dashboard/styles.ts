@@ -99,8 +99,8 @@ export const NoTransactions = styled.View`
 export const NoTransactionsTitle = styled.Text`
     font-family: ${({theme}) => theme.fonts.medium};
     color: ${({theme}) => theme.colors.secondary_new};
-    font-size: ${RFValue(18)}px;
-    width: 80%;
+    font-size: ${RFValue(17.5)}px;
+    width: 82%;
     text-align: center;
 `
 

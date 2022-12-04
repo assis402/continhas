@@ -45,7 +45,7 @@ export const DateTimeSelectors = styled.View`
     align-items: stretch;
     align-self: stretch;
     margin-top: ${RFValue(16)}px;
-    margin-bottom: ${RFValue(150)}px;
+    margin-bottom: ${RFValue(16)}px;
 `
 
 export const Buttons = styled.View`

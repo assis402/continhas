@@ -24,11 +24,12 @@ import {
     Header,
     Title,
     DateTimeSelectors,
-    Separator
+    Separator,
 } from './styles'
 import { Transaction, TransactionFactory } from '../../classes/Transaction'
 import { OutlinedButton } from '../../components/Forms/OutlinedButton'
 import { notifyError, notifySucccess } from '../../utils/notifications'
+import { Checkbox } from '../../components/Forms/Checkbox'
 
 interface FormData {
     title: string;
@@ -54,6 +55,8 @@ export function Register(){
 
     const [date, setDate] = useState(new Date())
     const [time, setTime] = useState<Date>()
+
+    const [isFrequent, setFrequent] = useState(false);
     
     const {
         control,
@@ -100,6 +103,10 @@ export function Register(){
 
     function handleOpenSelectTimeModal(){
         setTimeModalOpen(true)
+    }
+
+    function handleFrequent(){
+        setFrequent(!isFrequent)
     }
 
     function handleResetForm(){
@@ -200,6 +207,15 @@ export function Register(){
                                 onPress={handleOpenSelectTimeModal}
                             />
                         </DateTimeSelectors>
+                        <Checkbox
+                            title='Lançamento frequente'
+                            value={isFrequent}
+                            onPress={handleFrequent}
+                            color={isFrequent ? '#4630EB' : undefined}
+                            containerStyle={{
+                                marginBottom: 120
+                            }}
+                        />
                     </Fields>
                     <Footer>
                         <OutlinedButton 
