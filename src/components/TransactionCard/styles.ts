@@ -1,12 +1,22 @@
 import styled from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
+import Swiper from 'react-native-swiper'
+
 
 interface TypeProps {
     type: 'income' | 'outcome';
 }
 
-export const Container = styled.View`
+export const Container = styled(Swiper).attrs({
+    showsButtons: false,
+    loop: false,
+    showsPagination: false
+})`
+    height: ${RFValue(47)}px;    
+`
+
+export const TransactionComponent = styled.View`
     font-family: ${({ theme }) => theme.fonts.medium};
     margin-bottom: ${RFValue(22.5)}px;
     flex-direction: row;
@@ -38,7 +48,6 @@ export const Amount = styled.Text<TypeProps>`
     font-size: ${RFValue(15)}px;
 `
 
-
 export const Category = styled.View`
     flex-direction: row;
     justify-content: center;
@@ -58,4 +67,12 @@ export const Date = styled.Text`
     font-size: ${RFValue(14)}px;
     line-height: ${RFValue(16)}px;
     color: ${({ theme }) => theme.colors.text_light};
+`
+
+export const Options = styled.View`
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: ${RFValue(22.5)}px;
 `
