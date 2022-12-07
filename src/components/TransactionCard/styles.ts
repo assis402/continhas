@@ -13,7 +13,8 @@ export const Container = styled(Swiper).attrs({
     loop: false,
     showsPagination: false
 })`
-    height: ${RFValue(47)}px;    
+    height: ${RFValue(47)}px;  
+    margin-bottom: ${RFValue(22.5)}px;  
 `
 
 export const TransactionComponent = styled.View`
@@ -75,4 +76,12 @@ export const Options = styled.View`
     justify-content: center;
     align-items: center;
     margin-bottom: ${RFValue(22.5)}px;
+    padding: 0 ${RFValue(10)}px;
+`
+
+export const Separator = styled.View`
+    height: ${RFValue(20)}px;
+    width: ${RFValue(1)}px;
+    background-color: ${({ theme }) => theme.colors.secondary_light_new};
+    margin: 0 ${RFValue(12)}px;
 `

@@ -12,6 +12,8 @@ export default {
         success_secundary: '#a8ff78',
         success_secundary_light: 'rgba(168, 255, 120, 0.8)',
 
+        info: '#46e7b7',
+
         attention: '#E83F5B',
         attention_light: 'rgba(232, 63, 91, 0.08)',
 

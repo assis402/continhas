@@ -12,16 +12,19 @@ import {
     Icon,
     Date,
     Options,
-    TransactionComponent
+    TransactionComponent,
+    Separator
 } from './styles'
 
 import { BodilessButton } from '../Forms/BodilessButton';
+import { useTheme } from 'styled-components';
 
 interface Props {
     data: Transaction
 }
 
 export function TransactionCard({ data }: Props ) {
+    const theme = useTheme();
     const category = categories.find(x => x.name === data.category)
 
     return(
@@ -46,11 +49,16 @@ export function TransactionCard({ data }: Props ) {
                     flex={2}
                     title='Editar'
                     onPress={(data) => {}}
+                    iconName={"edit"}
+                    iconColor={theme.colors.info}
                 />
+                <Separator/>
                 <BodilessButton
                     flex={2}
                     title='Apagar'
                     onPress={(data) => {}}
+                    iconName={"trash"}
+                    iconColor={theme.colors.attention}
                 />
             </Options>
         </Container>
