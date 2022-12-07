@@ -26,9 +26,12 @@ export default {
         text_secondary_new: '#FFFFFF',
 
         background: '#FFFFFF',
+        background_navigation: 'rgba(255, 255, 255, 0.92)',
         background_modal: 'rgba(0, 0, 0, 0.5)',
 
         button_border: 'rgba(150, 156, 178, 0.2)',
+
+        button_border_light: 'rgba(150, 156, 178, 0.1)',
 
         mood_icon: 'rgba(150, 156, 178, 0.2)',
         mood_text: 'rgba(150, 156, 178, 0.6)',

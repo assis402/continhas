@@ -21,9 +21,10 @@ import { useTheme } from 'styled-components';
 
 interface Props {
     data: Transaction
+    deleteFunction: () => void
 }
 
-export function TransactionCard({ data }: Props ) {
+export function TransactionCard({ data, deleteFunction }: Props ) {
     const theme = useTheme();
     const category = categories.find(x => x.name === data.category)
 
@@ -52,11 +53,10 @@ export function TransactionCard({ data }: Props ) {
                     iconName={"edit"}
                     iconColor={theme.colors.info}
                 />
-                <Separator/>
                 <BodilessButton
                     flex={2}
                     title='Apagar'
-                    onPress={(data) => {}}
+                    onPress={deleteFunction}
                     iconName={"trash"}
                     iconColor={theme.colors.attention}
                 />

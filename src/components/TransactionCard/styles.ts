@@ -14,7 +14,8 @@ export const Container = styled(Swiper).attrs({
     showsPagination: false
 })`
     height: ${RFValue(47)}px;  
-    margin-bottom: ${RFValue(22.5)}px;  
+    margin-bottom: ${RFValue(18.5)}px;
+    width: ${RFValue(500)}px;  
 `
 
 export const TransactionComponent = styled.View`
@@ -71,7 +72,7 @@ export const Date = styled.Text`
 `
 
 export const Options = styled.View`
-    flex: 1;
+    width: 66%;
     flex-direction: row;
     justify-content: center;
     align-items: center;

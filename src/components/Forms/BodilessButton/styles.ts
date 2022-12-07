@@ -21,7 +21,7 @@ export const Title = styled.Text`
     line-height: 24px;
     color: ${({ theme }) => theme.colors.text};
     font-family: ${({ theme }) => theme.fonts.medium};
-    font-size: ${RFValue(14)}px;
+    font-size: ${RFValue(12)}px;
     line-height: ${RFValue(19)}px;
 `
 
@@ -30,7 +30,7 @@ interface IconProps {
 }
 
 export const Icon = styled(Feather)<IconProps>`
-    font-size: ${RFValue(16)}px;
+    font-size: ${RFValue(14)}px;
     color: ${({ iconColor }) => iconColor};
-    margin-right: ${RFValue(14)}px;
+    margin-right: ${RFValue(8)}px;
 `
