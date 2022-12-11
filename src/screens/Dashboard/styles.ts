@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize'
-import { Feather, MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { FlatList } from 'react-native';
 import { Transaction } from '../../classes/Transaction';
@@ -71,7 +71,7 @@ export const Transactions = styled.View`
     flex: 1;
     width: 100%;
     padding: 0 ${RFValue(22)}px;
-    padding-top: ${RFValue(18)}px;
+    padding-top: ${RFValue(21)}px;
     margin-top: ${RFValue(25)}px;
     background-color: ${({ theme }) => theme.colors.background};
     border-top-left-radius: ${RFValue(35)}px;
@@ -82,7 +82,6 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({theme}) => theme.fonts.bold};
     color: ${({theme}) => theme.colors.title};
-    margin-bottom: ${RFValue(15)}px;
 `
 
 export const NoTransactions = styled.View`
@@ -127,9 +126,35 @@ export const MiniIcon = styled(Feather)`
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
-        paddingBottom: getBottomSpace()
+        paddingBottom: getBottomSpace() + 75
     }
 })``
+
+export const TransactionsHeader = styled.View`
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: ${RFValue(15)}px;
+`
+
+export const Add = styled.View`
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+`
+
+export const AddText = styled.Text`
+    font-family: ${({theme}) => theme.fonts.regular};
+    color: ${({theme}) => theme.colors.secondary_light_new};
+    font-size: ${RFValue(12)}px;
+    margin-right: ${RFValue(10)}px;
+`
+
+export const AddIcon = styled(Feather)`
+    color: ${({theme}) => theme.colors.secondary_light_new};
+    font-size: ${RFValue(28)}px;
+    margin-right: ${RFValue(2)}px;
+`
 
 export const LoadContainer = styled.View`
     justify-content: center;

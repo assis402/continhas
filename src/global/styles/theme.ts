@@ -12,6 +12,8 @@ export default {
         success_secundary: '#a8ff78',
         success_secundary_light: 'rgba(168, 255, 120, 0.8)',
 
+        info: '#46e7b7',
+
         attention: '#E83F5B',
         attention_light: 'rgba(232, 63, 91, 0.08)',
 
@@ -24,9 +26,12 @@ export default {
         text_secondary_new: '#FFFFFF',
 
         background: '#FFFFFF',
+        background_navigation: 'rgba(255, 255, 255, 0.92)',
         background_modal: 'rgba(0, 0, 0, 0.5)',
 
         button_border: 'rgba(150, 156, 178, 0.2)',
+
+        button_border_light: 'rgba(150, 156, 178, 0.1)',
 
         mood_icon: 'rgba(150, 156, 178, 0.2)',
         mood_text: 'rgba(150, 156, 178, 0.6)',

@@ -27,11 +27,16 @@ import {
     NoTransactionsTitle,
     NoTransactionsText,
     MiniIcon,
-    NoTransactionsImg
+    NoTransactionsImg,
+    TransactionsHeader,
+    AddIcon,
+    AddText,
+    Add
 } from './styles'
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
 import transactionService from '../../services/Transaction/transactionService';
+import { MiniOutlinedButton } from '../../components/MiniOutlinedButton';
 
 interface HighlightProps {
     total: Number,
@@ -66,6 +71,10 @@ export function DashBoard(){
 
     function handleExitApp(){
         BackHandler.exitApp()
+    }
+
+    function handleDeleteTransaction(id: string){
+
     }
 
     async function loadTransactions(){
@@ -154,7 +163,14 @@ export function DashBoard(){
                             <NoTransactionsImg source={require("../../assets/no-result.png")}/>
                         </NoTransactions> :
                         <Transactions>
-                            { transactions.length > 0 && <Title>Listagem</Title> }
+                            <TransactionsHeader>
+                                <Title>Lançamentos</Title>
+                                <MiniOutlinedButton
+                                    title='Novo'
+                                    iconName='plus'
+                                    flex={1}
+                                />
+                            </TransactionsHeader>
                             <TransactionList<any>
                                 data={transactions}
                                 keyExtrator={(item: Transaction) => item.id}

@@ -20,8 +20,8 @@ export const Container = styled.TouchableOpacity<Props>`
     height: ${RFValue(50)}px;
 
     ${({ isActive }) => isActive && css<Props>`
-        background-color: ${({ theme }) => theme.colors.success_light};
-        border: none;
+        background-color: ${({ theme }) => theme.colors.shape};
+        border: 1.5px solid rgba(0,0,0,0);
     `};
 
     ${({ isActive }) => !isActive && css<Props>`

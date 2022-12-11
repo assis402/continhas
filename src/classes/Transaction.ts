@@ -13,11 +13,13 @@ export class Transaction {
     category!: string
     date!: string
     period!: string
+    isFrequent!: boolean
 
     constructor(type: string,
                 title: string,
                 amount: string,
-                category: string) {
+                category: string,
+                isFrequent: boolean) {
         let creationDate = new Date()
 
         this.id = String(uuid.v4())
@@ -27,5 +29,6 @@ export class Transaction {
         this.title = title
         this.amount = Number(amount);
         this.category = category
+        this.isFrequent = isFrequent
     }
 }

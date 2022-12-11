@@ -20,15 +20,20 @@ export function AppRoutes(){
                 tabBarActiveTintColor: theme.colors.secondary_new,
                 tabBarInactiveTintColor: theme.colors.secondary_light_new,
                 tabBarStyle: {
-                    backgroundColor: theme.colors.background,
+                    backgroundColor: theme.colors.background_navigation,
                     height: Platform.OS === 'ios' ? 80 : 65,
                     paddingVertical: Platform.OS === 'ios' ? 10 : 0,
                     paddingHorizontal: 20,
-                    borderTopWidth: 0.5,
+                    borderTopWidth: 0,
                     borderColor: theme.colors.secondary_super_light_new,
+                    marginLeft: 50,
+                    marginRight: 50,
+                    marginBottom: 20,
+                    borderRadius: 45,
+                    position: 'absolute'
                 },
                 tabBarShowLabel: false, 
-                tabBarHideOnKeyboard: true
+                tabBarHideOnKeyboard: false,
             }}
         >
             <Screen 
