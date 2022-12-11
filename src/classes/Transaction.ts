@@ -13,25 +13,19 @@ export class Transaction {
     category!: string
     date!: string
     period!: string
-}
 
-export class TransactionFactory {
-    static new(type: string,
-               title: string,
-               amount: string,
-               category: string) : Transaction {
-        var newTransaction = new Transaction()
+    constructor(type: string,
+                title: string,
+                amount: string,
+                category: string) {
+        let creationDate = new Date()
 
-        const creationDate = new Date()
-
-        newTransaction.id = String(uuid.v4())
-        newTransaction.date = String(creationDate)
-        newTransaction.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
-        newTransaction.type = type as TransactionType
-        newTransaction.title = title
-        newTransaction.amount = Number(amount);
-        newTransaction.category = category
-
-        return newTransaction;
+        this.id = String(uuid.v4())
+        this.date = String(creationDate)
+        this.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
+        this.type = type as TransactionType
+        this.title = title
+        this.amount = Number(amount);
+        this.category = category
     }
 }

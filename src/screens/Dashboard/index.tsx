@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
-import { detachMonth, formatDateToHighlight, getMonthByPeriod } from '../../utils/helper'
+import { formatDateToHighlight, getMonthByPeriod } from '../../utils/helper'
 
 import {
     Container,
@@ -31,6 +31,7 @@ import {
 } from './styles'
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
+import transactionService from '../../services/Transaction/transactionService';
 
 interface HighlightProps {
     total: Number,
@@ -70,24 +71,7 @@ export function DashBoard(){
     async function loadTransactions(){
         const dataKey = '@continhas:transactions'
         // await AsyncStorage.clear()
-        const response = await AsyncStorage.getItem(dataKey);
-        const dataTransactions: Transaction[] = response ? JSON.parse(response) : [];
-
-        let data = dataTransactions.filter(x => x.period === monthYear)
-                                   .sort()
-                                   .reverse()
-
-        const incomeTransactions = data.filter(x => x.type === 'income').sort().reverse()
-        const outcomeTransactions = data.filter(x => x.type === 'outcome').sort().reverse()
-
-        const incomeTotal = incomeTransactions.reduce((accumulator, object) => {
-            return accumulator + object.amount;
-        }, 0)
-
-        const outcomeTotal = outcomeTransactions.reduce((accumulator, object) => {
-            return accumulator + object.amount;
-        }, 0)
-        
+        let data = await transactionService.getAllByPeriod(monthYear)
         setTransactions(data);
 
         if (data.length > 0){            
