@@ -6,24 +6,30 @@ import { Dimensions } from "react-native";
 
 export const Container = styled.View`
     flex: 1;
-    width: 100%;
     background-color: ${({ theme }) => theme.colors.secondary_new};
+    border-top-left-radius: ${RFValue(20)}px;
+    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const Header = styled.View`
-    width: 100%;
-    height: ${RFValue(113)}px;
     justify-content: center;
-    align-items: flex-end;
-    flex-direction: row;
+    align-items: center;
+    flex-direction: column;
 
     padding-bottom: ${RFValue(16)}px;
 `;
+
+export const HeaderButtons = styled.View`
+    width: 100%;
+    margin-left: ${RFValue(12)}px;
+    margin-top: ${RFValue(5)}px;
+`
 
 export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({theme}) => theme.fonts.bold};
     color: ${({ theme }) => theme.colors.text_secondary_new};
+    line-height: ${RFValue(20)}px;
 `
 
 export const Form = styled.View`
@@ -57,7 +63,6 @@ export const Buttons = styled.View`
 export const Footer = styled.View`
     display: flex;
     flex-direction: row;
-    margin-bottom: ${RFValue(52)}px;
 `
 
 export const Separator = styled.View`

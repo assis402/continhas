@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
-import { formatDateToHighlight, getMonthByPeriod } from '../../utils/helper'
+import { getMonthByPeriod } from '../../utils/helper'
 
 import {
     Container,
@@ -29,44 +29,41 @@ import {
     MiniIcon,
     NoTransactionsImg,
     TransactionsHeader,
-    AddIcon,
-    AddText,
-    Add
 } from './styles'
+
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
 import transactionService from '../../services/Transaction/transactionService';
 import { MiniOutlinedButton } from '../../components/MiniOutlinedButton';
+import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
+import { RegisterModal } from '../../modals/RegisterModal';
 
-interface HighlightProps {
-    total: Number,
-    lastTransaction: string
-}
-
-export function DashBoard(){
-    const defaultHighlightProps = {
-        total: 0,
-        lastTransaction: ''
-    }
-
+export function Dashboard(){
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<Transaction[]>([])
-    const [incomeHighlightData, setIncomeHighlightData] = useState<HighlightProps>(defaultHighlightProps as HighlightProps);
-    const [outcomeHighlightData, setOutcomeHighlightData] = useState<HighlightProps>(defaultHighlightProps as HighlightProps);
-    const [sumHighlightData, setSumHighlightData] = useState<HighlightProps>(defaultHighlightProps as HighlightProps);
+    const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
 
     const today = new Date();
     const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
     const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
+    const [registerModalOpen, setRegisterModalOpen] = useState(false)
 
     const theme = useTheme();
 
     function handleCloseSelectMonthYearModal(){
         setMonthYearModalOpen(false)
     }
-
+    
     function handleOpenSelectMonthYearModal(){
         setMonthYearModalOpen(true)
+    }
+    
+    function handleCloseRegisterModal(){
+        setRegisterModalOpen(false)
+    }
+
+    function handleOpenRegisterModal(){
+        setRegisterModalOpen(true)
     }
 
     function handleExitApp(){
@@ -83,22 +80,8 @@ export function DashBoard(){
         let data = await transactionService.getAllByPeriod(monthYear)
         setTransactions(data);
 
-        if (data.length > 0){            
-            incomeTotal > 0 && setIncomeHighlightData({
-                total: incomeTotal,
-                lastTransaction: formatDateToHighlight(incomeTransactions[0].date)
-            })
-            
-            outcomeTotal > 0 && setOutcomeHighlightData({
-                total: outcomeTotal,
-                lastTransaction: formatDateToHighlight(outcomeTransactions[0].date)
-            })
-
-            setSumHighlightData({
-                total: incomeTotal - outcomeTotal,
-                lastTransaction: ''
-            })
-        }
+        if (data.length > 0)
+            setHighlightData(transactionService.getDashboardHighlights(data))             
 
         setIsLoading(false);
     }
@@ -138,18 +121,18 @@ export function DashBoard(){
                         <HighlightCards>
                             <HighlightCard 
                                 type='income' 
-                                amount={incomeHighlightData.total}
-                                lastTransaction={incomeHighlightData.lastTransaction}
+                                amount={highlightData.income.total}
+                                lastTransaction={highlightData.income.lastTransaction}
                             />
                             <HighlightCard 
                                 type='outcome' 
-                                amount={outcomeHighlightData.total}
-                                lastTransaction={outcomeHighlightData.lastTransaction}
+                                amount={highlightData.outcome.total}
+                                lastTransaction={highlightData.outcome.lastTransaction}
                             />
                             <HighlightCard 
-                                type='balance' 
-                                amount={sumHighlightData.total}
-                                lastTransaction={sumHighlightData.lastTransaction}
+                                type='balance'
+                                amount={highlightData.sum.total}
+                                lastTransaction=''
                             />
                         </HighlightCards>
                     </Header>
@@ -169,17 +152,26 @@ export function DashBoard(){
                                     title='Novo'
                                     iconName='plus'
                                     flex={1}
+                                    onPress={handleOpenRegisterModal}
                                 />
                             </TransactionsHeader>
                             <TransactionList<any>
                                 data={transactions}
                                 keyExtrator={(item: Transaction) => item.id}
-                                renderItem={({ item }: { item: Transaction }) => <TransactionCard data={item}/>}
+                                renderItem={({ item }: { item: Transaction }) => 
+                                    <TransactionCard 
+                                        data={item}
+                                        deleteFunction={() => handleDeleteTransaction(item.id)}
+                                    />}
                             />
                         </Transactions>
                     }
                 </>
             }
+            <RegisterModal
+                modalIsOpen={registerModalOpen}
+                closeModal={handleCloseRegisterModal}
+            />
             <MonthYearSelectModal
                 monthYear={monthYear}
                 setMonthYear={setMonthYear}

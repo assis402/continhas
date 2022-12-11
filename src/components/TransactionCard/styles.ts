@@ -15,7 +15,7 @@ export const Container = styled(Swiper).attrs({
 })`
     height: ${RFValue(47)}px;  
     margin-bottom: ${RFValue(18.5)}px;
-    width: ${RFValue(500)}px;  
+    width: ${RFValue(512)}px;  
 `
 
 export const TransactionComponent = styled.View`

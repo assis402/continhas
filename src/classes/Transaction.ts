@@ -25,7 +25,7 @@ export class Transaction {
         this.id = String(uuid.v4())
         this.date = String(creationDate)
         this.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
-        this.type = type as TransactionType
+        this.type = type as TransactionType;
         this.title = title
         this.amount = Number(amount);
         this.category = category

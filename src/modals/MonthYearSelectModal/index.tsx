@@ -4,7 +4,6 @@ import { MonthYearPicker } from "../../components/MonthYearPicker";
 import { Container, ExternalModal, InternalModal } from "./styles";
 import { toString2Pad } from "../../utils/helper"
 
-
 interface Props {
     monthYear: string;
     setMonthYear: (monthYear: string) => void;

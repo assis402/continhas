@@ -6,8 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-import { DashBoard } from '../screens/Dashboard'
-import { Register } from '../screens/Register'
+import { Dashboard } from '../screens/Dashboard'
 import { Summary } from '../screens/Summary'
 
 export function AppRoutes(){
@@ -21,16 +20,25 @@ export function AppRoutes(){
                 tabBarInactiveTintColor: theme.colors.secondary_light_new,
                 tabBarStyle: {
                     backgroundColor: theme.colors.background_navigation,
-                    height: Platform.OS === 'ios' ? 80 : 65,
-                    paddingVertical: Platform.OS === 'ios' ? 10 : 0,
+                    height: Platform.OS === 'ios' ? 65 : 70,
+                    paddingVertical: 0,
+                    paddingTop: 0,
+                    paddingBottom: 0,
                     paddingHorizontal: 20,
                     borderTopWidth: 0,
-                    borderColor: theme.colors.secondary_super_light_new,
-                    marginLeft: 50,
-                    marginRight: 50,
-                    marginBottom: 20,
+                    marginLeft: Platform.OS === 'ios' ? 50 : 70,
+                    marginRight: Platform.OS === 'ios' ? 50 : 70,
+                    marginBottom: Platform.OS === 'ios' ? 30 : 20,
                     borderRadius: 45,
-                    position: 'absolute'
+                    position: 'absolute',
+                    shadowColor: "#000000",
+                    shadowOpacity: 0.15,
+                    shadowRadius: 7,
+                    shadowOffset: {
+                        height: 1,
+                        width: 2
+                    }
+
                 },
                 tabBarShowLabel: false, 
                 tabBarHideOnKeyboard: false,
@@ -38,12 +46,12 @@ export function AppRoutes(){
         >
             <Screen 
                 name="0"
-                component={DashBoard}
+                component={Dashboard}
                 options={{
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='home'
-                            size={Platform.OS === 'ios' ? 30 : 35}
+                            size={Platform.OS === 'ios' ? 33 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -52,12 +60,12 @@ export function AppRoutes(){
             />
             <Screen 
                 name="1"
-                component={Register}
+                component={Dashboard}
                 options={{
                     tabBarIcon: (({ color }) => 
                         <Feather 
                             name='plus-circle'
-                            size={Platform.OS === 'ios' ? 30 : 35}
+                            size={Platform.OS === 'ios' ? 33 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
@@ -71,7 +79,7 @@ export function AppRoutes(){
                     tabBarIcon: (({ size, color }) => 
                         <Feather 
                             name='pie-chart'
-                            size={Platform.OS === 'ios' ? 30 : 35}
+                            size={Platform.OS === 'ios' ? 33 : 35}
                             color={color}
                             style={{ marginTop: 0 , width: 80, textAlign: 'center', textAlignVertical: 'center'}}
                         />
