@@ -22,7 +22,7 @@ export const Container = styled.TouchableOpacity<Props>`
     `};
 
     ${({ type, isActive }) => type === 'outcome' && isActive && css<Props>`
-        background-color: ${({ theme }) => theme.colors.attention_light};
+        background-color: ${({ theme }) => theme.colors.attention_super_light};
         border: none;
     `};
 

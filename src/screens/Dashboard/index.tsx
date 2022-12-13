@@ -50,7 +50,8 @@ export function Dashboard(){
     const [registerModalOpen, setRegisterModalOpen] = useState(false)
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
 
-    const [idToDelete, setIdToDelete] = useState('')
+    const [transactionToDelete, setTransactionToDelete] = useState<Transaction>({} as Transaction)
+
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
     const theme = useTheme();
@@ -83,8 +84,8 @@ export function Dashboard(){
         setDeleteModalOpen(false)
     }
 
-    function handleOpenDeleteModal(id: string){
-        setIdToDelete(id)
+    function handleOpenDeleteModal(transaction: Transaction){
+        setTransactionToDelete(transaction)
         setDeleteModalOpen(true)
     }
 
@@ -179,7 +180,7 @@ export function Dashboard(){
                                 renderItem={({ item }: { item: Transaction }) => 
                                     <TransactionCard 
                                         data={item}
-                                        deleteFunction={() => handleOpenDeleteModal(item.id)}
+                                        deleteFunction={() => handleOpenDeleteModal(item)}
                                         // updateFunction={() => handleTransactionToUpdate(item.id)}
                                     />}
                             />
@@ -197,7 +198,8 @@ export function Dashboard(){
                 closeModal={handleCloseUpdateModal}
             /> */}
             <DeleteModal
-                id={idToDelete}
+                id={transactionToDelete.id}
+                transactionTitle={transactionToDelete.title}
                 modalIsOpen={deleteModalOpen}
                 closeModal={handleCloseDeleteModal}
             />

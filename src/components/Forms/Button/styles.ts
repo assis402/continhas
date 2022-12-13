@@ -1,24 +1,29 @@
-import { TouchableOpacityProps } from 'react-native';
+import { TextProps, TouchableOpacityProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-interface Props extends TouchableOpacityProps{
+interface ContainerProps extends TouchableOpacityProps{
     flex: number;
+    color: string;
 }
 
-export const Container = styled.TouchableOpacity<Props>`
+interface TitleProps extends TextProps{
+    color: string;
+}
+
+export const Container = styled.TouchableOpacity<ContainerProps>`
     flex: ${({ flex }) => flex === 0 ? 'none' : flex};
     width: 100%;
     height: ${RFValue(50)}px;
     border-radius: 45px;
     align-items: center;
     justify-content: center;
-    background-color: ${({ theme }) => theme.colors.success_secundary_light};
+    background-color: ${({ color }) => color};
 `
 
-export const Title = styled.Text`
+export const Title = styled.Text<TitleProps>`
     line-height: 24px;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ color }) => color};
     font-family: ${({ theme }) => theme.fonts.bold};
     font-size: ${RFValue(14)}px;
 `

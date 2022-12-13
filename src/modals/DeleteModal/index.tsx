@@ -1,15 +1,21 @@
 import React from "react";
 import { TouchableWithoutFeedback, View } from "react-native";
 import Modal from "react-native-modal";
-import { Container, Title } from "./styles";
+import { useTheme } from "styled-components";
+import { Button } from "../../components/Forms/Button";
+import { OutlinedButton } from "../../components/Forms/OutlinedButton";
+import { ButtonsWrapper, Container, Separator, ModalTitle, TransactionTitle } from "./styles";
 
 interface Props {
     id: string
+    transactionTitle: string
     closeModal: () => void
     modalIsOpen: boolean
 }
 
-export function DeleteModal({id, closeModal, modalIsOpen}: Props){
+export function DeleteModal({id, transactionTitle,closeModal, modalIsOpen}: Props){
+    const theme = useTheme()
+
     return(
         <Modal
             statusBarTranslucent
@@ -33,9 +39,20 @@ export function DeleteModal({id, closeModal, modalIsOpen}: Props){
             }
         >
             <Container>
-                <Title>
-                    Teste
-                </Title>
+                <ModalTitle>
+                    Deseja continuar com a exclução do lançamento 
+                    <TransactionTitle> "{transactionTitle}"</TransactionTitle>?
+                </ModalTitle>
+                <ButtonsWrapper>
+                    <OutlinedButton flex={2.3} title="Cancelar" onPressOut={closeModal}/>
+                    <Separator/>
+                    <Button 
+                        flex={3} 
+                        textColor={theme.colors.background}
+                        color={theme.colors.attention_light} 
+                        title="Excluir" 
+                    />
+                </ButtonsWrapper>
             </Container>
         </Modal>
     )
