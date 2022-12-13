@@ -1,17 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { DashboardProps, HighlightProps } from "../../classes/Dashboard";
+import { DashboardProps } from "../../classes/Dashboard";
 import { Transaction } from "../../classes/Transaction";
 import { formatDateToHighlight } from "../../utils/helper";
 const dataKey = '@continhas:transactions'
 
 export default class TransactionService {
-    static async getAllByPeriod(period: string){
+    static async getAll(){
         const response = await AsyncStorage.getItem(dataKey);
-        const dataTransactions: Transaction[] = response ? JSON.parse(response) : [];
+        const transactions: Transaction[] = response ? JSON.parse(response) : [];
+
+        return transactions;
+    }
+
+    static async getAllByPeriod(period: string){
+        const transactions = await this.getAll();
         
-        return dataTransactions.filter(x => x.period === period)
-                               .sort()
-                               .reverse()
+        return transactions.filter(x => x.period === period)
+                           .sort()
+                           .reverse()
     }
 
     static getDashboardHighlights(transactionList: Transaction[]){
@@ -47,5 +53,14 @@ export default class TransactionService {
         }
 
         return dashboard;
+    }
+
+    static async update(updatedTransaction: Transaction){
+        const transactions = await this.getAll()
+        const index = transactions.findIndex((x => x.id == updatedTransaction.id));
+
+        transactions[index] = updatedTransaction
+
+        await AsyncStorage.setItem(dataKey, JSON.stringify(transactions))
     }
 }

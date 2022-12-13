@@ -38,7 +38,6 @@ export function AppRoutes(){
                         height: 1,
                         width: 2
                     }
-
                 },
                 tabBarShowLabel: false, 
                 tabBarHideOnKeyboard: false,

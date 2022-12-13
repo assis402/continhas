@@ -10,7 +10,7 @@ import { CategorySelectModal } from '../CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Modal from "react-native-modal";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import TransactionService from '../../services/Transaction/transactionService';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -31,8 +31,6 @@ import {
 import { Transaction } from '../../classes/Transaction'
 import { OutlinedButton } from '../../components/Forms/OutlinedButton'
 import { notifyError, notifySucccess } from '../../utils/notifications'
-import { Checkbox } from '../../components/Forms/Checkbox'
-import theme from '../../global/styles/theme'
 import { BackButton } from '../../components/BackButton'
 
 interface FormData {
@@ -137,19 +135,9 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
         )
 
         try {
-            const dataKey = '@continhas:transactions'
-
-            const data = await AsyncStorage.getItem(dataKey)
-            const currentData = data ? JSON.parse(data) as Transaction[] : []
-
-            const dataFormatted = [
-                ...currentData, newTransaction
-            ]
-
-            await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
+            await TransactionService.update(updatedTransaction)
 
             handleResetForm()
-
             notifySucccess("Transação adicionada!")
 
         } catch (error) {
@@ -222,20 +210,11 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
                                     isActive={transactionType === 'outcome'}
                                 />
                             </Buttons>
-                            <Checkbox
-                                title='Lançamento frequente'
-                                value={isFrequent}
-                                onPress={handleFrequent}
-                                color={isFrequent ? theme.colors.secondary_new : undefined}
-                                containerStyle={{
-                                    marginBottom: 120
-                                }}
-                            />
                         </Fields>
                         <Footer>
                             <OutlinedButton 
                                 flex={1}
-                                title='Limpar' 
+                                title='Resetar' 
                                 onPress={handleResetForm}
                             />
                             <Separator/>

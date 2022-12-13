@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -33,10 +32,12 @@ import {
 
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
-import transactionService from '../../services/Transaction/transactionService';
+import TransactionService from '../../services/Transaction/transactionService';
 import { MiniOutlinedButton } from '../../components/MiniOutlinedButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
 import { RegisterModal } from '../../modals/RegisterModal';
+import { UpdateModal } from '../../modals/UpdateModal';
+import { DeleteModal } from '../../modals/DeleteModal';
 
 export function Dashboard(){
     const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +48,10 @@ export function Dashboard(){
     const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
     const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
     const [registerModalOpen, setRegisterModalOpen] = useState(false)
+    const [updateModalOpen, setUpdateModalOpen] = useState(false)
+
+    const [idToDelete, setIdToDelete] = useState('')
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
     const theme = useTheme();
 
@@ -66,22 +71,35 @@ export function Dashboard(){
         setRegisterModalOpen(true)
     }
 
-    function handleExitApp(){
-        BackHandler.exitApp()
+    function handleCloseUpdateModal(){
+        setUpdateModalOpen(false)
     }
 
-    function handleDeleteTransaction(id: string){
+    function handleOpenUpdateModal(){
+        setUpdateModalOpen(true)
+    }
 
+    function handleCloseDeleteModal(){
+        setDeleteModalOpen(false)
+    }
+
+    function handleOpenDeleteModal(id: string){
+        setIdToDelete(id)
+        setDeleteModalOpen(true)
+    }
+
+    function handleExitApp(){
+        BackHandler.exitApp()
     }
 
     async function loadTransactions(){
         const dataKey = '@continhas:transactions'
         // await AsyncStorage.clear()
-        let data = await transactionService.getAllByPeriod(monthYear)
+        let data = await TransactionService.getAllByPeriod(monthYear)
         setTransactions(data);
 
         if (data.length > 0)
-            setHighlightData(transactionService.getDashboardHighlights(data))             
+            setHighlightData(TransactionService.getDashboardHighlights(data))             
 
         setIsLoading(false);
     }
@@ -161,7 +179,8 @@ export function Dashboard(){
                                 renderItem={({ item }: { item: Transaction }) => 
                                     <TransactionCard 
                                         data={item}
-                                        deleteFunction={() => handleDeleteTransaction(item.id)}
+                                        deleteFunction={() => handleOpenDeleteModal(item.id)}
+                                        // updateFunction={() => handleTransactionToUpdate(item.id)}
                                     />}
                             />
                         </Transactions>
@@ -171,6 +190,16 @@ export function Dashboard(){
             <RegisterModal
                 modalIsOpen={registerModalOpen}
                 closeModal={handleCloseRegisterModal}
+            />
+            {/* <UpdateModal
+                transaction={}
+                modalIsOpen={updateModalOpen}
+                closeModal={handleCloseUpdateModal}
+            /> */}
+            <DeleteModal
+                id={idToDelete}
+                modalIsOpen={deleteModalOpen}
+                closeModal={handleCloseDeleteModal}
             />
             <MonthYearSelectModal
                 monthYear={monthYear}
