@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
@@ -50,6 +50,9 @@ export function Dashboard(){
     const today = new Date();
     const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
     const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
+    
+    const [reloadCounter, setReloadCounter] = useState(0);
+
     const [addModalOpen, setAddModalOpen] = useState(false)
     const [addFrequentModalOpen, setAddFrequentModalOpen] = useState(false)
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
@@ -60,6 +63,16 @@ export function Dashboard(){
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
     const theme = useTheme();
+
+    function reload(){
+        setReloadCounter(reloadCounter + 1);
+        console.log(reloadCounter)
+    }
+
+    function handleMonthYear(monthYear: string){
+        reload();
+        setMonthYear(monthYear)
+    }
 
     function handleCloseSelectMonthYearModal(){
         setMonthYearModalOpen(false)
@@ -121,7 +134,7 @@ export function Dashboard(){
 
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    }, [monthYear]));
+    }, [reloadCounter]));
 
     return (
         <Container>
@@ -212,25 +225,29 @@ export function Dashboard(){
             <AddModal
                 modalIsOpen={addModalOpen}
                 closeModal={handleCloseAddModal}
+                reload={reload}
             />
             <AddFrequentModal
                 modalIsOpen={addFrequentModalOpen}
                 closeModal={handleCloseAddFrequentModal}
+                reload={reload}
             />
             <UpdateModal
                 transaction={transactionToUpdate}
                 modalIsOpen={updateModalOpen}
                 closeModal={handleCloseUpdateModal}
+                reload={reload}
             />
             <DeleteModal
                 id={transactionToDelete.id}
                 transactionTitle={transactionToDelete.title}
                 modalIsOpen={deleteModalOpen}
                 closeModal={handleCloseDeleteModal}
+                reload={reload}
             />
             <MonthYearSelectModal
                 monthYear={monthYear}
-                setMonthYear={setMonthYear}
+                setMonthYear={handleMonthYear}
                 closeSelectMonthYear={handleCloseSelectMonthYearModal}
                 modalIsOpen={monthYearModalOpen}
             />

@@ -42,6 +42,7 @@ interface Props {
     transaction: Transaction
     closeModal: () => void
     modalIsOpen: boolean
+    reload: () => void
 }
 
 const schema = Yup.object().shape({
@@ -52,7 +53,7 @@ const schema = Yup.object().shape({
                .required('O valor é obrigatório')
 })
 
-export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
+export function UpdateModal({ transaction, closeModal, modalIsOpen, reload }: Props){
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
@@ -62,9 +63,6 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
 
     const [date, setDate] = useState(new Date(transaction.date))
     const [time, setTime] = useState<Date>(new Date(transaction.date))
-
-    console.log(transaction)
-
 
     const {
         control,
@@ -140,7 +138,7 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
 
         try {
             await TransactionService.update(updatedTransaction)
-
+            reload()
             handleResetForm()
             notifySucccess("Transação adicionada!")
 

@@ -11,6 +11,7 @@ import {
     Separator,
     HeaderButtons,
     Footer,
+    FrequentList,
 } from './styles'
 import { notifyError, notifySucccess } from '../../utils/notifications'
 import { Checkbox } from '../../components/Forms/Checkbox'
@@ -18,24 +19,30 @@ import theme from '../../global/styles/theme'
 import { BackButton } from '../../components/BackButton'
 import { OutlinedButton } from '../../components/Forms/OutlinedButton';
 import { Button } from '../../components/Forms/Button';
+import { Transaction } from '../../classes/Transaction';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface Props {
     closeModal: () => void
     modalIsOpen: boolean
+    reload: () => void
 }
 
-export function AddFrequentModal({ closeModal, modalIsOpen }: Props){
-    
+export function AddFrequentModal({ closeModal, modalIsOpen, reload }: Props){
+    const [frequentList, setFrequentList] = useState<Transaction[]>([])
+
     async function loadData() {
-        
+        const data = await TransactionService.getAllFrequent();
+        console.log(data);
+        setFrequentList(data);
     }
 
     async function handleAdd() {
     }
 
-    useEffect(() => {
-        loadData()
-    }, []);
+    // useEffect(() => {
+    //     loadData()
+    // }, [modalIsOpen]);
     
     return (
         <Modal
@@ -58,14 +65,19 @@ export function AddFrequentModal({ closeModal, modalIsOpen }: Props){
                     <Title>Lançamentos Frequentes</Title>
                 </Header>
                 <Form>
-                    <Checkbox
-                        title='Lançamento frequente'
-                        value={true}
-                        onPress={() => {}}
-                        color={undefined}
-                        containerStyle={{
-                            marginBottom: 120
-                        }}
+                    <FrequentList<any>
+                        data={frequentList}
+                        keyExtrator={(item: Transaction) => item.id}
+                        renderItem={({ item }: { item: Transaction }) => 
+                                <Checkbox
+                                title={item.title}
+                                value={true}
+                                onPress={() => {}}
+                                color={undefined}
+                                containerStyle={{
+                                }}
+                            />
+                        }
                     />
                     <Footer>
                         <OutlinedButton 
@@ -79,7 +91,8 @@ export function AddFrequentModal({ closeModal, modalIsOpen }: Props){
                             textColor=''
                             flex={2}
                             title='Adicionar' 
-                            onPress={() => {}}
+                            onPress={() => {
+                            }}
                         />
                     </Footer>
                 </Form>

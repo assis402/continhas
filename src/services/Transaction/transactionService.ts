@@ -20,6 +20,12 @@ export default class TransactionService {
                            .reverse()
     }
 
+    static async getAllFrequent(){
+        const transactions = await this.getAll()
+        return transactions.filter(x => x.isFrequent)
+                           .sort((a, b) => a.title.localeCompare(b.title))
+    }
+
     static getDashboardHighlights(transactionList: Transaction[]){
         let dashboard: DashboardProps;
 

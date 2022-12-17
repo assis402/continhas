@@ -11,9 +11,10 @@ interface Props {
     transactionTitle: string
     closeModal: () => void
     modalIsOpen: boolean
+    reload: () => void
 }
 
-export function DeleteModal({id, transactionTitle,closeModal, modalIsOpen}: Props){
+export function DeleteModal({id, transactionTitle, closeModal, modalIsOpen, reload}: Props){
     const theme = useTheme()
 
     return(
@@ -51,6 +52,10 @@ export function DeleteModal({id, transactionTitle,closeModal, modalIsOpen}: Prop
                         textColor={theme.colors.background}
                         color={theme.colors.attention_light} 
                         title="Excluir" 
+                        onPress={() => {
+                            reload()
+                            closeModal()
+                        }}
                     />
                 </ButtonsWrapper>
             </Container>

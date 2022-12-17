@@ -1,5 +1,8 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize'
+import { FlatList } from 'react-native';
+import { Transaction } from '../../classes/Transaction';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
     flex: 1;
@@ -42,6 +45,13 @@ export const Form = styled.View`
     border-top-left-radius: ${RFValue(35)}px;
     border-top-right-radius: ${RFValue(35)}px;
 `;
+
+export const FrequentList = styled(FlatList as new () => FlatList<Transaction>).attrs({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: {
+        paddingBottom: getBottomSpace() + 75
+    }
+})``
 
 export const Separator = styled.View`
     width: ${RFValue(10)}px;
