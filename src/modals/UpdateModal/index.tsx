@@ -46,11 +46,10 @@ interface Props {
 
 const schema = Yup.object().shape({
     title: Yup.string().required('Nome é obrigatório'),
-    amount: Yup
-        .number()
-        .typeError('Informe um valor numérico')
-        .positive('O valor não pode ser negativo')
-        .required('O valor é obrigatório')
+    amount: Yup.number()
+               .typeError('Informe um valor numérico')
+               .positive('O valor não pode ser negativo')
+               .required('O valor é obrigatório')
 })
 
 export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
@@ -58,12 +57,15 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
     
-    const [transactionType, setTransactionType] = useState(transaction.amount > 0 ? 'income' : 'outcome')
+    const [transactionType, setTransactionType] = useState(transaction.type)
     const [category, setCategory] = useState(transaction.category)
 
     const [date, setDate] = useState(new Date(transaction.date))
     const [time, setTime] = useState<Date>(new Date(transaction.date))
-    
+
+    console.log(transaction)
+
+
     const {
         control,
         handleSubmit,
@@ -72,6 +74,8 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
     } = useForm<FormData>({
         resolver: yupResolver(schema)
     });
+
+    
 
     function handleDate(date: Date){
         setDate(date)
@@ -114,7 +118,7 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
     function handleResetForm(){
         setTime(new Date(transaction.date))
         setDate(new Date(transaction.date))
-        setTransactionType(transaction.amount > 0 ? 'income' : 'outcome')
+        setTransactionType(transaction.type)
         setCategory(transaction.category)
         reset()
     }
@@ -164,12 +168,13 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
                         <HeaderButtons>
                             <BackButton onPress={closeModal}/>
                         </HeaderButtons>
-                        <Title>Novo lançamento</Title>
+                        <Title>Editar lançamento</Title>
                     </Header>
                     <Form>
                         <Fields>
                             <InputForm 
-                                name='title' 
+                                name='title'
+                                defaultValue={transaction.title}
                                 control={control} 
                                 placeholder='Identificação'
                                 autoCapitalize='sentences'
@@ -177,7 +182,8 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
                                 error={errors.title && errors.title.message}
                             />
                             <InputForm 
-                                name='amount' 
+                                name='amount'
+                                defaultValue={String(transaction.amount)}
                                 control={control}  
                                 placeholder='Valor'
                                 keyboardType='numeric'
@@ -219,6 +225,8 @@ export function UpdateModal({ transaction, closeModal, modalIsOpen }: Props){
                             />
                             <Separator/>
                             <Button 
+                                color=''
+                                textColor=''
                                 flex={2}
                                 title='Adicionar' 
                                 onPress={(data) => {

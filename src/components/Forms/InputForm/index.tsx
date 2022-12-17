@@ -15,19 +15,20 @@ interface Props extends MaskInputProps {
     error?: string;
 }
 
-export function InputForm({control, name, error, ...rest}: Props){
+export function InputForm({control, name, defaultValue, error, ...rest}: Props){
 
     return(
         <Container>
             <Controller
                 control={control}
+                defaultValue={defaultValue}
                 render={({ field: { onChange, onBlur, value }}) => (
                     <InputWrapper>
                         <Input
                             onChangeText={(masked, unmasked) => {
                                 onChange(unmasked)
                             }}
-                            value={value}
+                            value={value ?? defaultValue}
                             {...rest}
                         />
                         {

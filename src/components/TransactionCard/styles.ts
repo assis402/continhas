@@ -11,17 +11,39 @@ interface TypeProps {
 export const Container = styled(Swiper).attrs({
     showsButtons: false,
     loop: false,
-    showsPagination: false
+    showsPagination: false,
 })`
     height: ${RFValue(47)}px;  
     margin-bottom: ${RFValue(18.5)}px;
     width: ${RFValue(512)}px;  
 `
 
-export const TransactionComponent = styled.View`
+export const TransactionComponent = styled.TouchableOpacity.attrs({
+    activeOpacity: 0.8
+})`
     font-family: ${({ theme }) => theme.fonts.medium};
     margin-bottom: ${RFValue(22.5)}px;
     flex-direction: row;
+`
+
+export const NextButton = styled.View`
+    background-color: transparent;
+    /* opacity: 0.2; */
+    margin: 0;
+    padding: 0;
+    width: ${RFValue(1000)}px;
+    height: ${RFValue(47.5)}px;
+    top: ${RFValue(-10)}px;
+`
+
+export const PrevButton = styled.View`
+    background-color: transparent;
+    /* opacity: 0.2; */
+    margin: 0;
+    padding: 0;
+    width: ${RFValue(100)}px;
+    height: ${RFValue(47.5)}px;
+    top: ${RFValue(-10)}px;
 `
 
 export const First = styled.View`

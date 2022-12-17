@@ -63,4 +63,15 @@ export default class TransactionService {
 
         await AsyncStorage.setItem(dataKey, JSON.stringify(transactions))
     }
+
+    static async create(newTransaction: Transaction){
+        const data = await AsyncStorage.getItem(dataKey)
+        const currentData = data ? JSON.parse(data) as Transaction[] : []
+
+        const dataFormatted = [
+            ...currentData, newTransaction
+        ]
+
+        await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
+    }
 }

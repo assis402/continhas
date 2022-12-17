@@ -28,16 +28,19 @@ import {
     MiniIcon,
     NoTransactionsImg,
     TransactionsHeader,
+    TransactionOptions,
+    Separator,
 } from './styles'
 
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
 import TransactionService from '../../services/Transaction/transactionService';
-import { MiniOutlinedButton } from '../../components/MiniOutlinedButton';
+import { MiniButton } from '../../components/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { RegisterModal } from '../../modals/RegisterModal';
+import { AddModal } from '../../modals/AddModal';
 import { UpdateModal } from '../../modals/UpdateModal';
 import { DeleteModal } from '../../modals/DeleteModal';
+import { AddFrequentModal } from '../../modals/AddFrequentModal';
 
 export function Dashboard(){
     const [isLoading, setIsLoading] = useState(true);
@@ -47,10 +50,12 @@ export function Dashboard(){
     const today = new Date();
     const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
     const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
-    const [registerModalOpen, setRegisterModalOpen] = useState(false)
+    const [addModalOpen, setAddModalOpen] = useState(false)
+    const [addFrequentModalOpen, setAddFrequentModalOpen] = useState(false)
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
 
     const [transactionToDelete, setTransactionToDelete] = useState<Transaction>({} as Transaction)
+    const [transactionToUpdate, setTransactionToUpdate] = useState<Transaction>({} as Transaction)
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
@@ -64,20 +69,20 @@ export function Dashboard(){
         setMonthYearModalOpen(true)
     }
     
-    function handleCloseRegisterModal(){
-        setRegisterModalOpen(false)
+    function handleCloseAddModal(){
+        setAddModalOpen(false)
     }
 
-    function handleOpenRegisterModal(){
-        setRegisterModalOpen(true)
+    function handleOpenAddModal(){
+        setAddModalOpen(true)
     }
 
-    function handleCloseUpdateModal(){
-        setUpdateModalOpen(false)
+    function handleCloseAddFrequentModal(){
+        setAddFrequentModalOpen(false)
     }
 
-    function handleOpenUpdateModal(){
-        setUpdateModalOpen(true)
+    function handleOpenAddFrequentModal(){
+        setAddFrequentModalOpen(true)
     }
 
     function handleCloseDeleteModal(){
@@ -87,6 +92,15 @@ export function Dashboard(){
     function handleOpenDeleteModal(transaction: Transaction){
         setTransactionToDelete(transaction)
         setDeleteModalOpen(true)
+    }
+
+    function handleCloseUpdateModal(){
+        setUpdateModalOpen(false)
+    }
+
+    function handleOpenUpdateModal(transaction: Transaction){
+        setTransactionToUpdate(transaction)
+        setUpdateModalOpen(true)
     }
 
     function handleExitApp(){
@@ -167,12 +181,19 @@ export function Dashboard(){
                         <Transactions>
                             <TransactionsHeader>
                                 <Title>Lançamentos</Title>
-                                <MiniOutlinedButton
-                                    title='Novo'
-                                    iconName='plus'
-                                    flex={1}
-                                    onPress={handleOpenRegisterModal}
-                                />
+                                <TransactionOptions>
+                                    <MiniButton
+                                        iconName='plus'
+                                        flex={1}
+                                        onPress={handleOpenAddModal}
+                                    />
+                                    <Separator/>
+                                    <MiniButton
+                                        iconName='rotate-cw'
+                                        flex={1}
+                                        onPress={handleOpenAddFrequentModal}
+                                    />
+                                </TransactionOptions>
                             </TransactionsHeader>
                             <TransactionList<any>
                                 data={transactions}
@@ -181,22 +202,26 @@ export function Dashboard(){
                                     <TransactionCard 
                                         data={item}
                                         deleteFunction={() => handleOpenDeleteModal(item)}
-                                        // updateFunction={() => handleTransactionToUpdate(item.id)}
+                                        updateFunction={() => handleOpenUpdateModal(item)}
                                     />}
                             />
                         </Transactions>
                     }
                 </>
             }
-            <RegisterModal
-                modalIsOpen={registerModalOpen}
-                closeModal={handleCloseRegisterModal}
+            <AddModal
+                modalIsOpen={addModalOpen}
+                closeModal={handleCloseAddModal}
             />
-            {/* <UpdateModal
-                transaction={}
+            <AddFrequentModal
+                modalIsOpen={addFrequentModalOpen}
+                closeModal={handleCloseAddFrequentModal}
+            />
+            <UpdateModal
+                transaction={transactionToUpdate}
                 modalIsOpen={updateModalOpen}
                 closeModal={handleCloseUpdateModal}
-            /> */}
+            />
             <DeleteModal
                 id={transactionToDelete.id}
                 transactionTitle={transactionToDelete.title}

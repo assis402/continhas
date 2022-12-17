@@ -4,12 +4,11 @@ import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.TouchableOpacity`
-    width: ${RFValue(90)}px;
+    width: ${RFValue(50)}px;
     height: ${RFValue(35)}px;
     border-radius: 45px;
-    padding: 0 ${RFValue(13)}px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: ${({ theme }) => theme.colors.button_border_light};
     /* border: solid 1.5px ${({ theme }) => theme.colors.button_border}; */
     flex-direction: row;
@@ -25,5 +24,5 @@ export const Title = styled.Text`
 
 export const Icon = styled(Feather)`
     color: ${({theme}) => theme.colors.secondary_new};
-    font-size: ${RFValue(16)}px;
+    font-size: ${RFValue(20)}px;
 `

@@ -12,14 +12,18 @@ export const Header = styled.View`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
     padding-bottom: ${RFValue(16)}px;
+    border-top-color: ${({ theme }) => theme.colors.button_border_light};
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-left-radius: ${RFValue(20)}px;
+    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const HeaderButtons = styled.View`
     width: 100%;
     margin-left: ${RFValue(12)}px;
-    margin-top: ${RFValue(5)}px;
+    margin-top: ${RFValue(8)}px;
 `
 
 export const Title = styled.Text`

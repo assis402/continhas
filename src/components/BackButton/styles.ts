@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.TouchableOpacity`
     width: ${RFValue(55)}px;
-    height: ${RFValue(45)}px;
+    height: ${RFValue(35)}px;
     border-radius: 100px;
     align-items: center;
     justify-content: center;

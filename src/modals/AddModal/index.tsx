@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { Button } from '../../components/Forms/Button'
 import { CategorySelectButton } from '../../components/Forms/CategorySelectButton'
 import { DateSelectButton } from '../../components/Forms/DateSelectButton'
@@ -10,7 +10,7 @@ import { CategorySelectModal } from '../CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Modal from "react-native-modal";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import TransactionService from '../../services/Transaction/transactionService';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -54,7 +54,7 @@ const schema = Yup.object().shape({
         .required('O valor é obrigatório')
 })
 
-export function RegisterModal({ closeModal, modalIsOpen }: Props){
+export function AddModal({ closeModal, modalIsOpen }: Props){
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
@@ -143,19 +143,9 @@ export function RegisterModal({ closeModal, modalIsOpen }: Props){
         )
 
         try {
-            const dataKey = '@continhas:transactions'
-
-            const data = await AsyncStorage.getItem(dataKey)
-            const currentData = data ? JSON.parse(data) as Transaction[] : []
-
-            const dataFormatted = [
-                ...currentData, newTransaction
-            ]
-
-            await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
+            await TransactionService.create(newTransaction)
 
             handleResetForm()
-
             notifySucccess("Transação adicionada!")
 
         } catch (error) {
@@ -168,6 +158,7 @@ export function RegisterModal({ closeModal, modalIsOpen }: Props){
         <Modal
             statusBarTranslucent
             isVisible={modalIsOpen}
+            onBackdropPress={closeModal}
             onBackButtonPress={closeModal}
             useNativeDriver
             useNativeDriverForBackdrop
@@ -245,7 +236,9 @@ export function RegisterModal({ closeModal, modalIsOpen }: Props){
                                 onPress={handleResetForm}
                             />
                             <Separator/>
-                            <Button 
+                            <Button
+                                color=''
+                                textColor=''
                                 flex={2}
                                 title='Adicionar' 
                                 onPress={(data) => {

@@ -10,7 +10,7 @@ interface Props extends TouchableOpacityProps{
     textColor: string;
 }
 
-export function Button({ title, color = '', textColor = '', flex = 0, ...rest }: Props){
+export function Button({ title, color, textColor, flex = 0, ...rest }: Props){
     const theme = useTheme(); 
 
     if (color === '') color = theme.colors.success_secundary_light

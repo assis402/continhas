@@ -1,8 +1,5 @@
 import styled from 'styled-components/native';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
-import { Feather } from '@expo/vector-icons';
-import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { Dimensions } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export const Container = styled.View`
     flex: 1;
@@ -26,7 +23,7 @@ export const Header = styled.View`
 export const HeaderButtons = styled.View`
     width: 100%;
     margin-left: ${RFValue(12)}px;
-    margin-top: ${RFValue(5)}px;
+    margin-top: ${RFValue(8)}px;
 `
 
 export const Title = styled.Text`
@@ -46,29 +43,9 @@ export const Form = styled.View`
     border-top-right-radius: ${RFValue(35)}px;
 `;
 
-export const Fields = styled.View`
-    width: 100%;
-`
-
-export const DateTimeSelectors = styled.View`
-    flex-flow: row nowrap;
-    align-items: stretch;
-    align-self: stretch;
-    margin-top: ${RFValue(16)}px;
-    margin-bottom: ${RFValue(16)}px;
-`
-
-export const Buttons = styled.View`
-    margin-bottom: ${RFValue(16)}px;
-    flex-direction: row;
-    justify-content: space-between;
+export const Separator = styled.View`
+    width: ${RFValue(10)}px;
 `
 
 export const Footer = styled.View`
-    display: flex;
-    flex-direction: row;
-`
-
-export const Separator = styled.View`
-    width: ${RFValue(10)}px;
 `

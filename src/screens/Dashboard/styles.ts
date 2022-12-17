@@ -139,6 +139,15 @@ export const TransactionsHeader = styled.View`
     margin-bottom: ${RFValue(15)}px;
 `
 
+export const TransactionOptions = styled.View`
+    flex-direction: row;
+`
+
+export const Separator = styled.View`
+    width: ${RFValue(9)}px;
+    height: 1px;
+`
+
 export const Add = styled.View`
     justify-content: center;
     align-items: center;
