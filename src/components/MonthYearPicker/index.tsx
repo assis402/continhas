@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { Button } from '../Forms/Button';
+import { Button } from '../Buttons/Button';
 import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker } from './styles';
 import { monthArray, detachMonth, detachYear } from '../../utils/helper';
 

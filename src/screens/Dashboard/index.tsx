@@ -34,8 +34,8 @@ import {
 
 import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
 import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
-import TransactionService from '../../services/Transaction/transactionService';
-import { MiniButton } from '../../components/MiniButton';
+import TransactionService from '../../services/Transaction';
+import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
 import { AddModal } from '../../modals/AddModal';
 import { UpdateModal } from '../../modals/UpdateModal';

@@ -2,8 +2,8 @@ import React from "react";
 import { TouchableWithoutFeedback, View } from "react-native";
 import Modal from "react-native-modal";
 import { useTheme } from "styled-components";
-import { Button } from "../../components/Forms/Button";
-import { OutlinedButton } from "../../components/Forms/OutlinedButton";
+import { Button } from "../../components/Buttons/Button";
+import { OutlinedButton } from "../../components/Buttons/OutlinedButton";
 import { ButtonsWrapper, Container, Separator, ModalTitle, TransactionTitle } from "./styles";
 
 interface Props {

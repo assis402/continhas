@@ -16,9 +16,9 @@ import {
 import { notifyError, notifySucccess } from '../../utils/notifications'
 import { Checkbox } from '../../components/Forms/Checkbox'
 import theme from '../../global/styles/theme'
-import { BackButton } from '../../components/BackButton'
-import { OutlinedButton } from '../../components/Forms/OutlinedButton';
-import { Button } from '../../components/Forms/Button';
+import { BackButton } from '../../components/Buttons/BackButton'
+import { OutlinedButton } from '../../components/Buttons/OutlinedButton';
+import { Button } from '../../components/Buttons/Button';
 import { Transaction } from '../../classes/Transaction';
 import { useFocusEffect } from '@react-navigation/native';
 

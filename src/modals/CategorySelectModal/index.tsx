@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, Modal } from "react-native";
-import { Button } from "../../components/Forms/Button";
+import { Button } from "../../components/Buttons/Button";
 import { categories } from "../../utils/helper";
 import { CategoryItem, Container, ExternalModal, Icon, InternalModal, Name, Separator, Title } from "./styles";
 

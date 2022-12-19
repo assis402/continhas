@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
-import { Button } from '../../components/Forms/Button'
+import { Button } from '../../components/Buttons/Button'
 import { CategorySelectButton } from '../../components/Forms/CategorySelectButton'
 import { DateSelectButton } from '../../components/Forms/DateSelectButton'
 import { TimeSelectButton } from '../../components/Forms/TimeSelectButton'
@@ -29,9 +29,9 @@ import {
     HeaderButtons,
 } from './styles'
 import { Transaction } from '../../classes/Transaction'
-import { OutlinedButton } from '../../components/Forms/OutlinedButton'
+import { OutlinedButton } from '../../components/Buttons/OutlinedButton'
 import { notifyError, notifySucccess } from '../../utils/notifications'
-import { BackButton } from '../../components/BackButton'
+import { BackButton } from '../../components/Buttons/BackButton'
 
 interface FormData {
     title: string;

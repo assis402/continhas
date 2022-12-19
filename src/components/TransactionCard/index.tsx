@@ -17,7 +17,7 @@ import {
     NextButton
 } from './styles'
 
-import { BodilessButton } from '../Forms/BodilessButton';
+import { BodilessButton } from '../Buttons/BodilessButton';
 import { useTheme } from 'styled-components';
 import { View } from 'react-native';
 import Swiper from 'react-native-swiper'
