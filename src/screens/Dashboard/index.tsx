@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
 import { getMonthByPeriod } from '../../utils/helper'
@@ -37,12 +37,16 @@ import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectBut
 import TransactionService from '../../services/Transaction';
 import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { AddModal } from '../../modals/AddModal';
-import { UpdateModal } from '../../modals/UpdateModal';
+import { Add } from '../../modals/Add';
+import { Update } from '../../modals/Update';
 import { DeleteModal } from '../../modals/DeleteModal';
-import { AddFrequentModal } from '../../modals/AddFrequentModal';
+import { AddFrequentModal } from '../../modals/AddFrequent';
 
-export function Dashboard(){
+interface Props {
+    navigation: any
+}
+
+export function Dashboard({ navigation }: Props){    
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
@@ -198,7 +202,7 @@ export function Dashboard(){
                                     <MiniButton
                                         iconName='plus'
                                         flex={1}
-                                        onPress={handleOpenAddModal}
+                                        onPress={() => navigation.navigate('Add')}
                                     />
                                     <Separator/>
                                     <MiniButton
@@ -222,20 +226,9 @@ export function Dashboard(){
                     }
                 </>
             }
-            <AddModal
-                modalIsOpen={addModalOpen}
-                closeModal={handleCloseAddModal}
-                reload={reload}
-            />
             <AddFrequentModal
                 modalIsOpen={addFrequentModalOpen}
                 closeModal={handleCloseAddFrequentModal}
-                reload={reload}
-            />
-            <UpdateModal
-                transaction={transactionToUpdate}
-                modalIsOpen={updateModalOpen}
-                closeModal={handleCloseUpdateModal}
                 reload={reload}
             />
             <DeleteModal

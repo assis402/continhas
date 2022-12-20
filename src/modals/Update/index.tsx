@@ -10,7 +10,7 @@ import { CategorySelectModal } from '../CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Modal from "react-native-modal";
-import TransactionService from '../../services/Transaction/transactionService';
+import TransactionService from '../../services/Transaction';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -53,7 +53,7 @@ const schema = Yup.object().shape({
                .required('O valor é obrigatório')
 })
 
-export function UpdateModal({ transaction, closeModal, modalIsOpen, reload }: Props){
+export function Update({ transaction, closeModal, modalIsOpen, reload }: Props){
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)

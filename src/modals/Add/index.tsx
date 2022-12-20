@@ -10,7 +10,7 @@ import { CategorySelectModal } from '../CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Modal from "react-native-modal";
-import TransactionService from '../../services/Transaction/transactionService';
+import TransactionService from '../../services/Transaction';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -40,12 +40,6 @@ interface FormData {
     amount: string
 }
 
-interface Props {
-    closeModal: () => void
-    modalIsOpen: boolean
-    reload: () => void
-}
-
 const schema = Yup.object().shape({
     title: Yup.string().required('Nome é obrigatório'),
     amount: Yup
@@ -55,7 +49,7 @@ const schema = Yup.object().shape({
         .required('O valor é obrigatório')
 })
 
-export function AddModal({ closeModal, modalIsOpen, reload }: Props){
+export function Add(){
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
@@ -146,7 +140,6 @@ export function AddModal({ closeModal, modalIsOpen, reload }: Props){
         try {
             await TransactionService.create(newTransaction)
 
-            reload()
             handleResetForm()
             notifySucccess("Transação adicionada!")
         } catch (error) {
@@ -156,23 +149,11 @@ export function AddModal({ closeModal, modalIsOpen, reload }: Props){
     }
 
     return (
-        <Modal
-            statusBarTranslucent
-            isVisible={modalIsOpen}
-            onBackdropPress={closeModal}
-            onBackButtonPress={closeModal}
-            useNativeDriver
-            useNativeDriverForBackdrop
-            style={{
-                margin: 0,
-                marginTop: 110
-            }}
-        >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
                     <Header>
                         <HeaderButtons>
-                            <BackButton onPress={closeModal}/>
+                            <BackButton/>
                         </HeaderButtons>
                         <Title>Novo lançamento</Title>
                     </Header>
@@ -244,7 +225,6 @@ export function AddModal({ closeModal, modalIsOpen, reload }: Props){
                                 title='Adicionar' 
                                 onPress={(data) => {
                                     handleSubmit(handleRegister, () => notifyError("Formulário incompleto!"))(data)
-                                    closeModal()
                                 }}
                             />
                         </Footer>
@@ -269,6 +249,5 @@ export function AddModal({ closeModal, modalIsOpen, reload }: Props){
                     />
                 </Container>
             </TouchableWithoutFeedback>
-        </Modal>
     )
 }

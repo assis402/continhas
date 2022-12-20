@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Modal from "react-native-modal";
-import TransactionService from '../../services/Transaction/transactionService';
+import TransactionService from '../../services/Transaction';
 
 import {
     Container,
