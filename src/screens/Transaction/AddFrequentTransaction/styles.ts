@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize'
 import { FlatList } from 'react-native';
-import { Transaction } from '../../classes/Transaction';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { Transaction } from '../../../classes/Transaction';
 
 export const Container = styled.View`
     flex: 1;

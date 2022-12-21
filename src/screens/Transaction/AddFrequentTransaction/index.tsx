@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Modal from "react-native-modal";
-import TransactionService from '../../services/Transaction';
+import TransactionService from '../../../services/Transaction';
 
 import {
     Container,
@@ -13,13 +13,13 @@ import {
     Footer,
     FrequentList,
 } from './styles'
-import { notifyError, notifySucccess } from '../../utils/notifications'
-import { Checkbox } from '../../components/Forms/Checkbox'
-import theme from '../../global/styles/theme'
-import { BackButton } from '../../components/Buttons/BackButton'
-import { OutlinedButton } from '../../components/Buttons/OutlinedButton';
-import { Button } from '../../components/Buttons/Button';
-import { Transaction } from '../../classes/Transaction';
+import { notifyError, notifySucccess } from '../../../utils/notifications'
+import { Checkbox } from '../../../components/Forms/Checkbox'
+import theme from '../../../global/styles/theme'
+import { BackButton } from '../../../components/Buttons/BackButton'
+import { OutlinedButton } from '../../../components/Buttons/OutlinedButton';
+import { Button } from '../../../components/Buttons/Button';
+import { Transaction } from '../../../classes/Transaction';
 import { useFocusEffect } from '@react-navigation/native';
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
     reload: () => void
 }
 
-export function AddFrequentModal({ closeModal, modalIsOpen, reload }: Props){
+export function AddFrequentTransaction({ closeModal, modalIsOpen, reload }: Props){
     const [frequentList, setFrequentList] = useState<Transaction[]>([])
 
     async function loadData() {

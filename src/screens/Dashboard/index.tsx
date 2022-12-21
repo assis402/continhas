@@ -37,9 +37,9 @@ import { PeriodSelectButton } from '../../components/Forms/PeriodSelectButton';
 import TransactionService from '../../services/Transaction';
 import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { Add } from '../../modals/Add';
-import { Update } from '../../modals/Update';
-import { AddFrequentModal } from '../../modals/AddFrequent';
+import { Add } from '../Transaction/AddTransaction';
+import { Update } from '../../modals/UpdateTransaction';
+import { AddFrequentModal } from '../../modals/AddFrequentTransaction';
 
 const today = new Date();
 const defaultPeriod = today.getMonth().toString() + today.getFullYear().toString();

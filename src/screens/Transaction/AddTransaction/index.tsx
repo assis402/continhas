@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { Button } from '../../components/Buttons/Button'
-import { CategorySelectButton } from '../../components/Forms/CategorySelectButton'
-import { DateSelectButton } from '../../components/Forms/DateSelectButton'
-import { TimeSelectButton } from '../../components/Forms/TimeSelectButton'
-import { InputForm } from '../../components/Forms/InputForm'
-import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton'
-import { CategorySelectModal } from '../CategorySelectModal'
+import { Button } from '../../../components/Buttons/Button'
+import { CategorySelectButton } from '../../../components/Forms/CategorySelectButton'
+import { DateSelectButton } from '../../../components/Forms/DateSelectButton'
+import { TimeSelectButton } from '../../../components/Forms/TimeSelectButton'
+import { InputForm } from '../../../components/Forms/InputForm'
+import { TransactionTypeButton } from '../../../components/Forms/TransactionTypeButton'
+import { CategorySelectModal } from '../../../modals/CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Modal from "react-native-modal";
-import TransactionService from '../../services/Transaction';
+import TransactionService from '../../../services/Transaction';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -28,12 +28,12 @@ import {
     Separator,
     HeaderButtons,
 } from './styles'
-import { Transaction } from '../../classes/Transaction'
-import { OutlinedButton } from '../../components/Buttons/OutlinedButton'
-import { notifyError, notifySucccess } from '../../utils/notifications'
-import { Checkbox } from '../../components/Forms/Checkbox'
-import theme from '../../global/styles/theme'
-import { BackButton } from '../../components/Buttons/BackButton'
+import { Transaction } from '../../../classes/Transaction'
+import { OutlinedButton } from '../../../components/Buttons/OutlinedButton'
+import { notifyError, notifySucccess } from '../../../utils/notifications'
+import { Checkbox } from '../../../components/Forms/Checkbox'
+import theme from '../../../global/styles/theme'
+import { BackButton } from '../../../components/Buttons/BackButton'
 
 interface FormData {
     title: string
@@ -49,7 +49,7 @@ const schema = Yup.object().shape({
         .required('O valor é obrigatório')
 })
 
-export function Add(){
+export function AddTransaction(){
     const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false)
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
     const [timeModalIsOpen, setTimeModalIsOpen] = useState(false)

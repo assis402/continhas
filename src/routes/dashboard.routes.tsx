@@ -1,8 +1,9 @@
 import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack'
-import { Add } from '../modals/Add';
-import { Delete } from '../modals/Delete';
 import { Dashboard } from '../screens/Dashboard';
-import { Summary } from '../screens/Summary';
+import { AddFrequentTransaction } from '../screens/Transaction/AddFrequentTransaction';
+import { AddTransaction } from '../screens/Transaction/AddTransaction';
+import { DeleteTransaction } from '../screens/Transaction/DeleteTransaction';
+import { UpdateTransaction } from '../screens/Transaction/UpdateTransaction';
 const Stack = createNativeStackNavigator();
 
 const defaultScreenOptions: NativeStackNavigationOptions = {
@@ -29,12 +30,22 @@ export function DashboardRoutes(){
             />
             <Stack.Screen 
                 name="Add" 
-                component={Add}
+                component={AddTransaction}
+                options={defaultScreenOptions}
+            />
+            <Stack.Screen 
+                name="AddFrequent" 
+                component={AddFrequentTransaction}
+                options={defaultScreenOptions}
+            />
+            <Stack.Screen 
+                name="Update" 
+                component={UpdateTransaction}
                 options={defaultScreenOptions}
             />
             <Stack.Screen 
                 name="Delete" 
-                component={Delete}
+                component={DeleteTransaction}
                 options={modalOptions}
             />
         </Stack.Navigator>
