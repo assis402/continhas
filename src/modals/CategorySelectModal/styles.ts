@@ -7,22 +7,14 @@ interface CategoryProps {
 }
 
 export const Container = styled.View`
-    
-`
-
-export const InternalModal =  styled.View`
     background-color: ${({ theme }) => theme.colors.background};
     width: 80%;
-    height: 70%;
+    height: 62%;
     padding: 25px;
     border-radius: 45px;
-`
-
-export const ExternalModal = styled.View`
-    flex: 1;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-color: ${({ theme }) => theme.colors.background_modal};
+    flex-direction: column;
 `
 
 export const Title = styled.Text`
@@ -71,10 +63,11 @@ export const Name = styled.Text<CategoryProps>`
 export const Separator = styled.View`
     height: 1px;
     width: 100%;
-    opacity: 0.3;
+    opacity: 0.2;
     background-color: ${({ theme }) => theme.colors.text_light};
 `
 
 export const Footer = styled.View`
-
+    flex: 1;
+    width: 100%;
 `

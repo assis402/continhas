@@ -5,23 +5,23 @@ import { Container, ExternalModal, InternalModal } from "./styles";
 import { toString2Pad } from "../../utils/helper"
 
 interface Props {
-    monthYear: string;
-    setMonthYear: (monthYear: string) => void;
-    closeSelectMonthYear: () => void;
+    period: string;
+    setPeriod: (period: string) => void;
+    closeSelectPeriod: () => void;
     modalIsOpen: boolean;
 }
 
-export function MonthYearSelectModal({
-    monthYear,
-    setMonthYear,
-    closeSelectMonthYear,
+export function PeriodSelectModal({
+    period,
+    setPeriod,
+    closeSelectPeriod,
     modalIsOpen
 } : Props){
     
-    function handleMonthYearSelect(month: number, year: number){
-        let monthYear = toString2Pad(month) + year.toString()
-        setMonthYear(monthYear);
-        closeSelectMonthYear();
+    function handlePeriodSelect(month: number, year: number){
+        let period = toString2Pad(month) + year.toString()
+        setPeriod(period);
+        closeSelectPeriod();
     }
 
     return(
@@ -35,8 +35,8 @@ export function MonthYearSelectModal({
                 <ExternalModal>
                     <InternalModal>
                         <MonthYearPicker
-                            monthYear={monthYear}
-                            handleSelectFunction={handleMonthYearSelect}
+                            monthYear={period}
+                            handleSelectFunction={handlePeriodSelect}
                         /> 
                     </InternalModal>
                 </ExternalModal>

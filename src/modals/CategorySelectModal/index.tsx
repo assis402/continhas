@@ -1,8 +1,9 @@
 import React from "react";
-import { FlatList, Modal } from "react-native";
+import { FlatList, TouchableWithoutFeedback, View } from "react-native";
 import { Button } from "../../components/Buttons/Button";
+import Modal from "react-native-modal";
 import { categories } from "../../utils/helper";
-import { CategoryItem, Container, ExternalModal, Icon, InternalModal, Name, Separator, Title } from "./styles";
+import { CategoryItem, Container, Footer, Icon, Name, Separator, Title } from "./styles";
 
 interface Props {
     category: string;
@@ -23,37 +24,53 @@ export function CategorySelectModal({
     }
 
     return(
-        <Container>
-            <Modal
-                visible={categoryModalIsOpen}
-                transparent={true}
-                animationType='fade'
-                statusBarTranslucent
-            >
-                <ExternalModal>
-                    <InternalModal>
-                        <FlatList
-                            data={categories}
-                            style={{ flex: 1, width: '100%' }}
-                            keyExtractor={(item) => item.key}
-                            renderItem={({ item }) => (
-                                <CategoryItem
-                                    onPress={() => handleCategorySelect(item.name)}
-                                    isActive={category === item.name}
-                                >
-                                    <Icon name={item.icon} isActive={category === item.name}/>
-                                    <Name isActive={category === item.name}>{item.name}</Name>
-                                </CategoryItem>
-                            )}
-                            ItemSeparatorComponent={() => <Separator/>}
-                        />
-                        <Button 
-                            title="Selecionar"
-                            onPress={closeSelectCategory}
-                        />
-                    </InternalModal>
-                </ExternalModal>
-            </Modal>
-        </Container>
+        <Modal
+            statusBarTranslucent
+            animationIn="fadeIn"
+            animationOut="fadeOut"
+            isVisible={categoryModalIsOpen}
+            onBackdropPress={closeSelectCategory}
+            onBackButtonPress={closeSelectCategory}
+            useNativeDriver
+            useNativeDriverForBackdrop
+            style={{
+                flex: 1,
+                margin: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+            customBackdrop={
+                <TouchableWithoutFeedback onPress={closeSelectCategory}>
+                    <View style={{ height: `110%`, backgroundColor: '#000'}} />
+                </TouchableWithoutFeedback>
+            }
+        >
+            <Container>
+                <FlatList
+                    data={categories}
+                    style={{ width: '100%' }}
+                    keyExtractor={(item) => item.key}
+                    renderItem={({ item }) => (
+                        <CategoryItem
+                            onPress={() => handleCategorySelect(item.name)}
+                            isActive={category === item.name}
+                        >
+                            <Icon name={item.icon} isActive={category === item.name}/>
+                            <Name isActive={category === item.name}>{item.name}</Name>
+                        </CategoryItem>
+                    )}
+                    ItemSeparatorComponent={() => <Separator/>}
+                />
+                <Footer>
+                    <Button
+                        flex={1}
+                        color=''
+                        textColor=''
+                        title="Selecionar"
+                        onPress={closeSelectCategory}
+                    />
+                </Footer>
+            </Container>
+        </Modal>
     )
 }

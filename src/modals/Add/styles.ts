@@ -9,21 +9,17 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-    justify-content: center;
+    height: ${RFValue(113)}px;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: column;
     padding-bottom: ${RFValue(16)}px;
-    border-top-color: ${({ theme }) => theme.colors.button_border_light};
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-left-radius: ${RFValue(20)}px;
-    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const HeaderButtons = styled.View`
     width: 100%;
     margin-left: ${RFValue(12)}px;
-    margin-top: ${RFValue(8)}px;
+    margin-top: ${RFValue(12)}px;
 `
 
 export const Title = styled.Text`
@@ -64,6 +60,7 @@ export const Buttons = styled.View`
 export const Footer = styled.View`
     display: flex;
     flex-direction: row;
+    margin-bottom: ${RFValue(55)}px;
 `
 
 export const Separator = styled.View`

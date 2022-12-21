@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard } from '../../components/TransactionCard'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { ActivityIndicator, BackHandler } from 'react-native'
 import { useTheme } from 'styled-components'
 import { getMonthByPeriod } from '../../utils/helper'
@@ -32,15 +32,17 @@ import {
     Separator,
 } from './styles'
 
-import { MonthYearSelectModal } from '../../modals/MonthYearSelectModal';
-import { MonthYearSelectButton } from '../../components/Forms/MonthYearSelectButton';
+import { PeriodSelectModal } from '../../modals/PeriodSelectModal';
+import { PeriodSelectButton } from '../../components/Forms/PeriodSelectButton';
 import TransactionService from '../../services/Transaction';
 import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
 import { Add } from '../../modals/Add';
 import { Update } from '../../modals/Update';
-import { DeleteModal } from '../../modals/DeleteModal';
 import { AddFrequentModal } from '../../modals/AddFrequent';
+
+const today = new Date();
+const defaultPeriod = today.getMonth().toString() + today.getFullYear().toString();
 
 interface Props {
     navigation: any
@@ -51,73 +53,36 @@ export function Dashboard({ navigation }: Props){
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
 
-    const today = new Date();
-    const [monthYearModalOpen, setMonthYearModalOpen] = useState(false)
-    const [monthYear, setMonthYear] = useState((today.getMonth()).toString() + today.getFullYear().toString())
+    const [periodModalIsOpen, setPeriodModalIsOpen] = useState(false)
+    const [period, setPeriod] = useState(defaultPeriod)
     
     const [reloadCounter, setReloadCounter] = useState(0);
 
-    const [addModalOpen, setAddModalOpen] = useState(false)
-    const [addFrequentModalOpen, setAddFrequentModalOpen] = useState(false)
-    const [updateModalOpen, setUpdateModalOpen] = useState(false)
+    // const [transactionToDelete, setTransactionToDelete] = useState<Transaction>({} as Transaction)
 
-    const [transactionToDelete, setTransactionToDelete] = useState<Transaction>({} as Transaction)
-    const [transactionToUpdate, setTransactionToUpdate] = useState<Transaction>({} as Transaction)
-
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
 
     const theme = useTheme();
 
     function reload(){
         setReloadCounter(reloadCounter + 1);
-        console.log(reloadCounter)
     }
 
-    function handleMonthYear(monthYear: string){
+    function handlePeriod(period: string){
         reload();
-        setMonthYear(monthYear)
+        setPeriod(period)
     }
 
-    function handleCloseSelectMonthYearModal(){
-        setMonthYearModalOpen(false)
+    function togglePeriodModalIsOpen(){
+        setPeriodModalIsOpen(!periodModalIsOpen)
     }
     
-    function handleOpenSelectMonthYearModal(){
-        setMonthYearModalOpen(true)
-    }
-    
-    function handleCloseAddModal(){
-        setAddModalOpen(false)
-    }
-
-    function handleOpenAddModal(){
-        setAddModalOpen(true)
-    }
-
-    function handleCloseAddFrequentModal(){
-        setAddFrequentModalOpen(false)
-    }
-
-    function handleOpenAddFrequentModal(){
-        setAddFrequentModalOpen(true)
-    }
-
     function handleCloseDeleteModal(){
-        setDeleteModalOpen(false)
+        setDeleteModalIsOpen(false)
     }
 
-    function handleOpenDeleteModal(transaction: Transaction){
-        setTransactionToDelete(transaction)
-        setDeleteModalOpen(true)
-    }
-
-    function handleCloseUpdateModal(){
-        setUpdateModalOpen(false)
-    }
-
-    function handleOpenUpdateModal(transaction: Transaction){
-        setTransactionToUpdate(transaction)
-        setUpdateModalOpen(true)
+    function handleOpenDeleteModal(){
+        setDeleteModalIsOpen(true)
     }
 
     function handleExitApp(){
@@ -125,9 +90,8 @@ export function Dashboard({ navigation }: Props){
     }
 
     async function loadTransactions(){
-        const dataKey = '@continhas:transactions'
         // await AsyncStorage.clear()
-        let data = await TransactionService.getAllByPeriod(monthYear)
+        let data = await TransactionService.getAllByPeriod(period)
         setTransactions(data);
 
         if (data.length > 0)
@@ -163,9 +127,9 @@ export function Dashboard({ navigation }: Props){
                             <Power name="log-out" onPress={handleExitApp}/>
                         </UserWrapper>
                         <MonthYearWrapper>
-                            <MonthYearSelectButton 
-                                monthYear={monthYear}
-                                onPress={handleOpenSelectMonthYearModal}
+                            <PeriodSelectButton 
+                                period={period}
+                                onPress={togglePeriodModalIsOpen}
                             />
                         </MonthYearWrapper>
                         <HighlightCards>
@@ -190,7 +154,7 @@ export function Dashboard({ navigation }: Props){
                         <NoTransactions>
                             <NoTransactionsTitle>Nenhum lançamento este mês</NoTransactionsTitle>
                             <NoTransactionsText>
-                                Cadastre a sua primeira transação do mês de {getMonthByPeriod(monthYear)} clicando em &nbsp;
+                                Cadastre a sua primeira transação do mês de {getMonthByPeriod(period)} clicando em &nbsp;
                                 <MiniIcon name="plus-circle"/>
                             </NoTransactionsText>
                             <NoTransactionsImg source={require("../../assets/no-result.png")}/>
@@ -208,7 +172,7 @@ export function Dashboard({ navigation }: Props){
                                     <MiniButton
                                         iconName='rotate-cw'
                                         flex={1}
-                                        onPress={handleOpenAddFrequentModal}
+                                        onPress={() => {}}
                                     />
                                 </TransactionOptions>
                             </TransactionsHeader>
@@ -218,31 +182,19 @@ export function Dashboard({ navigation }: Props){
                                 renderItem={({ item }: { item: Transaction }) => 
                                     <TransactionCard 
                                         data={item}
-                                        deleteFunction={() => handleOpenDeleteModal(item)}
-                                        updateFunction={() => handleOpenUpdateModal(item)}
+                                        deleteFunction={() => navigation.navigate('Delete')}
+                                        updateFunction={() => {}}
                                     />}
                             />
                         </Transactions>
                     }
                 </>
             }
-            <AddFrequentModal
-                modalIsOpen={addFrequentModalOpen}
-                closeModal={handleCloseAddFrequentModal}
-                reload={reload}
-            />
-            <DeleteModal
-                id={transactionToDelete.id}
-                transactionTitle={transactionToDelete.title}
-                modalIsOpen={deleteModalOpen}
-                closeModal={handleCloseDeleteModal}
-                reload={reload}
-            />
-            <MonthYearSelectModal
-                monthYear={monthYear}
-                setMonthYear={handleMonthYear}
-                closeSelectMonthYear={handleCloseSelectMonthYearModal}
-                modalIsOpen={monthYearModalOpen}
+            <PeriodSelectModal
+                period={period}
+                setPeriod={handlePeriod}
+                closeSelectPeriod={togglePeriodModalIsOpen}
+                modalIsOpen={periodModalIsOpen}
             />
         </Container>
     )

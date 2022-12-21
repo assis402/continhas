@@ -3,13 +3,13 @@ import { Category, Container, Icon } from "./styles";
 import { detachYear, getMonthByPeriod } from '../../../utils/helper';
 
 interface Props {
-    monthYear: string;
+    period: string;
     onPress: () => void;
 }
 
-export function MonthYearSelectButton({ monthYear, onPress } : Props){
-    let month = getMonthByPeriod(monthYear)
-    let year = detachYear(monthYear)
+export function PeriodSelectButton({ period, onPress } : Props){
+    let month = getMonthByPeriod(period)
+    let year = detachYear(period)
 
     return(
         <Container onPress={onPress}>
