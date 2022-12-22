@@ -37,9 +37,9 @@ import { PeriodSelectButton } from '../../components/Forms/PeriodSelectButton';
 import TransactionService from '../../services/Transaction';
 import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { Add } from '../Transaction/AddTransaction';
-import { Update } from '../../modals/UpdateTransaction';
-import { AddFrequentModal } from '../../modals/AddFrequentTransaction';
+import { AddTransaction } from '../Transaction/AddTransaction';
+import { UpdateTransaction } from '../Transaction/UpdateTransaction';
+import { AddFrequentTransaction } from '../Transaction/AddFrequentTransaction';
 
 const today = new Date();
 const defaultPeriod = today.getMonth().toString() + today.getFullYear().toString();
@@ -58,10 +58,6 @@ export function Dashboard({ navigation }: Props){
     
     const [reloadCounter, setReloadCounter] = useState(0);
 
-    // const [transactionToDelete, setTransactionToDelete] = useState<Transaction>({} as Transaction)
-
-    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-
     const theme = useTheme();
 
     function reload(){
@@ -73,16 +69,12 @@ export function Dashboard({ navigation }: Props){
         setPeriod(period)
     }
 
-    function togglePeriodModalIsOpen(){
-        setPeriodModalIsOpen(!periodModalIsOpen)
-    }
-    
-    function handleCloseDeleteModal(){
-        setDeleteModalIsOpen(false)
+    function navigateToAddScreen(){
+        navigation.navigate('Add')
     }
 
-    function handleOpenDeleteModal(){
-        setDeleteModalIsOpen(true)
+    function navigateToAddFrequentScreen(){
+        navigation.navigate('AddFrequent')
     }
 
     function handleExitApp(){
@@ -129,7 +121,7 @@ export function Dashboard({ navigation }: Props){
                         <MonthYearWrapper>
                             <PeriodSelectButton 
                                 period={period}
-                                onPress={togglePeriodModalIsOpen}
+                                onPress={() => {}}
                             />
                         </MonthYearWrapper>
                         <HighlightCards>
@@ -166,13 +158,13 @@ export function Dashboard({ navigation }: Props){
                                     <MiniButton
                                         iconName='plus'
                                         flex={1}
-                                        onPress={() => navigation.navigate('Add')}
+                                        onPress={navigateToAddScreen}
                                     />
                                     <Separator/>
                                     <MiniButton
                                         iconName='rotate-cw'
                                         flex={1}
-                                        onPress={() => {}}
+                                        onPress={navigateToAddFrequentScreen}
                                     />
                                 </TransactionOptions>
                             </TransactionsHeader>
@@ -180,22 +172,15 @@ export function Dashboard({ navigation }: Props){
                                 data={transactions}
                                 keyExtrator={(item: Transaction) => item.id}
                                 renderItem={({ item }: { item: Transaction }) => 
-                                    <TransactionCard 
+                                    <TransactionCard
+                                        navigation={navigation}
                                         data={item}
-                                        deleteFunction={() => navigation.navigate('Delete')}
-                                        updateFunction={() => {}}
                                     />}
                             />
                         </Transactions>
                     }
                 </>
             }
-            <PeriodSelectModal
-                period={period}
-                setPeriod={handlePeriod}
-                closeSelectPeriod={togglePeriodModalIsOpen}
-                modalIsOpen={periodModalIsOpen}
-            />
         </Container>
     )
 }

@@ -23,16 +23,33 @@ import { View } from 'react-native';
 import Swiper from 'react-native-swiper'
 
 interface Props {
+    navigation: any
     data: Transaction
-    deleteFunction: () => void
-    updateFunction: () => void
 }
 
-export function TransactionCard({ data, deleteFunction, updateFunction }: Props ) {
+export function TransactionCard({ navigation, data }: Props ) {
     const theme = useTheme();
     const category = categories.find(x => x.name === data.category)
     const [nextIndex, setNextIndex] = useState(1);
     const swiperRef = useRef<Swiper>(null);
+
+    function navigateToUpdateScreen(){
+        navigation.navigate('Update')
+    }
+
+    function navigateToDeleteScreen(){
+        navigation.navigate('Delete')
+        navigation.setOptions({
+            tabBarStyle: {
+                opacity: 0
+            }
+        })
+    }
+
+    function handleMoveSwiper(){
+        swiperRef.current?.scrollTo(nextIndex)
+        setNextIndex(nextIndex === 0 ? 1 : 0)
+    }
 
     return(
         <Container
@@ -40,17 +57,13 @@ export function TransactionCard({ data, deleteFunction, updateFunction }: Props 
             // nextButton={<NextButton/>}
             ref={swiperRef}
         >
-            <TransactionComponent onPress={() => {
-                swiperRef.current?.scrollTo(nextIndex)
-                setNextIndex(nextIndex === 0 ? 1 : 0)
-            }}>
+            <TransactionComponent onPress={handleMoveSwiper}>
                 <First>
                     <Category>
                         <Icon name={category?.icon}/>
                     </Category>
                     <Title>{data.title}</Title>
                 </First>
-
                 <Second>
                     <Amount type={data.type}>
                         {data.type === 'outcome' ? '- ' : '' }{formatAmount(data.amount)}
@@ -62,14 +75,14 @@ export function TransactionCard({ data, deleteFunction, updateFunction }: Props 
                 <BodilessButton
                     flex={2}
                     title='Editar'
-                    onPress={updateFunction}
+                    onPress={navigateToUpdateScreen}
                     iconName={"edit"}
                     iconColor={theme.colors.info}
                 />
                 <BodilessButton
                     flex={2}
                     title='Apagar'
-                    onPress={deleteFunction}
+                    onPress={navigateToDeleteScreen}
                     iconName={"trash"}
                     iconColor={theme.colors.attention}
                 />

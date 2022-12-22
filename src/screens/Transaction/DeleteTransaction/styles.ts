@@ -1,6 +1,16 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
+
+
+export const Backdrop = styled.View`
+    background-color: ${({ theme }) => theme.colors.background_modal};
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`
 
 export const Container = styled.View`
     background-color: ${({ theme }) => theme.colors.background};

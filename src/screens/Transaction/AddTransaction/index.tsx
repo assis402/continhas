@@ -168,7 +168,7 @@ export function AddTransaction(){
                             onPress={toggleCategoryModalIsOpen}
                         />
                         <DateTimeSelectors>
-                            <DateSelectButton 
+                            <DateSelectButton
                                 dateTime={date}
                                 onPress={toggleDateModalIsOpen}
                             />
