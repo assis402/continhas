@@ -4,20 +4,9 @@ import { Feather } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 
 
-export const Backdrop = styled.View`
-    background-color: ${({ theme }) => theme.colors.background_modal};
-    width: 100%;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-`
-
 export const Container = styled.View`
-    background-color: ${({ theme }) => theme.colors.background};
-    width: 78%;
-    height: 30%;
-    padding: 25px;
-    border-radius: 45px;
+    /* background-color: ${({ theme }) => theme.colors.background}; */
+    padding: ${RFValue(25)}px;
     flex-direction: column;
     justify-content: space-between;
 `;

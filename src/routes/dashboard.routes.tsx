@@ -16,7 +16,9 @@ const modalOptions: NativeStackNavigationOptions = {
     headerShown: false,
     animationTypeForReplace: 'push',
     animation:'fade',
-    presentation: 'transparentModal' 
+    presentation: 'transparentModal',
+    contentStyle: {
+    }
 }
 
 export function DashboardRoutes(){

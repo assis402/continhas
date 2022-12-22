@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { ThemeProvider } from 'styled-components'
 import AppLoading from 'expo-app-loading';
@@ -14,6 +15,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes'
 import FlashMessage from 'react-native-flash-message';
 import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -27,12 +29,14 @@ export default function App() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <NavigationContainer>
-                <AppRoutes/>
-            </NavigationContainer>
-            <FlashMessage position="top" />
-            <StatusBar style="light" translucent />
-        </ThemeProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <ThemeProvider theme={theme}>
+                <NavigationContainer>
+                    <AppRoutes/>
+                </NavigationContainer>
+                <FlashMessage position="top" />
+                <StatusBar style="light" translucent />
+            </ThemeProvider>
+        </GestureHandlerRootView>
     )
 }

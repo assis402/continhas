@@ -25,9 +25,10 @@ import Swiper from 'react-native-swiper'
 interface Props {
     navigation: any
     data: Transaction
+    deleteModal: () => void
 }
 
-export function TransactionCard({ navigation, data }: Props ) {
+export function TransactionCard({ navigation, data, deleteModal }: Props ) {
     const theme = useTheme();
     const category = categories.find(x => x.name === data.category)
     const [nextIndex, setNextIndex] = useState(1);
@@ -82,7 +83,7 @@ export function TransactionCard({ navigation, data }: Props ) {
                 <BodilessButton
                     flex={2}
                     title='Apagar'
-                    onPress={navigateToDeleteScreen}
+                    onPress={deleteModal}
                     iconName={"trash"}
                     iconColor={theme.colors.attention}
                 />
