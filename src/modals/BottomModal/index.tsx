@@ -14,7 +14,7 @@ export function BottomModal({ modalize, children, height, onClosed } : Props){
                   modalHeight={height} 
                   withReactModal 
                   withHandle={false}
-                //   onClosed={onClosed}
+                  onClosed={onClosed}
                   velocity={100}
                   modalStyle={{ 
                     borderTopLeftRadius: 40, 

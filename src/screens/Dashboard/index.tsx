@@ -43,8 +43,8 @@ export function Dashboard({ navigation }: Props){
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
 
     const [period, setPeriod] = useState(defaultPeriod)
-    
-    const []
+    const [periodModalCloseCounter, setPeriodModalCloseCounter] = useState(0);
+
     // const [reloadCounter, setReloadCounter] = useState(0);
 
     const theme = useTheme();
@@ -54,10 +54,13 @@ export function Dashboard({ navigation }: Props){
     // }
 
     function handlePeriod(period: string){
-        // reload();
+        // reload();   
         closePeriodModal()
-        
-        //setPeriod(period)
+        openLoading()
+        setTimeout(() => {
+            setPeriod(period)            
+        }, 100);
+        // openLoading() 
         // setIsLoading(true);
         // setTimeout(() => {
         //     setIsLoading(false);
@@ -94,17 +97,15 @@ export function Dashboard({ navigation }: Props){
 
     function closePeriodModal(){
         periodModal.current?.close()
+        setPeriodModalCloseCounter(periodModalCloseCounter + 1)
     };
 
-    function toggleLoading(){
-        console.log(`loading`)
-        setIsLoading(!isLoading)
-        //setIsLoading(true)
-        
-        // setTimeout(() => {
-        //     setIsLoading(false);
-        // }, 2000)
-        // loadTransactions()
+    function openLoading(){
+        setIsLoading(true)
+    }
+
+    function closeLoading(){
+        setIsLoading(false)
     }
 
     function renderTransactions() {
@@ -124,24 +125,29 @@ export function Dashboard({ navigation }: Props){
     }
 
     async function loadTransactions(){
-        setIsLoading(true);
         // await AsyncStorage.clear()
         let data = await TransactionService.getAllByPeriod(period)
         setTransactions(data);
 
         if (data.length > 0)
-            setHighlightData(TransactionService.getDashboardHighlights(data))             
-
-        setIsLoading(false);
+            setHighlightData(TransactionService.getDashboardHighlights(data))      
+        
+        setTimeout(() => {
+            closeLoading()                
+        }, 500);
     }
 
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    }, []));
+    }, [period]));
 
-    useEffect(() => {
-        toggleLoading()
-    }, [period])
+    // useEffect(() => {
+    //     closePeriodModal()
+    // }, [period])
+
+    // useEffect(() => { 
+    //         openLoading()
+    // }, [periodModalCloseCounter])
 
     return (
         <Container>
