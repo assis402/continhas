@@ -12,15 +12,6 @@ const defaultScreenOptions: NativeStackNavigationOptions = {
     animation:'fade_from_bottom'
 }
 
-const modalOptions: NativeStackNavigationOptions = {
-    headerShown: false,
-    animationTypeForReplace: 'push',
-    animation:'fade',
-    presentation: 'transparentModal',
-    contentStyle: {
-    }
-}
-
 export function DashboardRoutes(){
     return ( 
         <Stack.Navigator>
@@ -41,14 +32,9 @@ export function DashboardRoutes(){
                 options={defaultScreenOptions}
             />
             <Stack.Screen 
-                name="Update" 
+                name="Update"
                 component={UpdateTransaction}
                 options={defaultScreenOptions}
-            />
-            <Stack.Screen 
-                name="Delete" 
-                component={DeleteTransaction}
-                options={modalOptions}
             />
         </Stack.Navigator>
     )

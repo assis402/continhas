@@ -13,13 +13,10 @@ import {
     Date,
     Options,
     TransactionComponent,
-    PrevButton,
-    NextButton
 } from './styles'
 
 import { BodilessButton } from '../Buttons/BodilessButton';
 import { useTheme } from 'styled-components';
-import { View } from 'react-native';
 import Swiper from 'react-native-swiper'
 
 interface Props {
@@ -38,18 +35,20 @@ export function TransactionCard({ navigation, data, deleteModal }: Props ) {
         navigation.navigate('Update')
     }
 
-    function navigateToDeleteScreen(){
-        navigation.navigate('Delete')
-        navigation.setOptions({
-            tabBarStyle: {
-                opacity: 0
-            }
-        })
-    }
-
     function handleMoveSwiper(){
         swiperRef.current?.scrollTo(nextIndex)
-        setNextIndex(nextIndex === 0 ? 1 : 0)
+
+        let newNextIndex = nextIndex === 0 ? 1 : 0
+        setNextIndex(newNextIndex)
+
+        newNextIndex === 0 && returnToStartAfterFourSeconds()
+    }
+
+    function returnToStartAfterFourSeconds(){
+        setTimeout(() => {
+            swiperRef.current?.scrollTo(0)
+            setNextIndex(1)
+        }, 4000)
     }
 
     return(

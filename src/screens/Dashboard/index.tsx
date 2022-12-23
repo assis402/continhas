@@ -1,11 +1,8 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
-import { TransactionCard } from '../../components/TransactionCard'
 import { useFocusEffect } from '@react-navigation/native'
-import { ActivityIndicator, BackHandler, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { useTheme } from 'styled-components'
-import { getMonthByPeriod } from '../../utils/helper'
 
 import {
     Container,
@@ -18,32 +15,20 @@ import {
     UserName,
     Power,
     HighlightCards,
-    Transactions,
-    Title,
-    TransactionList,
-    LoadContainer,
-    NoTransactions,
-    NoTransactionsTitle,
-    NoTransactionsText,
-    MiniIcon,
-    NoTransactionsImg,
-    TransactionsHeader,
-    TransactionOptions,
-    Separator,
+    TransactionListContainer,
 } from './styles'
 
 import { PeriodSelectModal } from '../../modals/PeriodSelectModal';
 import { PeriodSelectButton } from '../../components/Forms/PeriodSelectButton';
 import TransactionService from '../../services/Transaction';
-import { MiniButton } from '../../components/Buttons/MiniButton';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { AddTransaction } from '../Transaction/AddTransaction';
-import { UpdateTransaction } from '../Transaction/UpdateTransaction';
-import { AddFrequentTransaction } from '../Transaction/AddFrequentTransaction';
-import { DeleteTransaction } from '../Transaction/DeleteTransaction';
+import { DeleteTransactionModal } from '../Transaction/DeleteTransaction';
 import { Modalize } from 'react-native-modalize';
 import { BottomModal } from '../../modals/BottomModal';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DashboardTransactions } from '../../components/Dahsboard/Transactions';
+import { DashboardEmpty } from '../../components/Dahsboard/Empty';
+import { Loading } from '../../components/Dahsboard/Loading';
+import { BackHandler } from 'react-native';
 
 const today = new Date();
 const defaultPeriod = today.getMonth().toString() + today.getFullYear().toString();
@@ -57,21 +42,27 @@ export function Dashboard({ navigation }: Props){
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
 
-    const [periodModalIsOpen, setPeriodModalIsOpen] = useState(false)
-
     const [period, setPeriod] = useState(defaultPeriod)
     
-    const [reloadCounter, setReloadCounter] = useState(0);
+    const []
+    // const [reloadCounter, setReloadCounter] = useState(0);
 
     const theme = useTheme();
 
-    function reload(){
-        setReloadCounter(reloadCounter + 1);
-    }
+    // function reload(){
+    //     setReloadCounter(reloadCounter + 1);
+    // }
 
     function handlePeriod(period: string){
-        reload();
-        setPeriod(period)
+        // reload();
+        closePeriodModal()
+        
+        //setPeriod(period)
+        // setIsLoading(true);
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        // }, 2000)
+        // loadTransactions()
     }
 
     function navigateToAddScreen(){
@@ -86,17 +77,54 @@ export function Dashboard({ navigation }: Props){
         BackHandler.exitApp()
     }
 
-    const deleteModal = useRef<Modalize>(null);
+    const deleteModal = useRef<Modalize>(null)
+    const periodModal = useRef<Modalize>(null)
 
-    const openDeleteModal = () => {
-        deleteModal.current?.open();
+    function openDeleteModal(){
+        deleteModal.current?.open()
+    }
+
+    function closeDeleteModal(){
+        deleteModal.current?.close()
+    }
+
+    function openPeriodModal(){
+        periodModal.current?.open()
+    }
+
+    function closePeriodModal(){
+        periodModal.current?.close()
     };
 
-    const closeDeleteModal = () => {
-        deleteModal.current?.close();
-    };
+    function toggleLoading(){
+        console.log(`loading`)
+        setIsLoading(!isLoading)
+        //setIsLoading(true)
+        
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        // }, 2000)
+        // loadTransactions()
+    }
+
+    function renderTransactions() {
+        if(transactions.length === 0){
+            return (<DashboardEmpty period={period}/>)
+        } else {
+            return (
+                <DashboardTransactions
+                    navigation={navigation}
+                    navigateToAddScreen={navigateToAddScreen}
+                    navigateToAddFrequentScreen={navigateToAddFrequentScreen}
+                    openDeleteModal={openDeleteModal}
+                    transactions={transactions}
+                />
+            )
+        }
+    }
 
     async function loadTransactions(){
+        setIsLoading(true);
         // await AsyncStorage.clear()
         let data = await TransactionService.getAllByPeriod(period)
         setTransactions(data);
@@ -109,100 +137,63 @@ export function Dashboard({ navigation }: Props){
 
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    }, [reloadCounter]));
+    }, []));
+
+    useEffect(() => {
+        toggleLoading()
+    }, [period])
 
     return (
-        // <GestureHandlerRootView >
-
-            <Container>
-                {
-                    isLoading ? 
-                    <LoadContainer>
-                        <ActivityIndicator 
-                            color={theme.colors.success_secundary}
-                            size="large"    
-                        />
-                    </LoadContainer> : 
-                    <>
-                        <Header>
-                            <UserWrapper>
-                                <UserInfo>
-                                    <User>
-                                        <UserGreeting>
-                                            Olá, <UserName>Matheus</UserName>
-                                        </UserGreeting>
-                                    </User>
-                                </UserInfo>
-                                <Power name="log-out" onPress={handleExitApp}/>
-                            </UserWrapper>
-                            <MonthYearWrapper>
-                                <PeriodSelectButton 
-                                    period={period}
-                                    onPress={() => {}}
-                                />
-                            </MonthYearWrapper>
-                            <HighlightCards>
-                                <HighlightCard 
-                                    type='income' 
-                                    amount={highlightData.income.total}
-                                    lastTransaction={highlightData.income.lastTransaction}
-                                />
-                                <HighlightCard 
-                                    type='outcome' 
-                                    amount={highlightData.outcome.total}
-                                    lastTransaction={highlightData.outcome.lastTransaction}
-                                />
-                                <HighlightCard 
-                                    type='balance'
-                                    amount={highlightData.sum.total}
-                                    lastTransaction=''
-                                />
-                            </HighlightCards>
-                        </Header>
-                        { transactions.length === 0 ?
-                            <NoTransactions>
-                                <NoTransactionsTitle>Nenhum lançamento este mês</NoTransactionsTitle>
-                                <NoTransactionsText>
-                                    Cadastre a sua primeira transação do mês de {getMonthByPeriod(period)} clicando em &nbsp;
-                                    <MiniIcon name="plus-circle"/>
-                                </NoTransactionsText>
-                                <NoTransactionsImg source={require("../../assets/no-result.png")}/>
-                            </NoTransactions> :
-                            <Transactions>
-                                <TransactionsHeader>
-                                    <Title>Lançamentos</Title>
-                                    <TransactionOptions>
-                                        <MiniButton
-                                            iconName='plus'
-                                            flex={1}
-                                            onPress={navigateToAddScreen}
-                                        />
-                                        <Separator/>
-                                        <MiniButton
-                                            iconName='rotate-cw'
-                                            flex={1}
-                                            onPress={navigateToAddFrequentScreen}
-                                        />
-                                    </TransactionOptions>
-                                </TransactionsHeader>
-                                <TransactionList<any>
-                                    data={transactions}
-                                    keyExtrator={(item: Transaction) => item.id}
-                                    renderItem={({ item }: { item: Transaction }) => 
-                                        <TransactionCard
-                                            navigation={navigation}
-                                            data={item}
-                                            deleteModal={openDeleteModal}
-                                        />}
-                                />
-                            </Transactions>
-                        }
-                    </>
-                }
-            <BottomModal modalize={deleteModal}>
-                <DeleteTransaction closeModal={closeDeleteModal}/>         
+        <Container>
+            <Header>
+                <UserWrapper>
+                    <UserInfo>
+                        <User>
+                            <UserGreeting>
+                                Olá, <UserName>Matheus</UserName>
+                            </UserGreeting>
+                        </User>
+                    </UserInfo>
+                    <Power name="log-out" onPress={handleExitApp}/>
+                </UserWrapper>
+                <MonthYearWrapper>
+                    <PeriodSelectButton 
+                        period={period}
+                        onPress={openPeriodModal}
+                    />
+                </MonthYearWrapper>
+                <HighlightCards>
+                    <HighlightCard 
+                        type='income' 
+                        amount={highlightData.income.total}
+                        lastTransaction={highlightData.income.lastTransaction}
+                    />
+                    <HighlightCard 
+                        type='outcome' 
+                        amount={highlightData.outcome.total}
+                        lastTransaction={highlightData.outcome.lastTransaction}
+                    />
+                    <HighlightCard 
+                        type='balance'
+                        amount={highlightData.sum.total}
+                        lastTransaction=''
+                    />
+                </HighlightCards>
+            </Header>
+            <TransactionListContainer>
+                { renderTransactions() }
+            </TransactionListContainer>
+            <BottomModal modalize={deleteModal} height={300}>
+                <DeleteTransactionModal closeModal={closeDeleteModal}/>         
             </BottomModal>
-            </Container>
-        // </GestureHandlerRootView>
+            <BottomModal modalize={periodModal} height={450}>
+                <PeriodSelectModal 
+                    closeModal={closePeriodModal}
+                    period={period}
+                    setPeriod={handlePeriod}
+                />         
+            </BottomModal>
+            <Loading isVisible={isLoading}/>
+        </Container>
     )
 }

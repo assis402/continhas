@@ -53,6 +53,9 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
                     />
                 </MonthList>
                 <Button 
+                    color=''
+                    textColor=''
+                    flex={0.65}
                     title="Selecionar"
                     onPress={() => handleSelectFunction(month, year)}
                 />

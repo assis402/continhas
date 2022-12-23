@@ -8,7 +8,7 @@ interface Props {
     closeModal: () => void
 }
 
-export function DeleteTransaction({closeModal}: Props){
+export function DeleteTransactionModal({closeModal}: Props){
     const theme = useTheme()
 
     return(

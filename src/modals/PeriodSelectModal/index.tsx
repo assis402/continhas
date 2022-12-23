@@ -1,46 +1,32 @@
 import React from "react";
-import { Modal } from "react-native";
 import { MonthYearPicker } from "../../components/MonthYearPicker";
-import { Container, ExternalModal, InternalModal } from "./styles";
+import { Container } from "./styles";
 import { toString2Pad } from "../../utils/helper"
 
 interface Props {
     period: string;
     setPeriod: (period: string) => void;
-    closeSelectPeriod: () => void;
-    modalIsOpen: boolean;
-}
+    closeModal: () => void;
+} 
 
 export function PeriodSelectModal({
     period,
     setPeriod,
-    closeSelectPeriod,
-    modalIsOpen
+    closeModal,
 } : Props){
     
     function handlePeriodSelect(month: number, year: number){
         let period = toString2Pad(month) + year.toString()
+        console.log(period);
         setPeriod(period);
-        closeSelectPeriod();
     }
 
     return(
         <Container>
-            <Modal
-                visible={modalIsOpen}
-                transparent={true}
-                animationType='fade'
-                statusBarTranslucent
-            >
-                <ExternalModal>
-                    <InternalModal>
-                        <MonthYearPicker
-                            monthYear={period}
-                            handleSelectFunction={handlePeriodSelect}
-                        /> 
-                    </InternalModal>
-                </ExternalModal>
-            </Modal>
+            <MonthYearPicker
+                monthYear={period}
+                handleSelectFunction={handlePeriodSelect}
+            /> 
         </Container>
     )
 }
