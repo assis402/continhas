@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import { Transaction } from "../../../classes/Transaction";
 import { MiniButton } from "../../Buttons/MiniButton";
 import { TransactionCard } from "../../TransactionCard";
@@ -17,6 +18,16 @@ export function DashboardTransactions({ navigation,
                                         openDeleteModal,
                                         transactions
                                       }: Props){
+
+    const [isRefreshing, setIsRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+            setIsRefreshing(true);
+            setTimeout(() => {
+                setIsRefreshing(false)
+            }, 2000)
+    }, []);
+    
     return(
         <Container>
             <Header>
@@ -44,6 +55,9 @@ export function DashboardTransactions({ navigation,
                         data={item}
                         deleteModal={openDeleteModal}
                     />}
+                refreshing={isRefreshing}
+                onRefresh={onRefresh}
+                
             />
         </Container>
     )

@@ -43,33 +43,28 @@ export function Dashboard({ navigation }: Props){
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
 
     const [period, setPeriod] = useState(defaultPeriod)
-    const [periodModalCloseCounter, setPeriodModalCloseCounter] = useState(0);
-
-    // const [reloadCounter, setReloadCounter] = useState(0);
+    const [reloadCounter, setReload] = useState(0);
 
     const theme = useTheme();
 
-    // function reload(){
-    //     setReloadCounter(reloadCounter + 1);
-    // }
-
     function handlePeriod(period: string){
-        // reload();  
         openLoading()
         closePeriodModal()
         setTimeout(() => {
             setPeriod(period)            
         }, 200);
-        // openLoading() 
-        // setIsLoading(true);
-        // setTimeout(() => {
-        //     setIsLoading(false);
-        // }, 2000)
-        // loadTransactions()
     }
 
+    
     function navigateToAddScreen(){
-        navigation.navigate('Add')
+        navigation.navigate('Add', {
+            reload: reload
+        })
+    }
+    
+    function reload(){
+        openLoading()
+        setReload(reloadCounter + 1)            
     }
 
     function navigateToAddFrequentScreen(){
@@ -97,7 +92,6 @@ export function Dashboard({ navigation }: Props){
 
     function closePeriodModal(){
         periodModal.current?.close()
-        setPeriodModalCloseCounter(periodModalCloseCounter + 1)
     };
 
     function openLoading(){
@@ -128,8 +122,6 @@ export function Dashboard({ navigation }: Props){
     }
 
     async function loadTransactions(){
-        setTimeout(() => {
-        }, 200);
         // await AsyncStorage.clear()
         let data = await TransactionService.getAllByPeriod(period)
         setTransactions(data);
@@ -137,14 +129,12 @@ export function Dashboard({ navigation }: Props){
         if (data.length > 0)
             setHighlightData(TransactionService.getDashboardHighlights(data))      
         
-        setTimeout(() => {
-            closeLoading()                
-        }, 200);
+        closeLoading()                
     }
 
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    }, [period]));
+    }, [period, reloadCounter]));
 
     // useEffect(() => {
     //     closePeriodModal()

@@ -8,6 +8,7 @@ export function notifySucccess(message: string){
         message: message,
         type: "success",
         icon: "success",
+        duration: 500,
         style: {
             paddingTop: Platform.OS === 'ios' ? 10 : 50
         }
@@ -19,6 +20,7 @@ export function notifyError(message: string){
         message: message,
         type: "danger",
         icon: "warning",
+        duration: 500,
         style: {
             paddingTop: Platform.OS === 'ios' ? 10 : 50
         }

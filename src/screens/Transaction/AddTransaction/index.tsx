@@ -42,6 +42,7 @@ interface FormData {
 
 interface Props {
     navigation: any
+    route: any
 }
 
 const schema = Yup.object().shape({
@@ -53,13 +54,15 @@ const schema = Yup.object().shape({
         .required('O valor é obrigatório')
 })
 
-export function AddTransaction({ navigation }: Props){
+export function AddTransaction({ navigation, route }: Props){
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
 
     function handleBackButton(){
         navigation.popToTop();
         return true;
     }
+
+    const { reload } = route.params;
 
     const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false)
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
@@ -139,8 +142,10 @@ export function AddTransaction({ navigation }: Props){
         try {
             await TransactionService.create(newTransaction)
 
-            handleResetForm()
+            handleBackButton()
             notifySucccess("Transação adicionada!")
+            reload()
+            handleResetForm()
         } catch (error) {
             console.log(error);
             notifyError("Não foi possível salvar")
