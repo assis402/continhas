@@ -2,7 +2,6 @@ import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react
 import { Dashboard } from '../screens/Dashboard';
 import { AddFrequentTransaction } from '../screens/Transaction/AddFrequentTransaction';
 import { AddTransaction } from '../screens/Transaction/AddTransaction';
-import { DeleteTransaction } from '../screens/Transaction/DeleteTransaction';
 import { UpdateTransaction } from '../screens/Transaction/UpdateTransaction';
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +18,6 @@ export function DashboardRoutes(){
                 name="Dashboard" 
                 component={Dashboard}
                 options={defaultScreenOptions}
-                
             />
             <Stack.Screen 
                 name="Add" 

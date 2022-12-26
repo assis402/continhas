@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { TouchableWithoutFeedback, Keyboard, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
 import { CategorySelectButton } from '../../../components/Forms/CategorySelectButton'
 import { DateSelectButton } from '../../../components/Forms/DateSelectButton'
@@ -40,6 +40,10 @@ interface FormData {
     amount: string
 }
 
+interface Props {
+    navigation: any
+}
+
 const schema = Yup.object().shape({
     title: Yup.string().required('Nome é obrigatório'),
     amount: Yup
@@ -49,7 +53,14 @@ const schema = Yup.object().shape({
         .required('O valor é obrigatório')
 })
 
-export function AddTransaction(){
+export function AddTransaction({ navigation }: Props){
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    function handleBackButton(){
+        navigation.popToTop();
+        return true;
+    }
+
     const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false)
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
     const [timeModalIsOpen, setTimeModalIsOpen] = useState(false)
@@ -141,7 +152,7 @@ export function AddTransaction(){
             <Container>
                 <Header>
                     <HeaderButtons>
-                        <BackButton/>
+                        <BackButton onPress={() => navigation.goBack()}/>
                     </HeaderButtons>
                     <Title>Novo lançamento</Title>
                 </Header>

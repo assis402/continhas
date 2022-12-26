@@ -28,6 +28,7 @@ export default {
 
         background: '#FFFFFF',
         background_navigation: 'rgba(255, 255, 255, 0.92)',
+        background_loading: 'rgba(255, 255, 255, 0.94)',
         background_modal: 'rgba(0, 0, 0, 0.5)',
 
         button_border: 'rgba(150, 156, 178, 0.2)',

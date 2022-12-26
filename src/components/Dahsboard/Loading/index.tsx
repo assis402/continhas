@@ -17,8 +17,6 @@ export function Loading({ isVisible }: Props){
             animationIn={"fadeIn"}
             animationOut={"fadeOut"}
             hasBackdrop={false}
-            animationInTiming={1000}
-            animationOutTiming={1000}
             style={{
                 margin: 0,
                 bottom: 0,

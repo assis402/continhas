@@ -3,14 +3,15 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    /* margin-top: ${RFValue(25)}px;
-    justify-content: center;
-    align-items: center;
     flex: 1;
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.background};
-    border-top-left-radius: ${RFValue(35)}px;
-    border-top-right-radius: ${RFValue(35)}px; */
+`
+
+export const Body = styled.View`
+    justify-content: center;
+    align-items: center;
+    height: 78%;
+    width: 100%;
 `
 
 export const Title = styled.Text`
@@ -39,4 +40,21 @@ export const Img = styled.Image`
 export const Icon = styled(Feather)`
     color: ${({theme}) => theme.colors.secondary_light_new};
     font-size: ${RFValue(12)}px;
+`
+
+export const Header = styled.View`
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+
+`
+
+export const Options = styled.View`
+    flex-direction: row;
+`
+
+export const Separator = styled.View`
+    width: ${RFValue(9)}px;
+    height: 1px;
 `

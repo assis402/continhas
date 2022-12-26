@@ -54,12 +54,12 @@ export function Dashboard({ navigation }: Props){
     // }
 
     function handlePeriod(period: string){
-        // reload();   
-        closePeriodModal()
+        // reload();  
         openLoading()
+        closePeriodModal()
         setTimeout(() => {
             setPeriod(period)            
-        }, 100);
+        }, 200);
         // openLoading() 
         // setIsLoading(true);
         // setTimeout(() => {
@@ -110,7 +110,10 @@ export function Dashboard({ navigation }: Props){
 
     function renderTransactions() {
         if(transactions.length === 0){
-            return (<DashboardEmpty period={period}/>)
+            return (<DashboardEmpty
+                        navigateToAddScreen={navigateToAddScreen}
+                        navigateToAddFrequentScreen={navigateToAddFrequentScreen}
+                    />)
         } else {
             return (
                 <DashboardTransactions
@@ -125,6 +128,8 @@ export function Dashboard({ navigation }: Props){
     }
 
     async function loadTransactions(){
+        setTimeout(() => {
+        }, 200);
         // await AsyncStorage.clear()
         let data = await TransactionService.getAllByPeriod(period)
         setTransactions(data);
@@ -134,7 +139,7 @@ export function Dashboard({ navigation }: Props){
         
         setTimeout(() => {
             closeLoading()                
-        }, 500);
+        }, 200);
     }
 
     useFocusEffect(useCallback(() => {

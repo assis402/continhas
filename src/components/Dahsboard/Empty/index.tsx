@@ -1,19 +1,38 @@
 import { getMonthByPeriod } from "../../../utils/helper";
-import { Container, Icon, Img, Title, Text } from "./styles";
+import { MiniButton } from "../../Buttons/MiniButton";
+import { Container, Icon, Img, Title, Text, Options, Header, Separator, Body } from "./styles";
 
 interface Props {
-    period: string;
+    navigateToAddScreen: () => void
+    navigateToAddFrequentScreen: () => void
 }
 
-export function DashboardEmpty({ period }: Props){
+export function DashboardEmpty({navigateToAddScreen, navigateToAddFrequentScreen}: Props){
     return(
         <Container>
-            <Title>Nenhum lançamento este mês</Title>
-            <Text>
-                Cadastre a sua primeira transação do mês de {getMonthByPeriod(period)} clicando em &nbsp;
-                <Icon name="plus-circle"/>
-            </Text>
-            <Img source={require("../../../assets/no-result.png")}/>
+            <Header>
+                <Options>
+                    <MiniButton
+                        iconName='plus'
+                        flex={1}
+                        onPress={navigateToAddScreen}
+                    />
+                    <Separator/>
+                    <MiniButton
+                        iconName='rotate-cw'
+                        flex={1}
+                        onPress={navigateToAddFrequentScreen}
+                    />
+                </Options>
+            </Header>
+            <Body>
+                <Title>Nenhum lançamento {`\n`} neste mês</Title>
+                <Text>
+                    Cadastre o primeiro lançamento deste mês clicando em &nbsp;
+                    <Icon name="plus"/>
+                </Text>
+                <Img source={require("../../../assets/no-result.png")}/>
+            </Body>
         </Container>
     )
 }
