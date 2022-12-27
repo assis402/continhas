@@ -7,22 +7,23 @@ interface TypeProps {
     type: 'income' | 'outcome' | 'balance';
 }
 
-// interface GradientProps extends LinearGradientProps {
-//     gradientColor: string[]
-// }
+interface GradientProps extends LinearGradientProps {
+    type: 'income' | 'outcome' | 'balance';
+}
 
 export const Container = styled(LinearGradient).attrs(
     {
         start: { x: -1, y: 0 },
         end: { x: 1, y: 0 }
     }
-)`
+)<GradientProps>`
     width: ${RFValue(300)}px;
     flex: 1;
-
+    /* border: ${({ type, theme }) => type === 'balance' && `solid 10px ${theme.colors.button_border_super_light}`}; */
     border-radius: 10px;
     padding: 19px 23px;
     /* padding-bottom: ${RFValue(10)}px; */
+    /* background-color: ${({ type, theme }) => type === 'balance' && theme.colors.secondary_full}; */
     margin-right: 16px;
 `;
 

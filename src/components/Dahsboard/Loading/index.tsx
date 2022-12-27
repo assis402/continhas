@@ -28,7 +28,7 @@ export function Loading({ isVisible }: Props){
         >
             <Container>
                 <ActivityIndicator 
-                    color={theme.colors.success_secundary}
+                    color={theme.colors.secondary_new}
                     size="large"
                     style={{
                         top: -40

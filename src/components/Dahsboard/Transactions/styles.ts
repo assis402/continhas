@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { FlatList } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -15,12 +16,26 @@ export const Title = styled.Text`
     color: ${({theme}) => theme.colors.title};
 `
 
-export const Header = styled.View`
+export const Header = styled.View.attrs({
+})`
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    margin-bottom: ${RFValue(15)}px;
+    padding-bottom: ${RFValue(1)}px;
 `
+
+export const WhiteShadow = styled(LinearGradient).attrs(
+    {
+        start: { x: 0, y: 0 },
+        end: { x: 0, y: 1 }
+    }
+)`
+    width: 100%;
+    height: ${RFValue(30)}px;
+    position: absolute;
+    top: ${RFValue(35)}px;
+    z-index: 10;
+`;
 
 export const Options = styled.View`
     flex-direction: row;
@@ -36,5 +51,8 @@ export const TransactionList = styled(FlatList as new () => FlatList<Transaction
     contentContainerStyle: {
         paddingBottom: getBottomSpace() + 75
     }
-})``
+})`
+    position: relative;
+    z-index: 0;
+`
 

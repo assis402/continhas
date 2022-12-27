@@ -45,8 +45,6 @@ export function Dashboard({ navigation }: Props){
     const [period, setPeriod] = useState(defaultPeriod)
     const [reloadCounter, setReload] = useState(0);
 
-    const theme = useTheme();
-
     function handlePeriod(period: string){
         openLoading()
         closePeriodModal()
@@ -55,7 +53,6 @@ export function Dashboard({ navigation }: Props){
         }, 200);
     }
 
-    
     function navigateToAddScreen(){
         navigation.navigate('Add', {
             reload: reload

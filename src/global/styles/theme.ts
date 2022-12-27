@@ -1,5 +1,6 @@
 export default {
     colors: {
+        secondary_full: '#000',
         secondary_new: '#0a0a0a',
         secondary_light_new: '#bdbdbd',
         secondary_super_light_new: 'rgb(245, 245, 245)',
@@ -34,13 +35,15 @@ export default {
         button_border: 'rgba(150, 156, 178, 0.2)',
 
         button_border_light: 'rgba(150, 156, 178, 0.1)',
+        button_border_super_light: 'rgba(150, 156, 178, 0.04)',
 
         mood_icon: 'rgba(150, 156, 178, 0.2)',
         mood_text: 'rgba(150, 156, 178, 0.6)',
 
         gradient_success: ['#a8ff78', '#78ffd6'],
         gradient_attention: ['#EECDA3', '#EF629F'],
-        gradient_balance: ['transparent', 'transparent']
+        gradient_balance: ['rgb(10, 10, 10)', 'rgb(25, 26, 29)'],
+        gradient_white: ['rgba(255, 25, 255, 1)', 'rgba(255, 255, 255, 0)']
     },
     fonts: {
         regular: 'Poppins_400Regular',

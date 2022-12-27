@@ -47,10 +47,10 @@ const gradients = () => {
 }
 
 export function HighlightCard({ type, amount, lastTransaction }: Props){    
-    
+    const theme = useTheme();
     return (
         <Container 
-            // type={type}
+            type={type}
             colors={gradients()[type]}
         >
             <Header>

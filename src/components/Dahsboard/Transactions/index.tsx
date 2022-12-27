@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
+import { useTheme } from "styled-components";
 import { Transaction } from "../../../classes/Transaction";
 import { MiniButton } from "../../Buttons/MiniButton";
 import { TransactionCard } from "../../TransactionCard";
-import { Container, Header, Options, Separator, Title, TransactionList } from "./styles";
+import { Container, Header, Options, Separator, Title, TransactionList, WhiteShadow } from "./styles";
 
 interface Props {
     navigation: any
@@ -18,15 +19,15 @@ export function DashboardTransactions({ navigation,
                                         openDeleteModal,
                                         transactions
                                       }: Props){
+    const theme = useTheme()
+    // const [isRefreshing, setIsRefreshing] = useState(false);
 
-    const [isRefreshing, setIsRefreshing] = useState(false);
-
-    const onRefresh = useCallback(() => {
-            setIsRefreshing(true);
-            setTimeout(() => {
-                setIsRefreshing(false)
-            }, 2000)
-    }, []);
+    // const onRefresh = useCallback(() => {
+    //         setIsRefreshing(true);
+    //         setTimeout(() => {
+    //             setIsRefreshing(false)
+    //         }, 2000)
+    // }, []);
     
     return(
         <Container>
@@ -46,6 +47,7 @@ export function DashboardTransactions({ navigation,
                     />
                 </Options>
             </Header>
+            <WhiteShadow colors={theme.colors.gradient_white}/>
             <TransactionList<any>
                 data={transactions}
                 keyExtrator={(item: Transaction) => item.id}
@@ -55,9 +57,9 @@ export function DashboardTransactions({ navigation,
                         data={item}
                         deleteModal={openDeleteModal}
                     />}
-                refreshing={isRefreshing}
-                onRefresh={onRefresh}
-                
+                overScrollMode='never'
+                // refreshing={sRefreshing}
+                // onRefresh={onRefresh}
             />
         </Container>
     )

@@ -60,10 +60,12 @@ export const Power = styled(Feather)`
 
 export const HighlightCards = styled.ScrollView.attrs({
     horizontal: true,
+    overScrollMode: 'never',
+    pagingEnabled: true,
     showsHorizontalScrollIndicator: false,
-    contentContainerStyle: { paddingLeft: 24 },
+    contentContainerStyle: { paddingLeft: RFValue(18), paddingRight: RFValue(18) },
     disableIntervalMomentum: true, 
-    snapToInterval: 418
+    snapToInterval: RFValue(305)
 })`
     width: 100%;
 `
