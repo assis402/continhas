@@ -43,7 +43,7 @@ export default {
         gradient_success: ['#a8ff78', '#78ffd6'],
         gradient_attention: ['#EECDA3', '#EF629F'],
         gradient_balance: ['rgb(10, 10, 10)', 'rgb(25, 26, 29)'],
-        gradient_white: ['rgba(255, 25, 255, 1)', 'rgba(255, 255, 255, 0)']
+        gradient_white: ['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 0)']
     },
     fonts: {
         regular: 'Poppins_400Regular',

@@ -31,7 +31,7 @@ export const WhiteShadow = styled(LinearGradient).attrs(
     }
 )`
     width: 100%;
-    height: ${RFValue(30)}px;
+    height: ${RFValue(20)}px;
     position: absolute;
     top: ${RFValue(35)}px;
     z-index: 10;
@@ -49,7 +49,8 @@ export const Separator = styled.View`
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
-        paddingBottom: getBottomSpace() + 75
+        paddingBottom: getBottomSpace() + 75,
+        paddingTop: RFValue(20)
     }
 })`
     position: relative;
