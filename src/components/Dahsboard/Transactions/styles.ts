@@ -14,14 +14,20 @@ export const Title = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({theme}) => theme.fonts.bold};
     color: ${({theme}) => theme.colors.title};
+    padding-left: ${RFValue(3)}px;
 `
 
 export const Header = styled.View.attrs({
 })`
-    align-items: center;
     justify-content: space-between;
     flex-direction: row;
+    align-items: center;
     padding-bottom: ${RFValue(1)}px;
+    padding: 0 ${RFValue(3)}px;
+    position: absolute;
+    width: 100%;
+    z-index: 11;
+    background-color: ${({ theme }) => theme.colors.background}
 `
 
 export const WhiteShadow = styled(LinearGradient).attrs(
@@ -31,10 +37,11 @@ export const WhiteShadow = styled(LinearGradient).attrs(
     }
 )`
     width: 100%;
-    height: ${RFValue(20)}px;
+    height: ${RFValue(15)}px;
     position: absolute;
     top: ${RFValue(35)}px;
     z-index: 10;
+    /* border: solid 1px black; */
 `;
 
 export const Options = styled.View`
@@ -49,8 +56,8 @@ export const Separator = styled.View`
 export const TransactionList = styled(FlatList as new () => FlatList<Transaction>).attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
-        paddingBottom: getBottomSpace() + 75,
-        paddingTop: RFValue(20)
+        paddingBottom: getBottomSpace() + 70,
+        paddingTop: RFValue(45)
     }
 })`
     position: relative;

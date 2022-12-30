@@ -7,20 +7,14 @@ import { Dimensions } from "react-native";
 export const Container = styled.View`
     flex: 1;
     background-color: ${({ theme }) => theme.colors.secondary_new};
-    border-top-left-radius: ${RFValue(20)}px;
-    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const Header = styled.View`
-    justify-content: center;
+    height: ${RFValue(113)}px;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: column;
     padding-bottom: ${RFValue(16)}px;
-    border-top-color: ${({ theme }) => theme.colors.button_border_light};
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-left-radius: ${RFValue(20)}px;
-    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const HeaderButtons = styled.View`

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { TouchableWithoutFeedback, Keyboard, Alert, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
 import { CategorySelectButton } from '../../../components/Forms/CategorySelectButton'
 import { DateSelectButton } from '../../../components/Forms/DateSelectButton'
@@ -40,9 +40,9 @@ interface FormData {
 
 interface Props {
     transaction: Transaction
-    closeModal: () => void
-    modalIsOpen: boolean
     reload: () => void
+    navigation: any
+    route: any
 }
 
 const schema = Yup.object().shape({
@@ -53,7 +53,15 @@ const schema = Yup.object().shape({
                .required('O valor é obrigatório')
 })
 
-export function UpdateTransaction({ transaction, closeModal, modalIsOpen, reload }: Props){
+export function UpdateTransaction({ navigation, route }: Props){
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    function handleBackButton(){
+        navigation.popToTop();
+        return true;
+    }
+
+    const { reload, transaction } = route.params;
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
@@ -72,8 +80,6 @@ export function UpdateTransaction({ transaction, closeModal, modalIsOpen, reload
     } = useForm<FormData>({
         resolver: yupResolver(schema)
     });
-
-    
 
     function handleDate(date: Date){
         setDate(date)
@@ -140,7 +146,7 @@ export function UpdateTransaction({ transaction, closeModal, modalIsOpen, reload
             await TransactionService.update(updatedTransaction)
             reload()
             handleResetForm()
-            notifySucccess("Transação adicionada!")
+            notifySucccess("Lançamento atualizado!")
 
         } catch (error) {
             console.log(error);
@@ -149,111 +155,99 @@ export function UpdateTransaction({ transaction, closeModal, modalIsOpen, reload
     }
 
     return (
-        <Modal
-            statusBarTranslucent
-            isVisible={modalIsOpen}
-            onBackButtonPress={closeModal}
-            useNativeDriver
-            useNativeDriverForBackdrop
-            style={{
-                margin: 0,
-                marginTop: 110
-            }}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <Container>
-                    <Header>
-                        <HeaderButtons>
-                            <BackButton onPress={closeModal}/>
-                        </HeaderButtons>
-                        <Title>Editar lançamento</Title>
-                    </Header>
-                    <Form>
-                        <Fields>
-                            <InputForm 
-                                name='title'
-                                defaultValue={transaction.title}
-                                control={control} 
-                                placeholder='Identificação'
-                                autoCapitalize='sentences'
-                                autoCorrect={false}
-                                error={errors.title && errors.title.message}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Container>
+                <Header>
+                    <HeaderButtons>
+                        <BackButton onPress={handleBackButton}/>
+                    </HeaderButtons>
+                    <Title>Editar lançamento</Title>
+                </Header>
+                <Form>
+                    <Fields>
+                        <InputForm 
+                            name='title'
+                            defaultValue={transaction.title}
+                            control={control} 
+                            placeholder='Identificação'
+                            autoCapitalize='sentences'
+                            autoCorrect={false}
+                            error={errors.title && errors.title.message}
+                        />
+                        <InputForm 
+                            name='amount'
+                            defaultValue={String(transaction.amount)}
+                            control={control}  
+                            placeholder='Valor'
+                            keyboardType='numeric'
+                            error={errors.amount && errors.amount.message}
+                            mask={Masks.BRL_CURRENCY}
+                        />
+                        <CategorySelectButton 
+                            title={category}
+                            onPress={handleOpenSelectCategoryModal}
+                        />
+                        <DateTimeSelectors>
+                            <DateSelectButton 
+                                dateTime={date}
+                                onPress={handleOpenSelectDateModal}
                             />
-                            <InputForm 
-                                name='amount'
-                                defaultValue={String(transaction.amount)}
-                                control={control}  
-                                placeholder='Valor'
-                                keyboardType='numeric'
-                                error={errors.amount && errors.amount.message}
-                                mask={Masks.BRL_CURRENCY}
+                            <TimeSelectButton 
+                                dateTime={time}
+                                onPress={handleOpenSelectTimeModal}
                             />
-                            <CategorySelectButton 
-                                title={category}
-                                onPress={handleOpenSelectCategoryModal}
+                        </DateTimeSelectors>
+                        <Buttons>
+                            <TransactionTypeButton 
+                                type='income'
+                                onPress={() => handleTransactionTypeSelect('income')}
+                                isActive={transactionType === 'income'}
                             />
-                            <DateTimeSelectors>
-                                <DateSelectButton 
-                                    dateTime={date}
-                                    onPress={handleOpenSelectDateModal}
-                                />
-                                <TimeSelectButton 
-                                    dateTime={time}
-                                    onPress={handleOpenSelectTimeModal}
-                                />
-                            </DateTimeSelectors>
-                            <Buttons>
-                                <TransactionTypeButton 
-                                    type='income'
-                                    onPress={() => handleTransactionTypeSelect('income')}
-                                    isActive={transactionType === 'income'}
-                                />
-                                <TransactionTypeButton 
-                                    type='outcome'
-                                    onPress={() => handleTransactionTypeSelect('outcome')}
-                                    isActive={transactionType === 'outcome'}
-                                />
-                            </Buttons>
-                        </Fields>
-                        <Footer>
-                            <OutlinedButton 
-                                flex={1}
-                                title='Resetar' 
-                                onPress={handleResetForm}
+                            <TransactionTypeButton 
+                                type='outcome'
+                                onPress={() => handleTransactionTypeSelect('outcome')}
+                                isActive={transactionType === 'outcome'}
                             />
-                            <Separator/>
-                            <Button 
-                                color=''
-                                textColor=''
-                                flex={2}
-                                title='Adicionar' 
-                                onPress={(data) => {
-                                    handleSubmit(handleUpdate, () => notifyError("Formulário incompleto!"))(data)
-                                    closeModal()
-                                }}
-                            />
-                        </Footer>
-                    </Form>
-                    <CategorySelectModal
-                        category={category}
-                        setCategory={setCategory}
-                        closeSelectCategory={handleCloseSelectCategoryModal}
-                        categoryModalIsOpen={categoryModalOpen}
-                    />
-                    <DateTimePickerModal
-                        isVisible={dateModalOpen}
-                        mode="date"
-                        onConfirm={handleDate}
-                        onCancel={handleCloseSelectDateModal}
-                    />
-                    <DateTimePickerModal
-                        isVisible={timeModalOpen}
-                        mode="time"
-                        onConfirm={handleTime}
-                        onCancel={handleCloseSelectTimeModal}
-                    />
-                </Container>
-            </TouchableWithoutFeedback>
-        </Modal>
+                        </Buttons>
+                    </Fields>
+                    <Footer>
+                        <OutlinedButton 
+                            flex={1}
+                            title='Resetar' 
+                            onPress={handleResetForm}
+                        />
+                        <Separator/>
+                        <Button 
+                            color=''
+                            textColor=''
+                            flex={2}
+                            title='Adicionar' 
+                            onPress={(data) => {
+                                handleSubmit(handleUpdate, () => notifyError("Formulário incompleto!"))(data)
+                                handleBackButton()
+                            }}
+                        />
+                    </Footer>
+                </Form>
+                <CategorySelectModal
+                    category={category}
+                    setCategory={setCategory}
+                    closeSelectCategory={handleCloseSelectCategoryModal}
+                    categoryModalIsOpen={categoryModalOpen}
+                />
+                <DateTimePickerModal
+                    isVisible={dateModalOpen}
+                    mode="date"
+                    onConfirm={handleDate}
+                    onCancel={handleCloseSelectDateModal}
+                />
+                <DateTimePickerModal
+                    isVisible={timeModalOpen}
+                    mode="time"
+                    onConfirm={handleTime}
+                    onCancel={handleCloseSelectTimeModal}
+                />
+            </Container>
+        </TouchableWithoutFeedback>
     )
 }

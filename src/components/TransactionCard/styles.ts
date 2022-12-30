@@ -13,9 +13,9 @@ export const Container = styled(Swiper).attrs({
     loop: false,
     showsPagination: false,
 })`
-    height: ${RFValue(47)}px;  
-    margin-bottom: ${RFValue(18.5)}px;
-    width: ${RFValue(512)}px;  
+    height: ${RFValue(42)}px;  
+    margin-bottom: ${RFValue(17)}px;
+    width: 168%;  
 `
 
 export const TransactionComponent = styled.TouchableOpacity.attrs({
@@ -62,7 +62,7 @@ export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.medium};
     font-size: ${RFValue(12)}px;
     color: ${({ theme }) => theme.colors.title};
-    margin-left: ${RFValue(9)}px;
+    margin-left: ${RFValue(12)}px;
 `
 
 export const Amount = styled.Text<TypeProps>`
@@ -78,8 +78,8 @@ export const Category = styled.View`
     align-items: center;
     background-color: ${({ theme }) => theme.colors.secondary_new};
     border-radius: 1000px;
-    height: ${RFValue(47)}px;
-    width: ${RFValue(47)}px;
+    height: ${RFValue(42)}px;
+    width: ${RFValue(42)}px;
 `
 
 export const Icon = styled(Feather)`

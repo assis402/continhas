@@ -63,9 +63,9 @@ export const HighlightCards = styled.ScrollView.attrs({
     overScrollMode: 'never',
     pagingEnabled: true,
     showsHorizontalScrollIndicator: false,
-    contentContainerStyle: { paddingLeft: RFValue(18), paddingRight: RFValue(18) },
+    contentContainerStyle: { paddingLeft: RFValue(25), paddingRight: RFValue(18) },
     disableIntervalMomentum: true, 
-    snapToInterval: RFValue(305)
+    snapToInterval: RFValue(310)
 })`
     width: 100%;
 `
@@ -92,8 +92,8 @@ export const AddIcon = styled(Feather)`
 export const TransactionListContainer = styled.View`
     flex: 1;
     width: 100%;
-    padding: 0 ${RFValue(22)}px;
-    padding-top: ${RFValue(21)}px;
+    padding: 0 ${RFValue(18)}px;
+    padding-top: ${RFValue(18)}px;
     margin-top: ${RFValue(25)}px;
     background-color: ${({ theme }) => theme.colors.background};
     border-top-left-radius: ${RFValue(35)}px;

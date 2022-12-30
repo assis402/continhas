@@ -8,8 +8,6 @@ import { InputForm } from '../../../components/Forms/InputForm'
 import { TransactionTypeButton } from '../../../components/Forms/TransactionTypeButton'
 import { CategorySelectModal } from '../../../modals/CategorySelectModal'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
-import Modal from "react-native-modal";
 import TransactionService from '../../../services/Transaction';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -143,7 +141,7 @@ export function AddTransaction({ navigation, route }: Props){
             await TransactionService.create(newTransaction)
 
             handleBackButton()
-            notifySucccess("Transação adicionada!")
+            notifySucccess("Lançamento adicionado!")
             reload()
             handleResetForm()
         } catch (error) {

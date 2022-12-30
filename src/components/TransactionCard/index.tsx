@@ -32,7 +32,7 @@ export function TransactionCard({ navigation, data, deleteModal }: Props ) {
     const swiperRef = useRef<Swiper>(null);
 
     function navigateToUpdateScreen(){
-        navigation.navigate('Update')
+        navigation.navigate('Update', )
     }
 
     function handleMoveSwiper(){
@@ -56,6 +56,7 @@ export function TransactionCard({ navigation, data, deleteModal }: Props ) {
             // prevButton={<PrevButton/>}
             // nextButton={<NextButton/>}
             ref={swiperRef}
+            overScrollMode='never'
         >
             <TransactionComponent onPress={handleMoveSwiper}>
                 <First>

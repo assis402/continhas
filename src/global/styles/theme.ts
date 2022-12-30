@@ -42,7 +42,7 @@ export default {
 
         gradient_success: ['#a8ff78', '#78ffd6'],
         gradient_attention: ['#EECDA3', '#EF629F'],
-        gradient_balance: ['rgb(10, 10, 10)', 'rgb(25, 26, 29)'],
+        gradient_balance: ['rgb(54, 54, 58)', 'rgb(20, 20, 23)'],
         gradient_white: ['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 0)']
     },
     fonts: {

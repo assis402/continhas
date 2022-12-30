@@ -14,7 +14,7 @@ export function Loading({ isVisible }: Props){
         <ReactNativeModal
             isVisible={isVisible}
             statusBarTranslucent
-            animationIn={"flash"}
+            animationIn={"fadeIn"}
             animationOut={"fadeOut"}
             hasBackdrop={false}
             animationOutTiming={400}
@@ -23,7 +23,7 @@ export function Loading({ isVisible }: Props){
             style={{
                 margin: 0,
                 bottom: 0,
-                marginTop: 550
+                marginTop: 528
             }}
         >
             <Container>
