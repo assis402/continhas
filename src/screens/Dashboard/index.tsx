@@ -3,6 +3,7 @@ import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { useFocusEffect } from '@react-navigation/native'
 import { useTheme } from 'styled-components'
+import { toString2Pad } from '../../utils/helper'
 
 import {
     Container,
@@ -31,7 +32,7 @@ import { Loading } from '../../components/Dahsboard/Loading';
 import { BackHandler } from 'react-native';
 
 const today = new Date();
-const defaultPeriod = today.getMonth().toString() + today.getFullYear().toString();
+const defaultPeriod = toString2Pad(today.getMonth()) + today.getFullYear().toString();
 
 interface Props {
     navigation: any
@@ -41,26 +42,24 @@ export function Dashboard({ navigation }: Props){
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
-
+    
     const [period, setPeriod] = useState(defaultPeriod)
     const [reloadCounter, setReload] = useState(0);
-
+        
     function handlePeriod(period: string){
-        openLoading()
         closePeriodModal()
-        setTimeout(() => {
-            setPeriod(period)            
-        }, 200);
+        openLoading()
+        setPeriod(period)            
     }
 
     function navigateToAddScreen(){
         navigation.navigate('Add', {
-            reload: reload
+            reload: reloadTransactions,
+            openLoading: openLoading
         })
     }
     
-    function reload(){
-        openLoading()
+    function reloadTransactions(){
         setReload(reloadCounter + 1)            
     }
 
@@ -72,16 +71,7 @@ export function Dashboard({ navigation }: Props){
         BackHandler.exitApp()
     }
 
-    const deleteModal = useRef<Modalize>(null)
     const periodModal = useRef<Modalize>(null)
-
-    function openDeleteModal(){
-        deleteModal.current?.open()
-    }
-
-    function closeDeleteModal(){
-        deleteModal.current?.close()
-    }
 
     function openPeriodModal(){
         periodModal.current?.open()
@@ -91,9 +81,7 @@ export function Dashboard({ navigation }: Props){
         periodModal.current?.close()
     };
 
-    function openLoading(){
-        setIsLoading(true)
-    }
+    const openLoading = useCallback(() => {setIsLoading(true)}, [])
 
     function closeLoading(){
         setIsLoading(false)
@@ -111,8 +99,9 @@ export function Dashboard({ navigation }: Props){
                     navigation={navigation}
                     navigateToAddScreen={navigateToAddScreen}
                     navigateToAddFrequentScreen={navigateToAddFrequentScreen}
-                    openDeleteModal={openDeleteModal}
                     transactions={transactions}
+                    openLoading={openLoading}
+                    reload={reloadTransactions}
                 />
             )
         }
@@ -161,17 +150,20 @@ export function Dashboard({ navigation }: Props){
                     />
                 </MonthYearWrapper>
                 <HighlightCards>
-                    <HighlightCard 
+                    <HighlightCard
+                        isLoading={isLoading} 
                         type='income' 
                         amount={highlightData.income.total}
                         lastTransaction={highlightData.income.lastTransaction}
                     />
-                    <HighlightCard 
+                    <HighlightCard
+                        isLoading={isLoading} 
                         type='outcome' 
                         amount={highlightData.outcome.total}
                         lastTransaction={highlightData.outcome.lastTransaction}
                     />
-                    <HighlightCard 
+                    <HighlightCard
+                        isLoading={isLoading}
                         type='balance'
                         amount={highlightData.sum.total}
                         lastTransaction=''
@@ -179,11 +171,9 @@ export function Dashboard({ navigation }: Props){
                 </HighlightCards>
             </Header>
             <TransactionListContainer>
+                { isLoading && <Loading/> }
                 { renderTransactions() }
             </TransactionListContainer>
-            <BottomModal modalize={deleteModal} height={300}>
-                <DeleteTransactionModal closeModal={closeDeleteModal}/>         
-            </BottomModal>
             <BottomModal modalize={periodModal} height={450}>
                 <PeriodSelectModal 
                     closeModal={closePeriodModal}
@@ -191,7 +181,6 @@ export function Dashboard({ navigation }: Props){
                     setPeriod={handlePeriod}
                 />         
             </BottomModal>
-            <Loading isVisible={isLoading}/>
         </Container>
     )
 }

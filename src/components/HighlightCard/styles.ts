@@ -18,6 +18,7 @@ export const Container = styled(LinearGradient).attrs(
     }
 )<GradientProps>`
     width: ${RFValue(300)}px;
+    height: ${RFValue(136)}px;
     flex: 1;
     /* border: ${({ type, theme }) => type === 'balance' && `solid 10px ${theme.colors.button_border_super_light}`}; */
     border-radius: 10px;

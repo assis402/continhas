@@ -24,6 +24,7 @@ export const Header = styled.View.attrs({
     align-items: center;
     padding-bottom: ${RFValue(1)}px;
     padding: 0 ${RFValue(3)}px;
+    padding-top: ${RFValue(5)}px;
     position: absolute;
     width: 100%;
     z-index: 11;
@@ -39,7 +40,7 @@ export const WhiteShadow = styled(LinearGradient).attrs(
     width: 100%;
     height: ${RFValue(15)}px;
     position: absolute;
-    top: ${RFValue(35)}px;
+    top: ${RFValue(40)}px;
     z-index: 10;
     /* border: solid 1px black; */
 `;
@@ -57,7 +58,7 @@ export const TransactionList = styled(FlatList as new () => FlatList<Transaction
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
         paddingBottom: getBottomSpace() + 70,
-        paddingTop: RFValue(45)
+        paddingTop: RFValue(53)
     }
 })`
     position: relative;

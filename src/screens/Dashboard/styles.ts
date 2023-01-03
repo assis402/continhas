@@ -63,7 +63,7 @@ export const HighlightCards = styled.ScrollView.attrs({
     overScrollMode: 'never',
     pagingEnabled: true,
     showsHorizontalScrollIndicator: false,
-    contentContainerStyle: { paddingLeft: RFValue(25), paddingRight: RFValue(18) },
+    contentContainerStyle: { paddingLeft: RFValue(25), paddingRight: RFValue(11) },
     disableIntervalMomentum: true, 
     snapToInterval: RFValue(310)
 })`

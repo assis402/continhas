@@ -6,7 +6,8 @@ import { Dimensions } from 'react-native';
 
 export const Container = styled.View`
     /* background-color: ${({ theme }) => theme.colors.background}; */
-    padding: ${RFValue(25)}px;
+    padding: 0 ${RFValue(25)}px;
+    padding-top: ${RFValue(25)}px;
     flex-direction: column;
     justify-content: space-between;
 `;

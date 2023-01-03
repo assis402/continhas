@@ -150,7 +150,7 @@ export function UpdateTransaction({ navigation, route }: Props){
 
         } catch (error) {
             console.log(error);
-            notifyError("Não foi possível salvar")
+            notifyError("Não foi possível atualizar o lançamento")
         }
     }
 

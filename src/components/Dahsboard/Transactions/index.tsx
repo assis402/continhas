@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
 import { Transaction } from "../../../classes/Transaction";
 import { MiniButton } from "../../Buttons/MiniButton";
@@ -10,14 +9,16 @@ interface Props {
     transactions: Transaction[]
     navigateToAddScreen: () => void
     navigateToAddFrequentScreen: () => void
-    openDeleteModal: () => void
+    openLoading: () => void
+    reload: () => void
 }
 
 export function DashboardTransactions({ navigation,
+                                        transactions,
                                         navigateToAddFrequentScreen,
                                         navigateToAddScreen,
-                                        openDeleteModal,
-                                        transactions
+                                        openLoading,
+                                        reload
                                       }: Props){
     const theme = useTheme()
     // const [isRefreshing, setIsRefreshing] = useState(false);
@@ -55,7 +56,8 @@ export function DashboardTransactions({ navigation,
                     <TransactionCard
                         navigation={navigation}
                         data={item}
-                        deleteModal={openDeleteModal}
+                        openLoading={openLoading}
+                        reload={reload}
                     />}
                 overScrollMode='never'
                 // refreshing={sRefreshing}

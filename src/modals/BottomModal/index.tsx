@@ -16,7 +16,8 @@ export function BottomModal({ modalize, children, height } : Props){
                   modalStyle={{ 
                     borderTopLeftRadius: 40, 
                     borderTopRightRadius: 40,
-                    flex: 1 }}
+                    flex: 1,
+                 }}
         >
             {children}
         </Modalize>

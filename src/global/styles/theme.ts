@@ -43,7 +43,11 @@ export default {
         gradient_success: ['#a8ff78', '#78ffd6'],
         gradient_attention: ['#EECDA3', '#EF629F'],
         gradient_balance: ['rgb(54, 54, 58)', 'rgb(20, 20, 23)'],
-        gradient_white: ['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 0)']
+        gradient_white: ['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 0)'],
+
+        gradient_success_placeholder: ['rgba(96, 163, 120, 0.7)', 'rgba(48, 87, 63, 0.7)', 'rgba(96, 163, 120, 0.9)'],
+        gradient_attention_placeholder: ['rgba(163, 76, 96, 0.7)', 'rgba(87, 48, 48, 0.7)', 'rgba(163, 76, 96, 0.9)'],
+        gradient_balance_placeholder: ['rgba(165, 165, 165, 0.5)', 'rgba(81, 82, 81, 0.5)', 'rgba(165, 165, 165, 0.5)']
     },
     fonts: {
         regular: 'Poppins_400Regular',

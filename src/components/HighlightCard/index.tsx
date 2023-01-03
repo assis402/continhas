@@ -11,11 +11,15 @@ import {
     LastTransaction, 
     Title,
 } from './styles'
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
+import { LinearGradient } from 'expo-linear-gradient';
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface Props {
     type: 'income' | 'outcome' | 'balance';
     amount: Number;
     lastTransaction: string;
+    isLoading: boolean
 }
 
 const title = {
@@ -46,8 +50,22 @@ const gradients = () => {
     }
 }
 
-export function HighlightCard({ type, amount, lastTransaction }: Props){    
+const shimmerColors = () => {
     const theme = useTheme();
+
+    return {
+        income: theme.colors.gradient_success_placeholder,
+        outcome: theme.colors.gradient_attention_placeholder,
+        balance: theme.colors.gradient_balance_placeholder
+    }
+}
+
+export function HighlightCard({ type, amount, lastTransaction, isLoading }: Props){    
+    const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
+    const theme = useTheme();
+    const firstShimerStyle = { marginBottom: RFValue(17), marginTop: RFValue(8), opacity: 0.5 }
+    const secondShimerStyle = { opacity: 0.5 }
+
     return (
         <Container 
             type={type}
@@ -58,9 +76,13 @@ export function HighlightCard({ type, amount, lastTransaction }: Props){
                 <Icon name={icon[type]} type={type}/>
             </Header>
             <Content>
-                <Amount type={type}>{formatAmount(amount)}</Amount>
-                {lastTransaction && 
-                    <LastTransaction type={type}>{'Última ' + typeValue[type] + ' dia ' + lastTransaction}</LastTransaction>
+                <ShimmerPlaceholder visible={!isLoading} height={RFValue(32)} width={RFValue(160)} shimmerColors={shimmerColors()[type]} shimmerStyle={firstShimerStyle}>
+                    <Amount type={type}>{formatAmount(amount)}</Amount>
+                </ShimmerPlaceholder>
+                {lastTransaction &&
+                    <ShimmerPlaceholder visible={!isLoading} height={RFValue(12)} width={RFValue(220)} shimmerColors={shimmerColors()[type]} shimmerStyle={secondShimerStyle}>
+                        <LastTransaction type={type}>{'Última ' + typeValue[type] + ' dia ' + lastTransaction}</LastTransaction>
+                    </ShimmerPlaceholder>
                 }
             </Content>
         </Container>
