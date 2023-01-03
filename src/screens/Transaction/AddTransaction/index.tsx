@@ -33,6 +33,8 @@ import { Checkbox } from '../../../components/Forms/Checkbox'
 import theme from '../../../global/styles/theme'
 import { BackButton } from '../../../components/Buttons/BackButton'
 
+import { LogBox } from 'react-native';
+
 interface FormData {
     title: string
     amount: string
@@ -61,6 +63,10 @@ export function AddTransaction({ navigation, route }: Props){
     }
 
     const { reload } = route.params;
+
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+      ]);
 
     const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false)
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)

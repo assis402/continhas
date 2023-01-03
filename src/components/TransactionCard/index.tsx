@@ -36,7 +36,10 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
     const swiperRef = useRef<Swiper>(null);
 
     function navigateToUpdateScreen(){
-        navigation.navigate('Update', )
+        navigation.navigate('Update', {
+            reload: reload,
+            transaction: data
+        })
     }
 
     function handleMoveSwiper(){
@@ -45,7 +48,7 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
         let newNextIndex = nextIndex === 0 ? 1 : 0
         setNextIndex(newNextIndex)
 
-        newNextIndex === 0 && returnToStartAfterFourSeconds()
+        // newNextIndex === 0 && returnToStartAfterFourSeconds()
     }
 
     function returnToStartAfterFourSeconds(){
@@ -72,6 +75,7 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
                 // nextButton={<NextButton/>}
                 ref={swiperRef}
                 overScrollMode='never'
+                onMomentumScrollEnd={returnToStartAfterFourSeconds}
             >
                 <TransactionComponent onPress={handleMoveSwiper}>
                     <First>

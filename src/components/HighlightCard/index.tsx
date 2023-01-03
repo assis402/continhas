@@ -79,11 +79,9 @@ export function HighlightCard({ type, amount, lastTransaction, isLoading }: Prop
                 <ShimmerPlaceholder visible={!isLoading} height={RFValue(32)} width={RFValue(160)} shimmerColors={shimmerColors()[type]} shimmerStyle={firstShimerStyle}>
                     <Amount type={type}>{formatAmount(amount)}</Amount>
                 </ShimmerPlaceholder>
-                {lastTransaction &&
-                    <ShimmerPlaceholder visible={!isLoading} height={RFValue(12)} width={RFValue(220)} shimmerColors={shimmerColors()[type]} shimmerStyle={secondShimerStyle}>
-                        <LastTransaction type={type}>{'Última ' + typeValue[type] + ' dia ' + lastTransaction}</LastTransaction>
-                    </ShimmerPlaceholder>
-                }
+                <ShimmerPlaceholder visible={!isLoading} height={RFValue(12)} width={RFValue(220)} shimmerColors={shimmerColors()[type]} shimmerStyle={secondShimerStyle}>
+                    { lastTransaction && <LastTransaction type={type}>{'Última ' + typeValue[type] + ' dia ' + lastTransaction}</LastTransaction> }
+                </ShimmerPlaceholder>
             </Content>
         </Container>
     )

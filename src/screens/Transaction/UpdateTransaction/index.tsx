@@ -39,8 +39,6 @@ interface FormData {
 }
 
 interface Props {
-    transaction: Transaction
-    reload: () => void
     navigation: any
     route: any
 }

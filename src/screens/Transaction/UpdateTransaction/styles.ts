@@ -61,6 +61,7 @@ export const Buttons = styled.View`
 export const Footer = styled.View`
     display: flex;
     flex-direction: row;
+    margin-bottom: ${RFValue(55)}px;
 `
 
 export const Separator = styled.View`

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Transaction } from '../../classes/Transaction';
 import { HighlightCard } from '../../components/HighlightCard'
 import { useFocusEffect } from '@react-navigation/native'
-import { useTheme } from 'styled-components'
 import { toString2Pad } from '../../utils/helper'
 
 import {
@@ -23,7 +22,6 @@ import { PeriodSelectModal } from '../../modals/PeriodSelectModal';
 import { PeriodSelectButton } from '../../components/Forms/PeriodSelectButton';
 import TransactionService from '../../services/Transaction';
 import { DashboardProps, defaultDashboardProps } from '../../classes/Dashboard';
-import { DeleteTransactionModal } from '../Transaction/DeleteTransaction';
 import { Modalize } from 'react-native-modalize';
 import { BottomModal } from '../../modals/BottomModal';
 import { DashboardTransactions } from '../../components/Dahsboard/Transactions';

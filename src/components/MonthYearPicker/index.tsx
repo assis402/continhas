@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Button } from '../Buttons/Button';
-import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker } from './styles';
+import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker, Grid, GridLine } from './styles';
 import { monthArray, detachMonth, detachYear } from '../../utils/helper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface Props {
     monthYear: string;
@@ -28,6 +29,19 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
         setMonth(monthArray.indexOf(selectedMonth))
     }
 
+    function renderMonthsLine(start: number, end: number){
+        return (
+            <GridLine>
+                {
+                    monthArray.slice(start, end).map((item) => 
+                        <MonthButton key={item} onPress={() => handleSelectMonth(item)}>
+                            <Month active={item === monthArray[month]}>{item}</Month>
+                        </MonthButton>)
+                }
+            </GridLine>
+        )
+    }
+
     return (
         <Container>
             <Picker>
@@ -41,7 +55,7 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
                     </ChangeYear>
                 </YearList>
                 <MonthList>
-                    <FlatList
+                    {/* <FlatList
                         data={monthArray}
                         keyExtractor={item => item}
                         numColumns={3}
@@ -50,7 +64,13 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
                                 <Month active={item === monthArray[month]}>{item}</Month>
                             </MonthButton>
                         )}
-                    />
+                    /> */}
+                    <Grid>
+                        {renderMonthsLine(0,3)}
+                        {renderMonthsLine(3,6)}
+                        {renderMonthsLine(6,9)}
+                        {renderMonthsLine(9,12)}
+                    </Grid>
                 </MonthList>
                 <Button 
                     color=''

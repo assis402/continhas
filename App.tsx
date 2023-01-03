@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ThemeProvider } from 'styled-components'
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import {
     useFonts,
     Poppins_400Regular,
@@ -16,6 +16,9 @@ import { AppRoutes } from './src/routes/app.routes'
 import FlashMessage from 'react-native-flash-message';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { View } from 'react-native';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -24,12 +27,18 @@ export default function App() {
         Poppins_700Bold
     });
 
-    if(!fontsLoaded) {
-        return <AppLoading/>
-    }
+    const onLayoutRootView = useCallback(async () => {
+        if (fontsLoaded) {
+          await SplashScreen.hideAsync();
+        }
+      }, [fontsLoaded]);
+    
+      if (!fontsLoaded) {
+        return null;
+      }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
             <ThemeProvider theme={theme}>
                 <NavigationContainer>
                     <AppRoutes/>
@@ -37,6 +46,6 @@ export default function App() {
                 <FlashMessage position="top" />
                 <StatusBar style="light" translucent />
             </ThemeProvider>
-        </GestureHandlerRootView>
+        </View>
     )
 }

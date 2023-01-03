@@ -2,7 +2,6 @@ import { Platform } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-
 export function notifySucccess(message: string){
     showMessage({
         message: message,

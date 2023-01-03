@@ -17,7 +17,6 @@ export function PeriodSelectModal({
     
     function handlePeriodSelect(month: number, year: number){
         let period = toString2Pad(month) + year.toString()
-        console.log(period);
         setPeriod(period);
     }
 

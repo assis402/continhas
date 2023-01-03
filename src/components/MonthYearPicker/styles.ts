@@ -61,3 +61,12 @@ export const Month = styled.Text<MonthProps>`
     font-family: ${({ theme, active }) => active ? theme.fonts.bold : theme.fonts.regular};
     color: ${({ theme, active }) => active ? theme.colors.text : theme.colors.text_light};
 `
+
+export const Grid = styled.ScrollView`
+    /* flex-direction: row;
+    flex-wrap: wrap; */
+`
+
+export const GridLine = styled.View`
+    flex-direction: row;
+`
