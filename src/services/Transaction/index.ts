@@ -65,9 +65,14 @@ export default class TransactionService {
         const transactions = await this.getAll()
         const index = transactions.findIndex((x => x.id == updatedTransaction.id));
 
-        transactions[index] = updatedTransaction
+        transactions.splice(index, index)
+        const dataFormatted = [
+            ...transactions, updatedTransaction
+        ]
 
-        await AsyncStorage.setItem(dataKey, JSON.stringify(transactions))
+        console.log(updatedTransaction)
+
+        await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
     }
 
     static async delete(id: string){

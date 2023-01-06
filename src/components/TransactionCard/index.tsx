@@ -38,6 +38,7 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
     function navigateToUpdateScreen(){
         navigation.navigate('Update', {
             reload: reload,
+            openLoading: openLoading,
             transaction: data
         })
     }
@@ -111,8 +112,8 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
             <BottomModal modalize={deleteModal} height={300}>
                 <DeleteTransactionModal 
                     transaction={data} 
-                    reload={() => {}} 
-                    openLoading={() => {}} 
+                    reload={reload} 
+                    openLoading={openLoading} 
                     closeModal={handleCloseDeleteModal}/>         
             </BottomModal>
         </>

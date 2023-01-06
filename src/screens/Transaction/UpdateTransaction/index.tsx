@@ -8,7 +8,6 @@ import { InputForm } from '../../../components/Forms/InputForm'
 import { TransactionTypeButton } from '../../../components/Forms/TransactionTypeButton'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-import Modal from "react-native-modal";
 import TransactionService from '../../../services/Transaction';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -55,11 +54,11 @@ export function UpdateTransaction({ navigation, route }: Props){
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
 
     function handleBackButton(){
-        navigation.popToTop();
+        navigation.navigate("Dashboard");
         return true;
     }
 
-    const { reload, transaction } = route.params;
+    const { reload, openLoading, transaction } = route.params;
     const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
@@ -140,12 +139,14 @@ export function UpdateTransaction({ navigation, route }: Props){
             transaction.isFrequent
         )
 
-        try {
-            await TransactionService.update(updatedTransaction)
-            reload()
-            handleResetForm()
-            notifySucccess("Lançamento atualizado!")
+        console.log(updatedTransaction)
 
+        try {
+            openLoading()
+            await TransactionService.update(updatedTransaction)
+            handleBackButton()
+            reload()
+            notifySucccess("Lançamento atualizado!")
         } catch (error) {
             console.log(error);
             notifyError("Não foi possível atualizar o lançamento")
@@ -219,7 +220,7 @@ export function UpdateTransaction({ navigation, route }: Props){
                             color=''
                             textColor=''
                             flex={2}
-                            title='Adicionar' 
+                            title='Atualizar' 
                             onPress={(data) => {
                                 handleSubmit(handleUpdate, () => notifyError("Formulário incompleto!"))(data)
                                 handleBackButton()

@@ -58,11 +58,11 @@ export function AddTransaction({ navigation, route }: Props){
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
 
     function handleBackButton(){
-        navigation.popToTop();
+        navigation.navigate("Dashboard");
         return true;
     }
 
-    const { reload } = route.params;
+    const { reload, openLoading } = route.params;
 
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
@@ -144,11 +144,11 @@ export function AddTransaction({ navigation, route }: Props){
         )
 
         try {
+            openLoading()
             await TransactionService.create(newTransaction)
-
             handleBackButton()
-            notifySucccess("Lançamento adicionado!")
             reload()
+            notifySucccess("Lançamento adicionado!")
             handleResetForm()
         } catch (error) {
             console.log(error);

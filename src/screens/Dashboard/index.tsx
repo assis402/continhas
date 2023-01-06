@@ -28,6 +28,7 @@ import { DashboardTransactions } from '../../components/Dahsboard/Transactions';
 import { DashboardEmpty } from '../../components/Dahsboard/Empty';
 import { Loading } from '../../components/Dahsboard/Loading';
 import { BackHandler } from 'react-native';
+import { notifyError, notifySucccess } from '../../utils/notifications';
 
 const today = new Date();
 const defaultPeriod = toString2Pad(today.getMonth()) + today.getFullYear().toString();
@@ -36,7 +37,7 @@ interface Props {
     navigation: any
 }
 
-export function Dashboard({ navigation }: Props){    
+export function Dashboard({ navigation }: Props){  
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<Transaction[]>([])
     const [highlightData, setHighlightData] = useState<DashboardProps>(defaultDashboardProps);
