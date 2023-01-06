@@ -70,8 +70,6 @@ export default class TransactionService {
             ...transactions, updatedTransaction
         ]
 
-        console.log(updatedTransaction)
-
         await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
     }
 
