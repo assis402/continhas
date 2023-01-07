@@ -19,12 +19,12 @@ export class Transaction {
                 title: string,
                 amount: string,
                 category: string,
+                date: Date,
                 isFrequent: boolean) {
-        let creationDate = new Date()
 
         this.id = String(uuid.v4())
-        this.date = String(creationDate)
-        this.period = toString2Pad(creationDate.getMonth()) + creationDate.getFullYear().toString()
+        this.date = String(date)
+        this.period = toString2Pad(date.getMonth()) + date.getFullYear().toString()
         this.type = type as TransactionType;
         this.title = title
         this.amount = Number(amount);

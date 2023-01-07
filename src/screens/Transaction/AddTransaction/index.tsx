@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
 import { CategorySelectButton } from '../../../components/Forms/CategorySelectButton'
@@ -34,6 +34,9 @@ import theme from '../../../global/styles/theme'
 import { BackButton } from '../../../components/Buttons/BackButton'
 
 import { LogBox } from 'react-native';
+import { BottomModal } from '../../../modals/BottomModal'
+import { Modalize } from 'react-native-modalize'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface FormData {
     title: string
@@ -68,7 +71,6 @@ export function AddTransaction({ navigation, route }: Props){
         'Non-serializable values were found in the navigation state',
       ]);
 
-    const [categoryModalIsOpen, setCategoryModalIsOpen] = useState(false)
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
     const [timeModalIsOpen, setTimeModalIsOpen] = useState(false)
     
@@ -80,6 +82,16 @@ export function AddTransaction({ navigation, route }: Props){
 
     const [isFrequent, setFrequent] = useState(false);
     
+    const categoryModal = useRef<Modalize>(null)
+
+    function openCategoryModal(){
+        categoryModal.current?.open()
+    }
+
+    function closeCategoryModal(){
+        categoryModal.current?.close()
+    };
+
     const {
         control,
         handleSubmit,
@@ -101,10 +113,6 @@ export function AddTransaction({ navigation, route }: Props){
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome'){
         setTransactionType(type)
-    }
-
-    function toggleCategoryModalIsOpen(){
-        setCategoryModalIsOpen(!categoryModalIsOpen)
     }
 
     function toggleDateModalIsOpen(){
@@ -140,20 +148,23 @@ export function AddTransaction({ navigation, route }: Props){
             form.title,
             form.amount,
             category,
+            date,
             isFrequent
         )
 
+        handleBackButton()
+        openLoading()
+
         try {
-            openLoading()
             await TransactionService.create(newTransaction)
-            handleBackButton()
-            reload()
-            notifySucccess("Lançamento adicionado!")
-            handleResetForm()
         } catch (error) {
             console.log(error);
             notifyError("Não foi possível salvar")
         }
+
+        reload()
+        notifySucccess("Lançamento adicionado!")
+        handleResetForm()
     }
 
     return (
@@ -185,7 +196,7 @@ export function AddTransaction({ navigation, route }: Props){
                         />
                         <CategorySelectButton 
                             title={category}
-                            onPress={toggleCategoryModalIsOpen}
+                            onPress={openCategoryModal}
                         />
                         <DateTimeSelectors>
                             <DateSelectButton
@@ -237,12 +248,6 @@ export function AddTransaction({ navigation, route }: Props){
                         />
                     </Footer>
                 </Form>
-                <CategorySelectModal
-                    category={category}
-                    setCategory={setCategory}
-                    closeSelectCategory={toggleCategoryModalIsOpen}
-                    categoryModalIsOpen={categoryModalIsOpen}
-                />
                 <DateTimePickerModal
                     isVisible={dateModalIsOpen}
                     mode="date"
@@ -255,6 +260,13 @@ export function AddTransaction({ navigation, route }: Props){
                     onConfirm={handleTime}
                     onCancel={toggleOpenSelectTimeModal}
                 />
+                <BottomModal modalize={categoryModal} height={RFValue(430)}>
+                    <CategorySelectModal 
+                        category={category}
+                        setCategory={setCategory}
+                        closeSelectCategory={closeCategoryModal}
+                    />         
+                </BottomModal>
             </Container>
         </TouchableWithoutFeedback>
     )

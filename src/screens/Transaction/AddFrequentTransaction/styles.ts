@@ -7,8 +7,6 @@ import { Transaction } from '../../../classes/Transaction';
 export const Container = styled.View`
     flex: 1;
     background-color: ${({ theme }) => theme.colors.secondary_new};
-    border-top-left-radius: ${RFValue(20)}px;
-    border-top-right-radius: ${RFValue(20)}px;
 `;
 
 export const Header = styled.View`

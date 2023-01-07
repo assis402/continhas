@@ -17,6 +17,7 @@ export function BottomModal({ modalize, children, height } : Props){
                     borderTopLeftRadius: 40, 
                     borderTopRightRadius: 40,
                     flex: 1,
+                    margin: 0
                  }}
         >
             {children}

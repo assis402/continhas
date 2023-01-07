@@ -4,15 +4,13 @@ import { Container } from "./styles";
 import { toString2Pad } from "../../utils/helper"
 
 interface Props {
-    period: string;
-    setPeriod: (period: string) => void;
-    closeModal: () => void;
+    period: string
+    setPeriod: (period: string) => void
 } 
 
 export function PeriodSelectModal({
     period,
     setPeriod,
-    closeModal,
 } : Props){
     
     function handlePeriodSelect(month: number, year: number){

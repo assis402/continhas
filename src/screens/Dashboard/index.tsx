@@ -44,6 +44,7 @@ export function Dashboard({ navigation }: Props){
     
     const [period, setPeriod] = useState(defaultPeriod)
     const [reloadCounter, setReload] = useState(0);
+    const [loadingCloseCounter, setLoadingClose] = useState(0);
         
     function handlePeriod(period: string){
         closePeriodModal()
@@ -63,7 +64,10 @@ export function Dashboard({ navigation }: Props){
     }
 
     function navigateToAddFrequentScreen(){
-        navigation.navigate('AddFrequent')
+        navigation.navigate('AddFrequent', {
+            reload: reloadTransactions,
+            openLoading: openLoading
+        })
     }
 
     function handleExitApp(){
@@ -102,7 +106,7 @@ export function Dashboard({ navigation }: Props){
                     openLoading={openLoading}
                     reload={reloadTransactions}
                 />
-            )
+                )
         }
     }
 
@@ -112,9 +116,12 @@ export function Dashboard({ navigation }: Props){
         setTransactions(data);
 
         if (data.length > 0)
-            setHighlightData(TransactionService.getDashboardHighlights(data))      
+            setHighlightData(TransactionService.getDashboardHighlights(data))
+        else
+            setHighlightData(defaultDashboardProps)
         
-        closeLoading()                
+        // setLoadingClose(loadingCloseCounter + 1)             
+        closeLoading()
     }
 
     useFocusEffect(useCallback(() => {
@@ -122,8 +129,8 @@ export function Dashboard({ navigation }: Props){
     }, [period, reloadCounter]));
 
     // useEffect(() => {
-    //     closePeriodModal()
-    // }, [period])
+    //     closeLoading()
+    // }, [loadingCloseCounter])
 
     // useEffect(() => { 
     //         openLoading()
@@ -175,7 +182,6 @@ export function Dashboard({ navigation }: Props){
             </TransactionListContainer>
             <BottomModal modalize={periodModal} height={450}>
                 <PeriodSelectModal 
-                    closeModal={closePeriodModal}
                     period={period}
                     setPeriod={handlePeriod}
                 />         

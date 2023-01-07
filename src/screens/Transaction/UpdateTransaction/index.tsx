@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, Alert, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
 import { CategorySelectButton } from '../../../components/Forms/CategorySelectButton'
@@ -31,6 +31,9 @@ import { OutlinedButton } from '../../../components/Buttons/OutlinedButton'
 import { notifyError, notifySucccess } from '../../../utils/notifications'
 import { BackButton } from '../../../components/Buttons/BackButton'
 import { CategorySelectModal } from '../../../modals/CategorySelectModal'
+import { RFValue } from 'react-native-responsive-fontsize'
+import { BottomModal } from '../../../modals/BottomModal'
+import { Modalize } from 'react-native-modalize'
 
 interface FormData {
     title: string;
@@ -59,7 +62,6 @@ export function UpdateTransaction({ navigation, route }: Props){
     }
 
     const { reload, openLoading, transaction } = route.params;
-    const [categoryModalOpen, setCategoryModalOpen] = useState(false)
     const [dateModalOpen, setDateModalOpen] = useState(false)
     const [timeModalOpen, setTimeModalOpen] = useState(false)
     
@@ -68,6 +70,16 @@ export function UpdateTransaction({ navigation, route }: Props){
 
     const [date, setDate] = useState(new Date(transaction.date))
     const [time, setTime] = useState<Date>(new Date(transaction.date))
+
+    const categoryModal = useRef<Modalize>(null)
+
+    function openCategoryModal(){
+        categoryModal.current?.open()
+    }
+
+    function closeCategoryModal(){
+        categoryModal.current?.close()
+    };
 
     const {
         control,
@@ -90,14 +102,6 @@ export function UpdateTransaction({ navigation, route }: Props){
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome'){
         setTransactionType(type)
-    }
-
-    function handleCloseSelectCategoryModal(){
-        setCategoryModalOpen(false)
-    }
-
-    function handleOpenSelectCategoryModal(){
-        setCategoryModalOpen(true)
     }
 
     function handleCloseSelectDateModal(){
@@ -136,6 +140,7 @@ export function UpdateTransaction({ navigation, route }: Props){
             form.title,
             form.amount,
             category,
+            date,
             transaction.isFrequent
         )
 
@@ -184,7 +189,7 @@ export function UpdateTransaction({ navigation, route }: Props){
                         />
                         <CategorySelectButton 
                             title={category}
-                            onPress={handleOpenSelectCategoryModal}
+                            onPress={openCategoryModal}
                         />
                         <DateTimeSelectors>
                             <DateSelectButton 
@@ -228,12 +233,6 @@ export function UpdateTransaction({ navigation, route }: Props){
                         />
                     </Footer>
                 </Form>
-                <CategorySelectModal
-                    category={category}
-                    setCategory={setCategory}
-                    closeSelectCategory={handleCloseSelectCategoryModal}
-                    categoryModalIsOpen={categoryModalOpen}
-                />
                 <DateTimePickerModal
                     isVisible={dateModalOpen}
                     mode="date"
@@ -246,6 +245,13 @@ export function UpdateTransaction({ navigation, route }: Props){
                     onConfirm={handleTime}
                     onCancel={handleCloseSelectTimeModal}
                 />
+                <BottomModal modalize={categoryModal} height={RFValue(430)}>
+                    <CategorySelectModal 
+                        category={category}
+                        setCategory={setCategory}
+                        closeSelectCategory={closeCategoryModal}
+                    />         
+                </BottomModal>
             </Container>
         </TouchableWithoutFeedback>
     )

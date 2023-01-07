@@ -1,7 +1,7 @@
-import React from "react";
-import { FlatList, TouchableWithoutFeedback, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "../../components/Buttons/Button";
-import Modal from "react-native-modal";
 import { categories } from "../../utils/helper";
 import { CategoryItem, Container, Footer, Icon, Name, Separator, Title } from "./styles";
 
@@ -9,68 +9,52 @@ interface Props {
     category: string;
     setCategory: (category: string) => void;
     closeSelectCategory: () => void;
-    categoryModalIsOpen: boolean;
 }
 
 export function CategorySelectModal({
     category,
     setCategory,
     closeSelectCategory,
-    categoryModalIsOpen
 } : Props){
+
+    const [selectedCategory, setSelectedCategory] = useState(category)
     
-    function handleCategorySelect(category: string){
-        setCategory(category);
+    function handleCategorySelect(newSelectedCategory: string){
+        setSelectedCategory(newSelectedCategory);
+    }
+
+    function handleConfirmSelect(){
+        setCategory(selectedCategory)
+        closeSelectCategory()
     }
 
     return(
-        <Modal
-            statusBarTranslucent
-            animationIn="fadeIn"
-            animationOut="fadeOut"
-            isVisible={categoryModalIsOpen}
-            onBackdropPress={closeSelectCategory}
-            onBackButtonPress={closeSelectCategory}
-            useNativeDriver
-            useNativeDriverForBackdrop
-            style={{
-                flex: 1,
-                margin: 0,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-            customBackdrop={
-                <TouchableWithoutFeedback onPress={closeSelectCategory}>
-                    <View style={{ height: `110%`, backgroundColor: '#000'}} />
-                </TouchableWithoutFeedback>
-            }
-        >
-            <Container>
-                <FlatList
-                    data={categories}
-                    style={{ width: '100%' }}
-                    keyExtractor={(item) => item.key}
-                    renderItem={({ item }) => (
+        <Container>
+            <ScrollView
+                style={{ width: '100%' }}
+            >
+                {categories.map((item) =>
+                    <>
                         <CategoryItem
                             onPress={() => handleCategorySelect(item.name)}
-                            isActive={category === item.name}
+                            isActive={selectedCategory === item.name}
                         >
                             <Icon name={item.icon} isActive={category === item.name}/>
-                            <Name isActive={category === item.name}>{item.name}</Name>
+                            <Name isActive={selectedCategory === item.name}>{item.name}</Name>
                         </CategoryItem>
-                    )}
-                    ItemSeparatorComponent={() => <Separator/>}
+                        { item.name !== 'Estudos' && <Separator/> }
+                    </>
+                )}
+            </ScrollView>
+            <Footer>
+                <Button
+                    flex={1}
+                    color=''
+                    textColor=''
+                    title="Selecionar"
+                    onPress={handleConfirmSelect}
                 />
-                <Footer>
-                    <Button
-                        flex={1}
-                        color=''
-                        textColor=''
-                        title="Selecionar"
-                        onPress={closeSelectCategory}
-                    />
-                </Footer>
-            </Container>
-        </Modal>
+            </Footer>
+        </Container>
     )
 }

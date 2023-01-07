@@ -24,7 +24,7 @@ export const Category = styled.Text<CategoryProps>`
     color: ${({ theme, text }) => text !== 'Categoria' ? theme.colors.text : theme.colors.text_place_holder};
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
-    line-height: ${Platform.OS === 'ios' ? RFValue(23) : RFValue(20)}px;
+    line-height: ${Platform.OS === 'ios' ? RFValue(23) : RFValue(19)}px;
     margin-left: ${({ text }) => text !== 'Categoria' ? RFValue(14) : 0}px;
 `
 
@@ -36,5 +36,5 @@ export const CategoryWrapper = styled.View`
 
 export const Icon = styled(Feather)`
     font-size: ${RFValue(16)}px;
-    color: ${({ theme }) => theme.colors.text_light};
+    color: ${({ theme }) => theme.colors.text};
 `

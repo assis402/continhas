@@ -29,7 +29,7 @@ export function DashboardTransactions({ navigation,
     //             setIsRefreshing(false)
     //         }, 2000)
     // }, []);
-    
+
     return(
         <Container>
             <Header>

@@ -1,6 +1,7 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
+import { Platform } from 'react-native';
 
 interface CategoryProps {
     isActive: boolean;
@@ -8,13 +9,13 @@ interface CategoryProps {
 
 export const Container = styled.View`
     background-color: ${({ theme }) => theme.colors.background};
-    width: 80%;
-    height: 62%;
-    padding: 25px;
+    padding: ${RFValue(25)}px;
     border-radius: 45px;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    flex: 1;
+    height: ${RFValue(430)}px;
 `
 
 export const Title = styled.Text`
@@ -48,7 +49,7 @@ export const Icon = styled(Feather)<CategoryProps>`
 
 export const Name = styled.Text<CategoryProps>`
     font-size: ${RFValue(14)}px;
-    line-height: 26px;
+    line-height: ${Platform.OS === 'ios' ? RFValue(23) : RFValue(19)}px;
     color: ${({ theme }) => theme.colors.title};
 
     opacity: ${({ isActive }) => 
@@ -68,6 +69,6 @@ export const Separator = styled.View`
 `
 
 export const Footer = styled.View`
-    flex: 1;
+    height: ${RFValue(50)}px;
     width: 100%;
 `
