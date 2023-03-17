@@ -1,0 +1,8 @@
+{
+	"descriptionDictonary": {
+		"PT_BR": "Aplicativo de controle de finanças pessoais em React Native",
+		"EN_US": "Personal Finance Control App with React Native"
+	},
+	"videoUrl": "https://www.youtube.com/embed/NtHSF9x6NE4",
+	"tags": ["Frontend", "React Native", "Expo"]
+}
