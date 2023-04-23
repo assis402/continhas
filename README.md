@@ -1,5 +1,5 @@
 # Continhas
-Personal Finance Control App with React Native.=
+Personal Finance Control App with React Native.
 
 This is a project for a personal finance app in React Native and developed with the help of the Expo platform to test it in a practical way on Android and iOS devices. This application will consume the API of the "TransactionsAPI" project (https://github.com/assis402/TransactionsAPI).
 
