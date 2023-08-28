@@ -3,6 +3,7 @@ import { Transaction } from "../../../classes/Transaction";
 import { MiniButton } from "../../Buttons/MiniButton";
 import { TransactionCard } from "../../TransactionCard";
 import { Container, Header, Options, Separator, Title, TransactionList, WhiteShadow } from "./styles";
+import { useState } from "react";
 
 interface Props {
     navigation: any
@@ -21,15 +22,12 @@ export function DashboardTransactions({ navigation,
                                         reload
                                       }: Props){
     const theme = useTheme()
-    // const [isRefreshing, setIsRefreshing] = useState(false);
+    const [scrollCounter, setScrollCounter] = useState(0);   
 
-    // const onRefresh = useCallback(() => {
-    //         setIsRefreshing(true);
-    //         setTimeout(() => {
-    //             setIsRefreshing(false)
-    //         }, 2000)
-    // }, []);
-
+    function scrollBackTransactions() {
+        setScrollCounter(scrollCounter + 1);
+    }
+    
     return(
         <Container>
             <Header>
@@ -37,15 +35,14 @@ export function DashboardTransactions({ navigation,
                 <Options>
                     <MiniButton
                         iconName='plus'
-                        flex={1}
                         onPress={navigateToAddScreen}
                     />
-                    <Separator/>
+                    {/* TODO: Botão de transação frequente */}
+                    {/* <Separator/>
                     <MiniButton
                         iconName='rotate-cw'
-                        flex={1}
                         onPress={navigateToAddFrequentScreen}
-                    />
+                    /> */}
                 </Options>
             </Header>
             <WhiteShadow colors={theme.colors.gradient_white}/>
@@ -58,10 +55,10 @@ export function DashboardTransactions({ navigation,
                         data={item}
                         openLoading={openLoading}
                         reload={reload}
+                        scrollCounter={scrollCounter}
+                        scrollBackOtherTransactions={scrollBackTransactions}
                     />}
                 overScrollMode='never'
-                // refreshing={sRefreshing}
-                // onRefresh={onRefresh}
             />
         </Container>
     )

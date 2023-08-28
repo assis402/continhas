@@ -65,7 +65,9 @@ export const HighlightCards = styled.ScrollView.attrs({
     showsHorizontalScrollIndicator: false,
     contentContainerStyle: { paddingLeft: RFValue(25), paddingRight: RFValue(11) },
     disableIntervalMomentum: true, 
-    snapToInterval: RFValue(310)
+    snapToInterval: RFValue(315),
+    nestedScrollEnabled: true,
+    decelerationRate: 0.5
 })`
     width: 100%;
 `

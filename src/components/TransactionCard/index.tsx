@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Transaction }  from '../../classes/Transaction';
 import { categories } from "../../utils/helper";
 import { formatDate, formatAmount } from '../../utils/helper'
@@ -21,18 +21,20 @@ import Swiper from 'react-native-swiper'
 import { BottomModal } from '../../modals/BottomModal';
 import { DeleteTransactionModal } from '../../screens/Transaction/DeleteTransaction';
 import { Modalize } from 'react-native-modalize';
+import { MiniButton } from '../Buttons/MiniButton';
 
 interface Props {
     navigation: any
     data: Transaction
     reload: () => void
     openLoading: () => void
+    scrollCounter: number
+    scrollBackOtherTransactions: () => void
 }
 
-export function TransactionCard({ navigation, data, reload, openLoading }: Props ) {
+export function TransactionCard({ navigation, data, reload, openLoading, scrollCounter, scrollBackOtherTransactions }: Props ) {
     const theme = useTheme();
     const category = categories.find(x => x.name === data.category)
-    const [nextIndex, setNextIndex] = useState(1);
     const swiperRef = useRef<Swiper>(null);
 
     function navigateToUpdateScreen(){
@@ -41,22 +43,19 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
             openLoading: openLoading,
             transaction: data
         })
+
+        scrollBack(300, false);
     }
 
-    function handleMoveSwiper(){
-        swiperRef.current?.scrollTo(nextIndex)
-
-        let newNextIndex = nextIndex === 0 ? 1 : 0
-        setNextIndex(newNextIndex)
-
-        // newNextIndex === 0 && returnToStartAfterFourSeconds()
+    function scrollToOption() {
+        swiperRef.current?.scrollTo(1)   
+        scrollBackOtherTransactions();     
     }
 
-    function returnToStartAfterFourSeconds(){
+    function scrollBack(waitingTime: number, animated?: boolean | undefined) {
         setTimeout(() => {
-            swiperRef.current?.scrollTo(0)
-            setNextIndex(1)
-        }, 4000)
+            swiperRef.current?.scrollTo(0, animated)        
+        }, waitingTime)
     }
 
     function handleOpenDeleteModal(){
@@ -64,21 +63,22 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
     }
 
     function handleCloseDeleteModal(){
-        deleteModal.current?.close()        
+        deleteModal.current?.close()
     }
 
     const deleteModal = useRef<Modalize>(null)
 
+    useEffect(() => {
+        scrollBack(1)
+    }, [scrollCounter])
+
     return(
         <>
             <Container
-                // prevButton={<PrevButton/>}
-                // nextButton={<NextButton/>}
                 ref={swiperRef}
                 overScrollMode='never'
-                onMomentumScrollEnd={returnToStartAfterFourSeconds}
             >
-                <TransactionComponent onPress={handleMoveSwiper}>
+                <TransactionComponent onPress={scrollToOption}>
                     <First>
                         <Category>
                             <Icon name={category?.icon}/>
@@ -93,6 +93,13 @@ export function TransactionCard({ navigation, data, reload, openLoading }: Props
                     </Second>
                 </TransactionComponent>
                 <Options>
+                    <MiniButton
+                        iconName='chevron-left'
+                        onPress={() => scrollBack(0)}
+                        width={40}
+                        height={30}
+                    />
+                    
                     <BodilessButton
                         flex={2}
                         title='Editar'

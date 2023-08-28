@@ -27,5 +27,5 @@ export const Date = styled.Text`
 
 export const Icon = styled(Feather)`
     font-size: ${RFValue(16)}px;
-    color: ${({ theme }) => theme.colors.text_light};
+    color: ${({ theme }) => theme.colors.text};
 `

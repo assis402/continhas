@@ -1,3 +1,9 @@
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
+
 import React, { useRef, useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
@@ -33,7 +39,6 @@ import { Checkbox } from '../../../components/Forms/Checkbox'
 import theme from '../../../global/styles/theme'
 import { BackButton } from '../../../components/Buttons/BackButton'
 
-import { LogBox } from 'react-native';
 import { BottomModal } from '../../../modals/BottomModal'
 import { Modalize } from 'react-native-modalize'
 import { RFValue } from 'react-native-responsive-fontsize'
@@ -67,10 +72,6 @@ export function AddTransaction({ navigation, route }: Props){
 
     const { reload, openLoading } = route.params;
 
-    LogBox.ignoreLogs([
-        'Non-serializable values were found in the navigation state',
-      ]);
-
     const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
     const [timeModalIsOpen, setTimeModalIsOpen] = useState(false)
     
@@ -85,6 +86,7 @@ export function AddTransaction({ navigation, route }: Props){
     const categoryModal = useRef<Modalize>(null)
 
     function openCategoryModal(){
+        Keyboard.dismiss()
         categoryModal.current?.open()
     }
 
@@ -108,18 +110,21 @@ export function AddTransaction({ navigation, route }: Props){
 
     function handleTime(date: Date){
         setTime(date)
-        toggleOpenSelectTimeModal()
+        toggleTimeModalIsOpen()
     }
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome'){
+        Keyboard.dismiss()
         setTransactionType(type)
     }
 
     function toggleDateModalIsOpen(){
+        Keyboard.dismiss()
         setDateModalIsOpen(!dateModalIsOpen)
     }
 
-    function toggleOpenSelectTimeModal(){
+    function toggleTimeModalIsOpen(){
+        Keyboard.dismiss()
         setTimeModalIsOpen(!timeModalIsOpen)
     }
 
@@ -205,7 +210,7 @@ export function AddTransaction({ navigation, route }: Props){
                             />
                             <TimeSelectButton 
                                 dateTime={time}
-                                onPress={toggleOpenSelectTimeModal}
+                                onPress={toggleTimeModalIsOpen}
                             />
                         </DateTimeSelectors>
                         <Buttons>
@@ -250,7 +255,7 @@ export function AddTransaction({ navigation, route }: Props){
                 </Form>
                 <DateTimePickerModal
                     isVisible={dateModalIsOpen}
-                    mode="date"
+                    mode="date" 
                     onConfirm={handleDate}
                     onCancel={toggleDateModalIsOpen}
                 />
@@ -258,9 +263,9 @@ export function AddTransaction({ navigation, route }: Props){
                     isVisible={timeModalIsOpen}
                     mode="time"
                     onConfirm={handleTime}
-                    onCancel={toggleOpenSelectTimeModal}
+                    onCancel={toggleTimeModalIsOpen}
                 />
-                <BottomModal modalize={categoryModal} height={RFValue(430)}>
+                <BottomModal modalize={categoryModal} height={RFValue(400)}>
                     <CategorySelectModal 
                         category={category}
                         setCategory={setCategory}

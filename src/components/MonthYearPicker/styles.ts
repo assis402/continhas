@@ -9,6 +9,7 @@ export const Container = styled.View`
 export const Picker = styled.View`
     flex: 1;
     justify-content: space-between;
+    margin-bottom: ${RFValue(16)}px;
 `
 
 export const YearList = styled.View`
