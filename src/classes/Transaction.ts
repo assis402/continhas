@@ -31,4 +31,8 @@ export class Transaction {
         this.category = category
         this.isFrequent = isFrequent
     }
+
+    setId(id: string) {
+        this.id = id
+    }
 }

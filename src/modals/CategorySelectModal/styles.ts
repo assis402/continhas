@@ -1,7 +1,11 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacityProps } from 'react-native';
+
+interface CategoryItemProps extends TouchableOpacityProps {
+    isLastItem: boolean;
+}
 
 interface CategoryProps {
     isActive: boolean;
@@ -26,11 +30,17 @@ export const Title = styled.Text`
 
 export const CategoryItem = styled.TouchableOpacity.attrs({
     activeOpacity: 0.4
-})`
+})<CategoryItemProps>`
     width: 100%;
     padding: ${RFValue(15)}px;
     flex-direction: row;
     align-items: center;
+
+    ${({ isLastItem, theme }) => !isLastItem && {
+        borderBottomStyle: `solid`,
+        borderBottomColor: theme.colors.separator_color,
+        borderBottomWidth: 1,
+    }};
 `
 
 export const Icon = styled(Feather)<CategoryProps>`
@@ -62,13 +72,13 @@ export const Name = styled.Text<CategoryProps>`
 `
 
 export const Separator = styled.View`
-    height: 1px;
+    height: ${RFValue(20)}px;
     width: 100%;
-    opacity: 0.2;
-    background-color: ${({ theme }) => theme.colors.text_light};
 `
 
 export const Footer = styled.View`
     height: ${RFValue(50)}px;
     width: 100%;
+    position: absolute;
+    bottom: ${RFValue(10)}px;
 `

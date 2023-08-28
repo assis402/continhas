@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { FlatList } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "../../components/Buttons/Button";
 import { categories } from "../../utils/helper";
-import { CategoryItem, Container, Footer, Icon, Name, Separator, Title } from "./styles";
+import { CategoryItem, Container, Footer, Icon, Name, Separator } from "./styles";
 
 interface Props {
     category: string;
@@ -15,38 +14,39 @@ export function CategorySelectModal({
     category,
     setCategory,
     closeSelectCategory,
-} : Props){
+} : Props){    
+    const [categoryWasSelected, setCategoryWasSelected] = useState(false);
 
-    const [selectedCategory, setSelectedCategory] = useState(category)
-    
-    function handleCategorySelect(newSelectedCategory: string){
-        setSelectedCategory(newSelectedCategory);
+    function handleCategorySelect(newSelectedCategory: string) {
+        setCategory(newSelectedCategory)
+        setCategoryWasSelected(true)
     }
 
-    function handleConfirmSelect(){
-        setCategory(selectedCategory)
-        closeSelectCategory()
-    }
+    useEffect(() => {
+        if (categoryWasSelected) {
+            closeSelectCategory()
+            setCategoryWasSelected(false)
+        }
+    }, [categoryWasSelected])
 
     return(
         <Container>
             <ScrollView
-                style={{ width: '100%' }}
+                style={{ width: '100%'}}
             >
-                {categories.map((item) =>
-                    <>
+                {categories.map((item, index) =>
                         <CategoryItem
+                            key={item.name}
                             onPress={() => handleCategorySelect(item.name)}
-                            isActive={selectedCategory === item.name}
+                            isActive={category === item.name}
+                            isLastItem={index === categories.length - 1}
                         >
                             <Icon name={item.icon} isActive={category === item.name}/>
-                            <Name isActive={selectedCategory === item.name}>{item.name}</Name>
+                            <Name isActive={category === item.name}>{item.name}</Name>
                         </CategoryItem>
-                        { item.name !== 'Estudos' && <Separator/> }
-                    </>
                 )}
             </ScrollView>
-            <Footer>
+            {/* <Footer>
                 <Button
                     flex={1}
                     color=''
@@ -54,7 +54,7 @@ export function CategorySelectModal({
                     title="Selecionar"
                     onPress={handleConfirmSelect}
                 />
-            </Footer>
+            </Footer> */}
         </Container>
     )
 }

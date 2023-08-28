@@ -20,6 +20,7 @@ export function AppRoutes(){
                     tabBarActiveTintColor: theme.colors.secondary_new,
                     tabBarInactiveTintColor: theme.colors.secondary_light_new,
                     tabBarStyle: {
+                        display: 'none', //TODO: Retornar barra flutuante
                         backgroundColor: theme.colors.background_navigation,
                         height: Platform.OS === 'ios' ? 56 : 61,
                         paddingVertical: 0,
@@ -59,7 +60,7 @@ export function AppRoutes(){
                         )
                     }}
                 />
-                <Screen 
+                {/* <Screen 
                     name="1"
                     component={Dashboard}
                     options={{
@@ -72,9 +73,9 @@ export function AppRoutes(){
                             />
                         )
                     }}
-                />
+                /> */}
                 <Screen 
-                    name="2"
+                    name="1"
                     component={Summary}
                     options={{
                         tabBarIcon: (({ size, color }) => 

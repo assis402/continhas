@@ -1,3 +1,9 @@
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
+
 import React, { useRef, useState } from 'react'
 import { TouchableWithoutFeedback, Keyboard, Alert, BackHandler } from 'react-native'
 import { Button } from '../../../components/Buttons/Button'
@@ -62,8 +68,9 @@ export function UpdateTransaction({ navigation, route }: Props){
     }
 
     const { reload, openLoading, transaction } = route.params;
-    const [dateModalOpen, setDateModalOpen] = useState(false)
-    const [timeModalOpen, setTimeModalOpen] = useState(false)
+
+    const [dateModalIsOpen, setDateModalIsOpen] = useState(false)
+    const [timeModalIsOpen, setTimeModalIsOpen] = useState(false)
     
     const [transactionType, setTransactionType] = useState(transaction.type)
     const [category, setCategory] = useState(transaction.category)
@@ -74,6 +81,7 @@ export function UpdateTransaction({ navigation, route }: Props){
     const categoryModal = useRef<Modalize>(null)
 
     function openCategoryModal(){
+        Keyboard.dismiss()
         categoryModal.current?.open()
     }
 
@@ -92,32 +100,27 @@ export function UpdateTransaction({ navigation, route }: Props){
 
     function handleDate(date: Date){
         setDate(date)
-        handleCloseSelectDateModal()
+        toggleDateModalIsOpen()
     }
 
     function handleTime(date: Date){
         setTime(date)
-        handleCloseSelectTimeModal()
+        toggleTimeModalIsOpen()
     }
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome'){
+        Keyboard.dismiss()
         setTransactionType(type)
     }
 
-    function handleCloseSelectDateModal(){
-        setDateModalOpen(false)
+    function toggleDateModalIsOpen(){
+        Keyboard.dismiss()
+        setDateModalIsOpen(!dateModalIsOpen)
     }
 
-    function handleOpenSelectDateModal(){
-        setDateModalOpen(true)
-    }
-
-    function handleCloseSelectTimeModal(){
-        setTimeModalOpen(false)
-    }
-
-    function handleOpenSelectTimeModal(){
-        setTimeModalOpen(true)
+    function toggleTimeModalIsOpen(){
+        Keyboard.dismiss()
+        setTimeModalIsOpen(!timeModalIsOpen)
     }
 
     function handleResetForm(){
@@ -143,6 +146,8 @@ export function UpdateTransaction({ navigation, route }: Props){
             date,
             transaction.isFrequent
         )
+
+        updatedTransaction.setId(transaction.id);
 
         console.log(updatedTransaction)
 
@@ -194,11 +199,11 @@ export function UpdateTransaction({ navigation, route }: Props){
                         <DateTimeSelectors>
                             <DateSelectButton 
                                 dateTime={date}
-                                onPress={handleOpenSelectDateModal}
+                                onPress={toggleDateModalIsOpen}
                             />
                             <TimeSelectButton 
                                 dateTime={time}
-                                onPress={handleOpenSelectTimeModal}
+                                onPress={toggleTimeModalIsOpen}
                             />
                         </DateTimeSelectors>
                         <Buttons>
@@ -234,18 +239,18 @@ export function UpdateTransaction({ navigation, route }: Props){
                     </Footer>
                 </Form>
                 <DateTimePickerModal
-                    isVisible={dateModalOpen}
+                    isVisible={dateModalIsOpen}
                     mode="date"
                     onConfirm={handleDate}
-                    onCancel={handleCloseSelectDateModal}
+                    onCancel={toggleDateModalIsOpen}
                 />
                 <DateTimePickerModal
-                    isVisible={timeModalOpen}
+                    isVisible={timeModalIsOpen}
                     mode="time"
                     onConfirm={handleTime}
-                    onCancel={handleCloseSelectTimeModal}
+                    onCancel={toggleTimeModalIsOpen}
                 />
-                <BottomModal modalize={categoryModal} height={RFValue(430)}>
+                <BottomModal modalize={categoryModal} height={RFValue(400)}>
                     <CategorySelectModal 
                         category={category}
                         setCategory={setCategory}

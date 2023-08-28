@@ -31,7 +31,6 @@ export const Text = styled.Text`
 `
 
 export const Img = styled.Image`
-    color: ${({theme}) => theme.colors.secondary_light_new};
     margin-top: ${RFValue(20)}px;
     height: ${RFValue(60)}px;
     width: ${RFValue(60)}px;

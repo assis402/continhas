@@ -15,8 +15,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes'
 import FlashMessage from 'react-native-flash-message';
 import { StatusBar } from 'expo-status-bar';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,14 +38,16 @@ export default function App() {
       }
 
     return (
-        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-            <ThemeProvider theme={theme}>
-                <NavigationContainer>
-                    <AppRoutes/>
-                </NavigationContainer>
-                <FlashMessage position="top" />
-                <StatusBar style="light" translucent />
-            </ThemeProvider>
-        </View>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+                <ThemeProvider theme={theme}>
+                    <NavigationContainer>
+                        <AppRoutes/>
+                    </NavigationContainer>
+                    <FlashMessage position="top" />
+                    <StatusBar style="light" translucent />
+                </ThemeProvider>
+            </View>
+        </GestureHandlerRootView>
     )
 }

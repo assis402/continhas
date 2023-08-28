@@ -15,7 +15,6 @@ export const Container = styled(Swiper).attrs({
 })`
     height: ${RFValue(42)}px;  
     margin-bottom: ${RFValue(17)}px;
-    width: 168%;  
 `
 
 export const TransactionComponent = styled.TouchableOpacity.attrs({
@@ -28,7 +27,6 @@ export const TransactionComponent = styled.TouchableOpacity.attrs({
 
 export const NextButton = styled.View`
     background-color: transparent;
-    /* opacity: 0.2; */
     margin: 0;
     padding: 0;
     width: ${RFValue(1000)}px;
@@ -38,7 +36,6 @@ export const NextButton = styled.View`
 
 export const PrevButton = styled.View`
     background-color: transparent;
-    /* opacity: 0.2; */
     margin: 0;
     padding: 0;
     width: ${RFValue(100)}px;
@@ -94,10 +91,10 @@ export const Date = styled.Text`
 `
 
 export const Options = styled.View`
-    width: 66%;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-left: ${RFValue(10)}px;
     margin-bottom: ${RFValue(22.5)}px;
     padding: 0 ${RFValue(10)}px;
 `

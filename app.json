@@ -4,8 +4,16 @@
     "slug": "continhas",
     "version": "1.0.0",
     "userInterfaceStyle": "automatic",
+    "web": {
+      "bundler": "metro"
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9ee56b44-7c36-4900-aa7b-88adb02664d0"
+      }
+    }
   }
 }

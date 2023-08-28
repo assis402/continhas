@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { FlatList } from 'react-native';
 import { Button } from '../Buttons/Button';
 import { Container, ChangeYear, Icon, Month, MonthList, Year, YearList, MonthButton, Picker, Grid, GridLine } from './styles';
 import { monthArray, detachMonth, detachYear } from '../../utils/helper';
-import { ScrollView } from 'react-native-gesture-handler';
 
 interface Props {
     monthYear: string;
@@ -55,16 +53,6 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
                     </ChangeYear>
                 </YearList>
                 <MonthList>
-                    {/* <FlatList
-                        data={monthArray}
-                        keyExtractor={item => item}
-                        numColumns={3}
-                        renderItem={({ item }) => (
-                            <MonthButton onPress={() => handleSelectMonth(item)}>
-                                <Month active={item === monthArray[month]}>{item}</Month>
-                            </MonthButton>
-                        )}
-                    /> */}
                     <Grid>
                         {renderMonthsLine(0,3)}
                         {renderMonthsLine(3,6)}
@@ -75,7 +63,7 @@ export function MonthYearPicker({ handleSelectFunction, monthYear }: Props){
                 <Button 
                     color=''
                     textColor=''
-                    flex={0.65}
+                    flex={0.50}
                     title="Selecionar"
                     onPress={() => handleSelectFunction(month, year)}
                 />

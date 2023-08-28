@@ -17,7 +17,7 @@ export function Button({ title, color, textColor, flex = 0, ...rest }: Props){
     if (textColor === '') textColor = theme.colors.text
 
     return(
-        <Container 
+        <Container
             {...rest}
             flex={flex}
             activeOpacity={0.6}

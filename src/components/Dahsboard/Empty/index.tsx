@@ -17,12 +17,13 @@ export function DashboardEmpty({navigateToAddScreen, navigateToAddFrequentScreen
                         flex={1}
                         onPress={navigateToAddScreen}
                     />
-                    <Separator/>
+                    {/* TODO: Botão de transação frequente */}
+                    {/* <Separator/>
                     <MiniButton
                         iconName='rotate-cw'
                         flex={1}
                         onPress={navigateToAddFrequentScreen}
-                    />
+                    /> */}
                 </Options>
             </Header>
             <Body>

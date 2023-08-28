@@ -27,6 +27,8 @@ export default {
         text: '#000000',
         text_secondary_new: '#FFFFFF',
 
+        separator_color: 'rgba(10, 10, 10, 0.1)',
+
         background: '#FFFFFF',
         background_navigation: 'rgba(255, 255, 255, 0.92)',
         background_loading: 'rgba(255, 255, 255, 0.94)',
